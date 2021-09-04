@@ -1,6 +1,6 @@
 import {extendTheme} from 'native-base';
 
-extendTheme({
+export const theme = extendTheme({
   colors: {
     indigo: {
       50: '#eef2ff',
