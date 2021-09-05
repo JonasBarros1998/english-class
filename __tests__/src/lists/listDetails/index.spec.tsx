@@ -1,5 +1,4 @@
 import React from 'react';
-import {Pressable, Text} from 'react-native';
 import {fireEvent, render} from '@testing-library/react-native';
 import ListDetails from '../../../../src/lists/listDetails';
 import {NativeBaseProvider} from 'native-base';

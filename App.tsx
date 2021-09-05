@@ -4,8 +4,8 @@ import {FlatList} from 'react-native';
 import {NativeBaseProvider, View} from 'native-base';
 
 import ListDetails from './src/lists/listDetails/';
-
 import {listDetails} from './src/database';
+import PublicList from './src/lists/publicLists';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -16,7 +16,16 @@ const App = () => {
   return (
     <NativeBaseProvider initialWindowMetrics={inset}>
       <View flex={1}>
-        <FlatList
+        <PublicList />
+      </View>
+    </NativeBaseProvider>
+  );
+};
+
+export default App;
+
+/**
+ * <FlatList
           data={listDetails}
           renderItem={({item}) => (
             <ListDetails
@@ -27,9 +36,4 @@ const App = () => {
           )}
           keyExtractor={({id}) => String(id)}
         />
-      </View>
-    </NativeBaseProvider>
-  );
-};
-
-export default App;
+ */
