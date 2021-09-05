@@ -1,11 +1,12 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+// import {FlatList} from 'react-native';
 
 import {NativeBaseProvider, View} from 'native-base';
 
-import ListDetails from './src/lists/listDetails/';
-import {listDetails} from './src/database';
-import PublicList from './src/lists/publicLists';
+// import ListDetails from './src/lists/listDetails/';
+// import {listDetails} from './src/database';
+// import PublicList from './src/lists/publicLists';
+import MainMenu from './src/components/MainMenu';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -16,7 +17,7 @@ const App = () => {
   return (
     <NativeBaseProvider initialWindowMetrics={inset}>
       <View flex={1}>
-        <PublicList />
+        <MainMenu />
       </View>
     </NativeBaseProvider>
   );
