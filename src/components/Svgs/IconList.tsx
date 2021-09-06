@@ -4,7 +4,12 @@ import {Icon} from 'native-base';
 
 function IconList() {
   return (
-    <Icon viewBox="0 0 24 24" height="40px" width="40px" flex={1}>
+    <Icon
+      viewBox="0 0 24 24"
+      height="40px"
+      width="40px"
+      flex={1}
+      fill="#FFFFFF">
       <G fill="none">
         <Path d="M0 0h24v24H0V0z" />
         <Path d="M0 0h24v24H0V0z" />
