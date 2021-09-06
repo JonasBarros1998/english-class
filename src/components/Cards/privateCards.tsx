@@ -1,18 +1,15 @@
 /* eslint-disable radix */
 import React from 'react';
-import {Center, Box, Text, HStack, Avatar} from 'native-base';
+
+import {Box, Center, Text} from 'native-base';
 
 type params = {
   name: string;
   quantityWords: string;
   idioma: string;
-  user: {
-    name: string;
-    photo: string;
-  };
 };
 
-export function Card(card: params) {
+function PrivateCards(card: params) {
   function changeText(quantity: string) {
     if (parseInt(quantity) > 1) {
       return 'palavras';
@@ -47,25 +44,9 @@ export function Card(card: params) {
         <Text fontFamily="body" fontWeight={600} fontSize={17}>
           {card.idioma}
         </Text>
-
-        <HStack
-          display="flex"
-          alignItems="flex-end"
-          justifyContent="space-between">
-          <Text fontFamily="body" fontWeight={600} fontSize={17}>
-            criada por: {card.user.name}
-          </Text>
-
-          <Avatar
-            size="sm"
-            source={{
-              uri: 'https://pbs.twimg.com/profile_images/1177303899243343872/B0sUJIH0_400x400.jpg',
-            }}
-          />
-        </HStack>
       </Box>
     </Center>
   );
 }
 
-export default Card;
+export default PrivateCards;
