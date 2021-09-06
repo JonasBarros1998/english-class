@@ -1,39 +1,58 @@
 import React from 'react';
-import {FlatList} from 'react-native';
 
-import {NativeBaseProvider, View} from 'native-base';
+import {NativeBaseProvider} from 'native-base';
 
-import ListDetails from './src/lists/listDetails/';
-import {listDetails} from './src/database';
-import PublicList from './src/lists/publicLists';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import MainPage from './src/screen';
+
+import PublicListScreen from './src/screen/publicListScreen';
+
+const Stack = createNativeStackNavigator();
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
   insets: {top: 0, left: 0, right: 0, bottom: 0},
 };
 
+const Rotas = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="home"
+          options={{
+            title: 'Página Inicial',
+            headerStyle: {
+              backgroundColor: '#312E81',
+            },
+            headerTintColor: '#fff',
+          }}>
+          {props => <MainPage {...props} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name="publicList"
+          options={{
+            title: 'Listas Públicas',
+            headerStyle: {
+              backgroundColor: '#312E81',
+            },
+            headerTintColor: '#fff',
+          }}>
+          {props => <PublicListScreen {...props} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
 const App = () => {
   return (
     <NativeBaseProvider initialWindowMetrics={inset}>
-      <View flex={1}>
-        <PublicList />
-      </View>
+      <Rotas />
     </NativeBaseProvider>
   );
 };
 
 export default App;
-
-/**
- * <FlatList
-          data={listDetails}
-          renderItem={({item}) => (
-            <ListDetails
-              word={item.word}
-              phrase={item.phrase}
-              translation={item.translation}
-            />
-          )}
-          keyExtractor={({id}) => String(id)}
-        />
- */
