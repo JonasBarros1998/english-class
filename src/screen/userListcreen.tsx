@@ -7,7 +7,7 @@ import FavouriteList from '../lists/favouriteLists';
 
 import {changeAttComponents} from './useCase/changeComponents';
 
-function UserListScreen({route}: any) {
+function UserListScreen({route, navigation}: any) {
   const [attComponents, setAttComponents] = useState(
     changeAttComponents('favouriteList'),
   );
@@ -60,6 +60,9 @@ function UserListScreen({route}: any) {
           </Button>
         </HStack>
         <View>{loadComponentList()}</View>
+        <Box justifyContent="flex-end" flex={1}>
+          <MainMenu navigation={navigation} />
+        </Box>
       </Box>
     </>
   );
