@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {NativeBaseProvider} from 'native-base';
+import {NativeBaseProvider, Box, Text} from 'native-base';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -8,6 +8,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MainPage from './src/screen';
 
 import PublicListScreen from './src/screen/publicListScreen';
+import UserListScreen from './src/screen/userListcreen';
+import MainMenu from './src/components/MainMenu';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +43,14 @@ const Rotas = () => {
             headerTintColor: '#fff',
           }}>
           {props => <PublicListScreen {...props} />}
+        </Stack.Screen>
+
+        <Stack.Screen
+          name="userList"
+          options={{
+            headerShown: false,
+          }}>
+          {props => <UserListScreen {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
