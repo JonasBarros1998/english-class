@@ -111,3 +111,7 @@ package-lock.json
 
 # Android memory profiler files
 *.hprof
+service-account-expogo.json
+.expo
+annotations.md
+google-services.json
