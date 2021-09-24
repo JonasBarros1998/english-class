@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {SafeAreaView, Text, StatusBar} from 'react-native'
+import {SafeAreaView, StatusBar} from 'react-native'
 
 import {NativeBaseProvider} from 'native-base';
 
@@ -11,9 +11,6 @@ import MainPage from './src/screen';
 
 import PublicListScreen from './src/screen/publicListScreen';
 import UserListScreen from './src/screen/userListcreen';
-import MainMenu from './src/components/MainMenu';
-import database from '@react-native-firebase/database';
-import {firebase} from '@react-native-firebase/auth';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,18 +59,7 @@ const Rotas = () => {
 };
 
 
-const db = () => {
-  database().ref('/users').once('value')
-  .then(user => {
-    console.log('then >>', user)
-  })
-  .catch(erro => {
-    console.log(erro)
-  })
-}
-db();
-
-const App = () => {
+export const App = () => {
   return (
     <NativeBaseProvider initialWindowMetrics={inset}>
       <SafeAreaView /> 
@@ -84,12 +70,3 @@ const App = () => {
     </NativeBaseProvider>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
