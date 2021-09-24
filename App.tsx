@@ -10,6 +10,8 @@ import MainPage from './src/screen';
 import PublicListScreen from './src/screen/publicListScreen';
 import UserListScreen from './src/screen/userListcreen';
 import MainMenu from './src/components/MainMenu';
+import database from '@react-native-firebase/database';
+import {firebase} from '@react-native-firebase/auth';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +58,18 @@ const Rotas = () => {
     </NavigationContainer>
   );
 };
+
+
+const db = () => {
+  database().ref('/users').once('value')
+  .then(user => {
+    console.log('then >>', user)
+  })
+  .catch(erro => {
+    console.log(erro)
+  })
+}
+db();
 
 const App = () => {
   return (
