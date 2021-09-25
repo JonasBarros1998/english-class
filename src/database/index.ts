@@ -19,3 +19,5 @@ export const listDetails = [
     present continuos: I'm fiding a motherboard present present`.replace(/\n/g, ''),
   },
 ];
+
+export * from './repository/search';
