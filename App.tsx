@@ -65,8 +65,9 @@ export const App = () => {
       <SafeAreaView /> 
       <StatusBar />
         <Rotas />
-        {/*<Text>JONAS</Text>*/}
       <SafeAreaView />
     </NativeBaseProvider>
   );
 }
+
+export default App;
