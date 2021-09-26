@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {database} from './database';
-import PrivateCards from '../../components/Cards/privateCards';
+import PrivateCards from '@components/Cards/privateCards';
 
 function OneCardPrivateList() {
   const [item] = database;

@@ -1,4 +1,4 @@
-import {changeAttComponents} from '../../../../src/screen/useCase/changeComponents';
+import {changeAttComponents} from '@screen/useCase/changeComponents';
 
 describe('test components change', function () {
   test(`if sending param privateList, should return a objeto with 

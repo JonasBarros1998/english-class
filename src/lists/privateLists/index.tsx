@@ -2,7 +2,7 @@ import React from 'react';
 
 import {FlatList} from 'react-native';
 
-import PrivateCards from '../../components/Cards/privateCards';
+import PrivateCards from '@components/Cards/privateCards';
 import {database} from './database';
 
 function PrivateList() {
