@@ -64,10 +64,7 @@
     "moduleNameMapper": {
       "@react-native-firebase/crashlytics": "jest/mocks/firebase/crashlytics.js"
     },
-    "coverageDirectory": "__tests__/coverage",
-    "testMatch": [
-      "**/__tests__/**/*.spec.ts"
-    ]
+    "coverageDirectory": "__tests__/coverage"
   },
   "rnpm": {
     "assets": [

@@ -14,8 +14,8 @@ module.exports = {
         ],
         alias: {
           '@components/': './src/components/',
-          '@database': './src/database',
-          '@screen': './src/screen',
+          '@database/': './src/database/',
+          '@screen/': './src/screen/',
           '@lists/': './src/lists/'
         }
       }
