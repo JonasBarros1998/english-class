@@ -3,7 +3,7 @@ import {NativeBaseProvider} from 'native-base';
 
 import {render} from '@testing-library/react-native';
 
-import Card from '../../../../src/components/Cards';
+import Card from '@components/Cards';
 
 const database = {
   name: 'my house',

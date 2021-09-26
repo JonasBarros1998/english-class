@@ -3,7 +3,7 @@ import {NativeBaseProvider} from 'native-base';
 
 import {render} from '@testing-library/react-native';
 
-import PrivteCards from '../../../../src/components/Cards/privateCards';
+import PrivateCards from '@components/Cards/privateCards';
 
 const database = {
   name: 'my house',
@@ -19,7 +19,7 @@ const inset = {
 it('should return palavras if total quantity bigger 1', function () {
   const {queryByTestId} = render(
     <NativeBaseProvider initialWindowMetrics={inset}>
-      <PrivteCards {...database} />
+      <PrivateCards {...database} />
     </NativeBaseProvider>,
   );
 
@@ -33,7 +33,7 @@ it('should returned ', function () {
 
   const {queryByTestId} = render(
     <NativeBaseProvider initialWindowMetrics={inset}>
-      <PrivteCards {...database} />
+      <PrivateCards {...database} />
     </NativeBaseProvider>,
   );
   const queryById = queryByTestId('quantityWords');
