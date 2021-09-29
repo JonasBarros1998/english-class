@@ -4,8 +4,8 @@ import {Pressable} from 'react-native';
 import {Box, HStack, Text, Center} from 'native-base';
 
 import MainMenu from '@components/MainMenu';
+import OneCardPrivateList from '@lists/privateLists/oneCard';
 import OneCardFavouriteList from '@lists/favouriteLists/oneCard';
-import OneCardPrivateList from '@lists/privateLists/';
 
 function MainPage({navigation}: any) {
   return (
