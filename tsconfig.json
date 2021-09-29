@@ -9,17 +9,17 @@
     "isolatedModules": true,
     "strict": true, 
     "moduleResolution": "node", 
-    "baseUrl": ".", 
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true, 
     "skipLibCheck": true, 
     "resolveJsonModule": true,
+    "baseUrl": "./", 
     "paths": {
+      "@lists/*": ["./src/lists/*"],
       "@components/*": ["./src/components/*"],
       "@database/*": ["./src/database/*"],
-      "@screen/*": ["./src/screen/*"],
-      "@lists/*": ["./src/lists/*"]
+      "@screen/*": ["./src/screen/*"]
     }
   },
   "exclude": [
