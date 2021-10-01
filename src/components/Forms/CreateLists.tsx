@@ -2,8 +2,11 @@ import React from "react";
 
 import { Input, Box } from 'native-base';
 
+import ButtonAddNewCard from './AddNewCard';
+
 function CreateLists() {
   return (
+    <>
     <Box 
       width="100%" 
       flex={1}
@@ -56,7 +59,9 @@ function CreateLists() {
             borderBottomColor: '#000'
           }} />
       </Box>
+      <ButtonAddNewCard />
     </Box>
+    </>
   );
 }
 
