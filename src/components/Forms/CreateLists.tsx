@@ -4,9 +4,27 @@ import { FlatList } from "react-native";
 import { Input, Box, Center, Button } from "native-base";
 
 import IconAdd from '../Svgs/Add';
-import {addNewCardEmpty} from './addNewCard';
+import {addNewCardEmpty, updateForm, getListCards} from './cards';
 
-function Form() {
+type cardItem = {
+  id: number;
+  word: string;
+  translation: string;
+  context: string;
+};
+
+type typeInput = 'word' | 'translation' | 'context'
+
+function Form({cardItem, cards}: any) {
+  const [word, setWords] = useState('');
+  const [translation, setTranslation] = useState('');
+  const [context, setContext] = useState('');
+
+  function changeInput(input: string, cardItem: cardItem, inputType: typeInput) {
+    setWords(input);
+    updateForm(input, cardItem, inputType);
+  }
+
   return (
     <Center
       width="100%"
@@ -21,6 +39,9 @@ function Form() {
         borderWidth: 0,
       }}>
       <Input
+        onChangeText={(valueInput) => changeInput(valueInput, cardItem, 'word')}
+        value={word}
+        autoCorrect={false}
         variant="underlined"
         placeholder="Palavra"
         fontSize={16}
@@ -32,6 +53,9 @@ function Form() {
         }} />
 
       <Input
+        onChangeText={(valueInput) => changeInput(valueInput, cardItem, 'translation')}
+        value={translation}
+        autoCorrect={false}
         variant="underlined"
         placeholder="Tradução"
         fontSize={16}
@@ -43,6 +67,9 @@ function Form() {
         }} />
 
       <Input
+        onChangeText={(valueInput) => changeInput(valueInput, cardItem, 'context')}
+        value={context}
+        autoCorrect={false}
         variant="underlined"
         placeholder="Contexto"
         fontSize={16}
@@ -57,7 +84,12 @@ function Form() {
 }
 
 function CreateLists() {
-  const [forms, setForms] = useState(addNewCardEmpty([]));
+  const [forms, setForms] = useState(getListCards());
+
+  function changeState() {
+    addNewCardEmpty();
+    setForms([...getListCards()]);
+  }
 
   return (
     <>
@@ -68,11 +100,11 @@ function CreateLists() {
         alignItems="center">
         <FlatList
           data={forms}
-          renderItem={Form}
+          renderItem={({item}) => <Form cardItem={item} cards={forms}/>}
           keyExtractor={({id}) => id.toString()}
         />
         <Button borderRadius={100}
-          onPress={() => setForms(addNewCardEmpty(forms))}
+          onPress={() => changeState()}
           width="53px"
           height="53px"
           variant="unstyled"
