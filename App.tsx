@@ -12,6 +12,8 @@ import MainPage from './src/screen';
 import PublicListScreen from './src/screen/publicListScreen';
 import UserListScreen from './src/screen/userListcreen';
 
+import CreateListsScreen from '@screen/CreateLists'
+
 const Stack = createNativeStackNavigator();
 
 const inset = {
@@ -64,7 +66,8 @@ export const App = () => {
     <NativeBaseProvider initialWindowMetrics={inset}>
       <SafeAreaView /> 
       <StatusBar />
-        <Rotas />
+        <CreateListsScreen />
+        {/*<Rotas />*/}
       <SafeAreaView />
     </NativeBaseProvider>
   );

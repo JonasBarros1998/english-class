@@ -13,10 +13,10 @@ module.exports = {
           '.json',
         ],
         alias: {
-          '@components/': './src/components/',
-          '@database/': './src/database/',
-          '@screen/': './src/screen/',
-          '@lists/': './src/lists/'
+          '@lists': './src/lists',
+          '@components': './src/components',
+          '@database': './src/database',
+          '@screen': './src/screen',
         }
       }
     ]
