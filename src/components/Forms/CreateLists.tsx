@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 
-import { Input, Box, Center, Button } from "native-base";
+import { Input, Box, Center, Button, Flex } from "native-base";
 
 import IconAdd from '../Svgs/Add';
+import Done from '../Svgs/Done';
 import {addNewCardEmpty, updateForm, getListCards} from './cards';
 
 type cardItem = {
@@ -23,6 +24,7 @@ function Form({cardItem, cards}: any) {
   function changeInput(input: string, cardItem: cardItem, inputType: typeInput) {
     setWords(input);
     updateForm(input, cardItem, inputType);
+
   }
 
   return (
@@ -85,6 +87,8 @@ function Form({cardItem, cards}: any) {
 
 function CreateLists() {
   const [forms, setForms] = useState(getListCards());
+  const [placeholder, setPlaceholder] = useState("TITULO DA LISTA");
+  const [titleList, setTitleList] = useState("");
 
   function changeState() {
     addNewCardEmpty();
@@ -93,6 +97,41 @@ function CreateLists() {
 
   return (
     <>
+      <Flex
+        bg="#312E81"
+        display="flex"
+        width="100%"
+        direction="row"
+        paddingTop={2}
+        paddingBottom={2}
+        justifyContent="space-between">
+        <Box width="91%">
+          <Input
+            onPressIn={() => setPlaceholder("")}
+            value={titleList}
+            onChangeText={(valueInput) => setTitleList(valueInput)}
+            autoCorrect={false}
+            variant="underlined"
+            borderBottomColor="#312E81"
+            placeholder={placeholder}
+            fontSize={16}
+            placeholderTextColor="#FFF"
+            fontWeight={600}
+            color="#FFF"
+            maxLength={30}
+            _web={{
+              fontWeight: 700,
+            }}
+            _focus={{
+              borderBottomColor: '#312E81'
+            }} 
+          />
+          </Box>
+          <Box width="9%" flexDirection="column" justifyContent="center">
+            <Done />
+          </Box>
+      </Flex>
+
       <Box
         padding="2"
         flex={1}
