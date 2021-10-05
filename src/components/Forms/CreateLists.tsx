@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Pressable } from "react-native";
 
 import { Input, Box, Center, Button, Flex } from "native-base";
 
@@ -14,7 +14,7 @@ type cardItem = {
   context: string;
 };
 
-type typeInput = 'word' | 'translation' | 'context'
+type typeInput = 'word' | 'translation' | 'context';
 
 function Form({cardItem, cards}: any) {
   const [word, setWords] = useState('');
@@ -22,9 +22,7 @@ function Form({cardItem, cards}: any) {
   const [context, setContext] = useState('');
 
   function changeInput(input: string, cardItem: cardItem, inputType: typeInput) {
-    setWords(input);
     updateForm(input, cardItem, inputType);
-
   }
 
   return (
@@ -41,7 +39,10 @@ function Form({cardItem, cards}: any) {
         borderWidth: 0,
       }}>
       <Input
-        onChangeText={(valueInput) => changeInput(valueInput, cardItem, 'word')}
+        onChangeText={(valueInput) => {
+          setWords(valueInput);
+          changeInput(valueInput, cardItem, 'word');
+        }}
         value={word}
         autoCorrect={false}
         variant="underlined"
@@ -55,7 +56,10 @@ function Form({cardItem, cards}: any) {
         }} />
 
       <Input
-        onChangeText={(valueInput) => changeInput(valueInput, cardItem, 'translation')}
+        onChangeText={(valueInput) => {
+          setTranslation(valueInput);
+          changeInput(valueInput, cardItem, 'translation');
+        }}
         value={translation}
         autoCorrect={false}
         variant="underlined"
@@ -69,7 +73,10 @@ function Form({cardItem, cards}: any) {
         }} />
 
       <Input
-        onChangeText={(valueInput) => changeInput(valueInput, cardItem, 'context')}
+        onChangeText={(valueInput) => {
+          setContext(valueInput);
+          changeInput(valueInput, cardItem, 'context');
+        }}
         value={context}
         autoCorrect={false}
         variant="underlined"
@@ -128,7 +135,16 @@ function CreateLists() {
           />
           </Box>
           <Box width="9%" flexDirection="column" justifyContent="center">
-            <Done />
+            <Pressable
+              style={{
+                display: "flex",
+                flex: 1,
+                flexDirection:"column",
+                justifyContent:"center"
+              }}
+              onPress={() => getListCards()}>
+              <Done />
+            </Pressable> 
           </Box>
       </Flex>
 
