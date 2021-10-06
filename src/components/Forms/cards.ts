@@ -1,17 +1,17 @@
 type card = {
-  id: number,
-  word: string,
-  translation: string,
-  context: string,
+  id: number;
+  word: string;
+  translation: string;
+  context: string;
 };
 
 type inputType = 'word' | 'translation' | 'context';
 
 const initialCard = {
   id: Math.floor(Math.random() * 10000),
-  word: "",
-  translation: "",
-  context: ""
+  word: '',
+  translation: '',
+  context: '',
 };
 
 const listAllCards: Array<card> = [initialCard];
@@ -19,9 +19,9 @@ const listAllCards: Array<card> = [initialCard];
 function addNewCardEmpty() {
   listAllCards.push({
     id: Math.floor(Math.random() * 10000),
-    word: "",
-    translation: "",
-    context: ""
+    word: '',
+    translation: '',
+    context: '',
   });
 }
 

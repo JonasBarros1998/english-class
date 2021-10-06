@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { FlatList, Pressable } from "react-native";
+import React, {useState} from 'react';
+import {FlatList, Pressable} from 'react-native';
 
-import { Input, Box, Center, Button, Flex } from "native-base";
+import {Input, Box, Center, Button, Flex} from 'native-base';
 
 import IconAdd from '../Svgs/Add';
 import Done from '../Svgs/Done';
@@ -16,13 +16,13 @@ type cardItem = {
 
 type typeInput = 'word' | 'translation' | 'context';
 
-function Form({cardItem, cards}: any) {
+function Form({cardItem}: any) {
   const [word, setWords] = useState('');
   const [translation, setTranslation] = useState('');
   const [context, setContext] = useState('');
 
-  function changeInput(input: string, cardItem: cardItem, inputType: typeInput) {
-    updateForm(input, cardItem, inputType);
+  function changeInput(input: string, item: cardItem, inputType: typeInput) {
+    updateForm(input, item, inputType);
   }
 
   return (
@@ -40,7 +40,7 @@ function Form({cardItem, cards}: any) {
         borderWidth: 0,
       }}>
       <Input
-        onChangeText={(valueInput) => {
+        onChangeText={(valueInput: string) => {
           setWords(valueInput);
           changeInput(valueInput, cardItem, 'word');
         }}
@@ -53,11 +53,12 @@ function Form({cardItem, cards}: any) {
         width="100%"
         fontWeight={600}
         _focus={{
-          borderBottomColor: '#000'
-        }} />
+          borderBottomColor: '#000',
+        }}
+      />
 
       <Input
-        onChangeText={(valueInput) => {
+        onChangeText={(valueInput: string) => {
           setTranslation(valueInput);
           changeInput(valueInput, cardItem, 'translation');
         }}
@@ -70,11 +71,12 @@ function Form({cardItem, cards}: any) {
         width="100%"
         fontWeight={600}
         _focus={{
-          borderBottomColor: '#000'
-        }} />
+          borderBottomColor: '#000',
+        }}
+      />
 
       <Input
-        onChangeText={(valueInput) => {
+        onChangeText={(valueInput: string) => {
           setContext(valueInput);
           changeInput(valueInput, cardItem, 'context');
         }}
@@ -87,16 +89,17 @@ function Form({cardItem, cards}: any) {
         width="100%"
         fontWeight={600}
         _focus={{
-          borderBottomColor: '#000'
-        }} />
+          borderBottomColor: '#000',
+        }}
+      />
     </Center>
-  )
+  );
 }
 
 function CreateLists() {
   const [forms, setForms] = useState(getListCards());
-  const [placeholder, setPlaceholder] = useState("TITULO DA LISTA");
-  const [titleList, setTitleList] = useState("");
+  const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
+  const [titleList, setTitleList] = useState('');
 
   function changeState() {
     addNewCardEmpty();
@@ -115,9 +118,9 @@ function CreateLists() {
         justifyContent="space-between">
         <Box width="91%">
           <Input
-            onPressIn={() => setPlaceholder("")}
+            onPressIn={() => setPlaceholder('')}
             value={titleList}
-            onChangeText={(valueInput) => setTitleList(valueInput)}
+            onChangeText={(valueInput: string) => setTitleList(valueInput)}
             autoCorrect={false}
             variant="underlined"
             borderBottomColor="#312E81"
@@ -131,35 +134,32 @@ function CreateLists() {
               fontWeight: 700,
             }}
             _focus={{
-              borderBottomColor: '#312E81'
-            }} 
+              borderBottomColor: '#312E81',
+            }}
           />
-          </Box>
-          <Box width="9%" flexDirection="column" justifyContent="center">
-            <Pressable
-              style={{
-                display: "flex",
-                flex: 1,
-                flexDirection:"column",
-                justifyContent:"center"
-              }}
-              onPress={() => getListCards()}>
-              <Done />
-            </Pressable> 
-          </Box>
+        </Box>
+        <Box width="9%" flexDirection="column" justifyContent="center">
+          <Pressable
+            style={{
+              display: 'flex',
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+            onPress={() => getListCards()}>
+            <Done />
+          </Pressable>
+        </Box>
       </Flex>
 
-      <Box
-        padding="2"
-        flex={1}
-        justifyContent="flex-start"
-        alignItems="center">
+      <Box padding="2" flex={1} justifyContent="flex-start" alignItems="center">
         <FlatList
           data={forms}
-          renderItem={({item}) => <Form cardItem={item} cards={forms}/>}
+          renderItem={({item}) => <Form cardItem={item} cards={forms} />}
           keyExtractor={({id}) => id.toString()}
         />
-        <Button borderRadius={100}
+        <Button
+          borderRadius={100}
           onPress={() => changeState()}
           width="53px"
           height="53px"

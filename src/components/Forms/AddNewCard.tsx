@@ -4,10 +4,11 @@ import IconAdd from '../Svgs/Add';
 
 function ButtonAddNewCard() {
   return (
-    <Button borderRadius={100} 
-      width="53px" 
-      height="53px" 
-      variant="unstyled" 
+    <Button
+      borderRadius={100}
+      width="53px"
+      height="53px"
+      variant="unstyled"
       bg="#312E81">
       <IconAdd />
     </Button>
