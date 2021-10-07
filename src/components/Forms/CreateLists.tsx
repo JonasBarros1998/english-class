@@ -5,7 +5,7 @@ import {Input, Box, Center, Button, Flex} from 'native-base';
 
 import IconAdd from '../Svgs/Add';
 import Done from '../Svgs/Done';
-import {addNewCardEmpty, updateForm, getListCards} from './cards';
+import {addNewCardEmpty, updateForm, getListCards, clearList} from './cards';
 import {insert} from '@database/index';
 
 type cardItem = {
@@ -107,10 +107,15 @@ function CreateLists() {
     setForms([...getListCards()]);
   }
 
-  function submitForm() {
-    insert(getListCards(), '/123456789').catch(function (erro) {
-      Promise.reject(new Error(erro.message));
-    });
+  async function submitForm() {
+    await insert(getListCards(), '/123456789')
+      .catch(function (erro) {
+        Promise.reject(new Error(erro.message));
+      })
+      .finally(function () {
+        clearList();
+        setForms([...getListCards()]);
+      });
   }
 
   return (
