@@ -6,6 +6,7 @@ import {Input, Box, Center, Button, Flex} from 'native-base';
 import IconAdd from '../Svgs/Add';
 import Done from '../Svgs/Done';
 import {addNewCardEmpty, updateForm, getListCards} from './cards';
+import {insert} from '@database/index';
 
 type cardItem = {
   id: number;
@@ -106,6 +107,12 @@ function CreateLists() {
     setForms([...getListCards()]);
   }
 
+  function submitForm() {
+    insert(getListCards(), '/123456789').catch(function (erro) {
+      Promise.reject(new Error(erro.message));
+    });
+  }
+
   return (
     <>
       <Flex
@@ -146,7 +153,7 @@ function CreateLists() {
               flexDirection: 'column',
               justifyContent: 'center',
             }}
-            onPress={() => getListCards()}>
+            onPress={() => submitForm()}>
             <Done />
           </Pressable>
         </Box>

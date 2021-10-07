@@ -21,3 +21,4 @@ export const listDetails = [
 ];
 
 export * from './repository/search';
+export * from './repository/insert';
