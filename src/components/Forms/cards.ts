@@ -39,4 +39,10 @@ function getListCards() {
   return listAllCards;
 }
 
-export {addNewCardEmpty, updateForm, getListCards};
+function clearList() {
+  const quantity = listAllCards.length;
+  listAllCards.splice(0, quantity);
+  addNewCardEmpty();
+}
+
+export {addNewCardEmpty, updateForm, getListCards, clearList};
