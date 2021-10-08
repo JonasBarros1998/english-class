@@ -108,13 +108,14 @@ function CreateLists() {
   }
 
   async function submitForm() {
-    await insert(getListCards(), '/123456789')
+    await insert(getListCards(), `/123456789/lists/${titleList}`)
       .catch(function (erro) {
         Promise.reject(new Error(erro.message));
       })
       .finally(function () {
         clearList();
         setForms([...getListCards()]);
+        setTitleList('');
       });
   }
 
