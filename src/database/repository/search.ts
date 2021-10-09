@@ -1,13 +1,21 @@
-import {db as connectionDb} from '../connection';
+import {db as database} from '../connection';
 
-async function searchAll(path: string) {
-  return connectionDb()
-    .then(function(db) {
-      return db.ref(path).once('value');
+async function select(where: string): Promise<any[]> {
+  return database()
+    .then(async function (connection) {
+      return connection
+        .ref(where)
+        .once('value')
+        .then(function (response) {
+          return response.val();
+        })
+        .catch(function (error) {
+          return Promise.reject(new Error(error.message));
+        });
     })
-    .catch(function(error) {
+    .catch(function (error) {
       return Promise.reject(new Error(error));
     });
 }
 
-export {searchAll};
+export {select};
