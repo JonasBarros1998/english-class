@@ -108,7 +108,13 @@ function CreateLists() {
   }
 
   async function submitForm() {
-    await insert(getListCards(), `/123456789/lists/${titleList}`)
+    const submit = [
+      {
+        title: titleList,
+        cards: getListCards(),
+      },
+    ];
+    await insert(submit, '/123456789/lists')
       .catch(function (erro) {
         Promise.reject(new Error(erro.message));
       })

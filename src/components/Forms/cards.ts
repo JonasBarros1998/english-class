@@ -14,7 +14,7 @@ const initialCard = {
   context: '',
 };
 
-const listAllCards: Array<card> = [initialCard];
+let listAllCards: Array<card> = [initialCard];
 
 function addNewCardEmpty() {
   listAllCards.push({
@@ -40,8 +40,7 @@ function getListCards() {
 }
 
 function clearList() {
-  const quantity = listAllCards.length;
-  listAllCards.splice(0, quantity);
+  listAllCards = [];
   addNewCardEmpty();
 }
 
