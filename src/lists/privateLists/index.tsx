@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
-import {FlatList} from 'react-native';
+import {FlatList, Pressable} from 'react-native';
 
 import PrivateCards from '@components/Cards/privateCards';
 import {searchPrivateLists} from './searchPrivateLists';
 
-function PrivateList() {
+function PrivateList({navigation}: any) {
   const [privateLists, setPrivateLists] = useState([]) as any[];
   useEffect(function () {
     searchPrivateLists()
@@ -19,7 +19,16 @@ function PrivateList() {
   return (
     <FlatList
       data={privateLists}
-      renderItem={({item}) => <PrivateCards {...item} />}
+      renderItem={({item}) => {
+        return (
+          <Pressable
+            onPress={() => {
+              navigation.navigate('listDetails', {screen: 'listDetails'});
+            }}>
+            <PrivateCards {...item} />
+          </Pressable>
+        );
+      }}
       keyExtractor={({id}) => String(id)}
     />
   );
