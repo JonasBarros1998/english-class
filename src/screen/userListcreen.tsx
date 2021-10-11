@@ -21,7 +21,7 @@ function UserListScreen({route, navigation}: any) {
 
   function loadComponentList() {
     if (attComponents.component.loadComponentPrivateList === true) {
-      return <PrivateLists />;
+      return <PrivateLists navigation={navigation} />;
     }
 
     return <FavouriteList />;
