@@ -3,7 +3,6 @@ import {Pressable} from 'react-native';
 
 import {Box, HStack, Text, Center} from 'native-base';
 
-import MainMenu from '@components/MainMenu';
 import OneCardPrivateList from '@lists/privateLists/oneCard';
 import OneCardFavouriteList from '@lists/favouriteLists/oneCard';
 
@@ -42,9 +41,6 @@ function MainPage({navigation}: any) {
           </HStack>
         </Center>
         <OneCardFavouriteList />
-      </Box>
-      <Box justifyContent="flex-end" flex={1}>
-        <MainMenu navigation={navigation} />
       </Box>
     </Box>
   );
