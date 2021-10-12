@@ -1,5 +1,4 @@
-//changeAttComponents = change attributes components
-function changeAttComponents(componentName: 'privateList' | 'favouriteList') {
+function changeComponents(componentName: 'privateList' | 'favouriteList') {
   if (componentName === 'privateList') {
     return {
       style: {
@@ -25,4 +24,4 @@ function changeAttComponents(componentName: 'privateList' | 'favouriteList') {
   };
 }
 
-export {changeAttComponents};
+export {changeComponents};
