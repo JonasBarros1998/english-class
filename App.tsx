@@ -91,7 +91,7 @@ function MenuPrincipal() {
           options={{
             headerShown: false,
           }}>
-          {props => <IconUser />}
+          {() => <IconUser />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
