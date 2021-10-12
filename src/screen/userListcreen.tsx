@@ -1,23 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Box, Button, HStack, Text, View} from 'native-base';
 
-import MainMenu from '@components/MainMenu';
 import PrivateLists from '@lists/privateLists';
 import FavouriteList from '@lists/favouriteLists';
 
-import {changeAttComponents} from './useCase/changeComponents';
+import {changeComponents} from './useCase/changeComponents';
 
-function UserListScreen({route, navigation}: any) {
+function UserListScreen({route}: any) {
+  console.log(route.params.screen);
   const [attComponents, setAttComponents] = useState(
-    changeAttComponents('favouriteList'),
+    changeComponents(route.params.screen),
   );
-
-  useEffect(() => {
-    if (route.params.screen === 'privateList') {
-      setAttComponents(changeAttComponents('privateList'));
-      return;
-    }
-  }, [route.params]);
 
   function loadComponentList() {
     if (attComponents.component.loadComponentPrivateList === true) {
@@ -37,9 +30,7 @@ function UserListScreen({route, navigation}: any) {
             borderBottomWidth={5}
             borderRadius={0}
             testID="btn-my-list"
-            onPress={() =>
-              setAttComponents(changeAttComponents('privateList'))
-            }>
+            onPress={() => setAttComponents(changeComponents('privateList'))}>
             <Text fontSize={16} color="#FFF" bold>
               Minhas listas
             </Text>
@@ -51,18 +42,13 @@ function UserListScreen({route, navigation}: any) {
             borderBottomWidth={5}
             borderRadius={0}
             borderBottomColor={attComponents.style.colorBorderBtnfavouritList}
-            onPress={() =>
-              setAttComponents(changeAttComponents('favouriteList'))
-            }>
+            onPress={() => setAttComponents(changeComponents('favouriteList'))}>
             <Text fontSize={16} color="#FFF" bold>
               Listas favoritas
             </Text>
           </Button>
         </HStack>
         <View>{loadComponentList()}</View>
-        <Box justifyContent="flex-end" flex={1}>
-          <MainMenu navigation={navigation} />
-        </Box>
       </Box>
     </>
   );
