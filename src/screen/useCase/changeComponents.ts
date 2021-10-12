@@ -1,4 +1,3 @@
-//changeAttComponents = change attributes components
 function changeComponents(componentName: 'privateList' | 'favouriteList') {
   if (componentName === 'privateList') {
     return {
