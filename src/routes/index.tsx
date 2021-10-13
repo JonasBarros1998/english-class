@@ -1,0 +1,37 @@
+import React from 'react';
+import UserListScreen from '@screen/userListcreen';
+import MainPage from '@screen/index';
+
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+function Routes() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="homePage"
+        options={{
+          title: 'Página Inicial',
+          headerStyle: {
+            backgroundColor: '#312E81',
+          },
+          headerTintColor: '#fff',
+        }}>
+        {props => {
+          return <MainPage {...props} />;
+        }}
+      </Stack.Screen>
+
+      <Stack.Screen
+        name="userList"
+        options={{
+          headerShown: false,
+        }}>
+        {props => <UserListScreen {...props} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+}
+
+export default Routes;

@@ -1,54 +1,59 @@
 import React from 'react';
-import {TouchableNativeFeedback} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
 
-import {Box, HStack, View} from 'native-base';
-
-import IConHome from '../Svgs/Home';
+import IconHome from '../Svgs/Home';
 import IconList from '../Svgs/IconList';
 import IconUser from '../Svgs/IconUser';
 
-function MainMenu({navigation}: any) {
+const Tab = createBottomTabNavigator();
+
+type param = {
+  Routes: Function;
+  PublicListScreen: Function;
+};
+
+function MainMenu(screens: param) {
   return (
-    <Box
-      bgColor="#FFF"
-      safeAreaTop
-      width="100%"
-      height="53px"
-      shadow={4}
-      justifyContent="center">
-      <HStack
-        safeAreaBottom
-        paddingLeft="2"
-        paddingRight="2"
-        justifyContent="space-between"
-        height="100%"
-        alignItems="center">
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.Ripple('#d6d3d1', true, 45)}
-          onPress={() => {
-            return navigation.navigate('home');
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: () => {
+            if (route.name === 'home') {
+              return <IconHome />;
+            }
+
+            if (route.name === 'publicList') {
+              return <IconList />;
+            }
+            return <IconUser />;
+          },
+        })}>
+        <Tab.Screen
+          name="home"
+          options={{
+            headerShown: false,
           }}>
-          <View>
-            <IConHome />
-          </View>
-        </TouchableNativeFeedback>
+          {() => <screens.Routes />}
+        </Tab.Screen>
 
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.Ripple('#d6d3d1', true, 45)}
-          onPress={() => navigation.navigate('publicList')}>
-          <View>
-            <IconList />
-          </View>
-        </TouchableNativeFeedback>
+        <Tab.Screen
+          name="publicList"
+          options={{
+            headerShown: false,
+          }}>
+          {props => <screens.PublicListScreen {...props} />}
+        </Tab.Screen>
 
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.Ripple('#d6d3d1', true, 45)}>
-          <View>
-            <IconUser />
-          </View>
-        </TouchableNativeFeedback>
-      </HStack>
-    </Box>
+        <Tab.Screen
+          name="userPerfil"
+          options={{
+            headerShown: false,
+          }}>
+          {() => <IconUser />}
+        </Tab.Screen>
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 export default MainMenu;
