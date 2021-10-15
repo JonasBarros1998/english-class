@@ -23,7 +23,10 @@ function PrivateList({navigation}: any) {
         return (
           <Pressable
             onPress={() => {
-              navigation.navigate('listDetails', {screen: 'listDetails'});
+              navigation.navigate('listDetails', {
+                screen: 'listDetails',
+                cardItem: item,
+              });
             }}>
             <PrivateCards {...item} />
           </Pressable>
