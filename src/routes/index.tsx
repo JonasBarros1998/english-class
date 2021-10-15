@@ -1,6 +1,7 @@
 import React from 'react';
 import UserListScreen from '@screen/userListcreen';
 import MainPage from '@screen/index';
+import ListDetailsScreen from '@screen/ListDetailsScreen';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -29,6 +30,14 @@ function Routes() {
           headerShown: false,
         }}>
         {props => <UserListScreen {...props} />}
+      </Stack.Screen>
+
+      <Stack.Screen
+        name="listDetails"
+        options={{
+          headerShown: false,
+        }}>
+        {props => <ListDetailsScreen {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
