@@ -84,17 +84,14 @@ const userCard = {
 };
 
 function RenderCards({cardItem}: cardItemParam) {
-  const {id} = cardItem;
-  console.log('id >>>', id);
   const [card, setCard] = useState(userCard);
   useEffect(
     function () {
-      loadUserList(id).then(function (response) {
-        console.log('Vixxxx', response);
+      loadUserList(cardItem.id).then(function (response) {
         setCard(response);
       });
     },
-    [id],
+    [cardItem.id],
   );
 
   return (
