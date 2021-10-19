@@ -7,6 +7,8 @@ import IconAdd from '../Svgs/Add';
 import Done from '../Svgs/Done';
 import {addNewCardEmpty, updateForm, getListCards, clearList} from './cards';
 import {insert} from '@database/index';
+import AlertPopover from './AlertDialog';
+import {validListTitle} from './validListTitle';
 
 type cardItem = {
   id: number;
@@ -101,28 +103,41 @@ function CreateLists() {
   const [forms, setForms] = useState(getListCards());
   const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
   const [titleList, setTitleList] = useState('');
+  const [visible, setVisible] = useState(false);
 
   function changeState() {
     addNewCardEmpty();
     setForms([...getListCards()]);
   }
 
+  function managementTitleList(input: string) {
+    setTitleList(input);
+    const listIsEmpty = validListTitle(input);
+    if (listIsEmpty) {
+      setVisible(false);
+    }
+  }
+
   async function submitForm() {
+    const listEmpty = validListTitle(titleList);
+
+    if (!listEmpty) {
+      setVisible(true);
+      return;
+    }
+
     const submit = [
       {
         title: titleList,
         cards: getListCards(),
       },
     ];
-    await insert(submit, '/123456789/lists')
-      .catch(function (erro) {
-        Promise.reject(new Error(erro.message));
-      })
-      .finally(function () {
-        clearList();
-        setForms([...getListCards()]);
-        setTitleList('');
-      });
+    await insert(submit, '/123456789/lists').finally(function () {
+      setPlaceholder('TITULO DA LISTA');
+      clearList();
+      setForms([...getListCards()]);
+      setTitleList('');
+    });
   }
 
   return (
@@ -139,7 +154,9 @@ function CreateLists() {
           <Input
             onPressIn={() => setPlaceholder('')}
             value={titleList}
-            onChangeText={(valueInput: string) => setTitleList(valueInput)}
+            onChangeText={(valueInput: string) => {
+              managementTitleList(valueInput);
+            }}
             autoCorrect={false}
             variant="underlined"
             borderBottomColor="#312E81"
@@ -170,6 +187,11 @@ function CreateLists() {
           </Pressable>
         </Box>
       </Flex>
+      <AlertPopover
+        visible={visible}
+        text={'Digite o titulo da lista'}
+        setVisible={setVisible}
+      />
 
       <Box padding="2" flex={1} justifyContent="flex-start" alignItems="center">
         <FlatList
