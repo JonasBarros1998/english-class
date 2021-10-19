@@ -1,4 +1,5 @@
 import React from 'react';
+import {Pressable} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -17,10 +18,14 @@ function MainMenu(screens: param) {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={({route}) => ({
+        screenOptions={({route, navigation}) => ({
           tabBarIcon: () => {
             if (route.name === 'home') {
-              return <IconHome />;
+              return (
+                <Pressable onPress={() => navigation.navigate('homePage')}>
+                  <IconHome />
+                </Pressable>
+              );
             }
 
             if (route.name === 'publicList') {
