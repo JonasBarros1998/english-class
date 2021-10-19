@@ -1,4 +1,4 @@
-import {changeAttComponents} from '@screen/useCase/changeComponents';
+import {changeComponents} from '@screen/useCase/changeComponents';
 
 describe('test components change', function () {
   test(`if sending param privateList, should return a objeto with 
@@ -14,7 +14,7 @@ describe('test components change', function () {
       },
     };
 
-    expect(changeAttComponents('privateList')).toEqual(mockObj);
+    expect(changeComponents('privateList')).toEqual(mockObj);
   });
 
   test(`if sending param favouriteList, should return a objeto with 
@@ -30,6 +30,6 @@ describe('test components change', function () {
       },
     };
 
-    expect(changeAttComponents('favouriteList')).toEqual(mockObj);
+    expect(changeComponents('favouriteList')).toEqual(mockObj);
   });
 });
