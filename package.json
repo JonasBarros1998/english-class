@@ -13,6 +13,7 @@
     "@react-native-firebase/app": "^12.8.0",
     "@react-native-firebase/auth": "^12.8.0",
     "@react-native-firebase/database": "^12.8.0",
+    "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "native-base": "^3.2.0",
@@ -49,10 +50,20 @@
     "@types/react": "^17"
   },
   "jest": {
+    "extensionsToTreatAsEsm": [".ts", ".tsx"],
     "preset": "react-native",
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
     ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "transform": {
+      "^.+\\.ts?$": "ts-jest",
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    },
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -62,7 +73,8 @@
       "node"
     ],
     "moduleNameMapper": {
-      "@react-native-firebase/crashlytics": "jest/mocks/firebase/crashlytics.js"
+      "@react-native-firebase/crashlytics": "jest/mocks/firebase/crashlytics.js",
+      "^.+\\.(css|less|scss)$": "identity-obj-proxy"
     },
     "coverageDirectory": "__tests__/coverage"
   },
