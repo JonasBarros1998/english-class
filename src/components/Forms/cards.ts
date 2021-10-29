@@ -44,12 +44,13 @@ function clearList() {
   addNewCardEmpty();
 }
 
-function deleteCard(card: card) {
+function deleteItem(card: card) {
   listAllCards.some(function (currentValue, index) {
     if (currentValue.id === card.id) {
-      listAllCards = listAllCards.splice(index, index);
+      listAllCards.splice(index, 1);
+      return;
     }
   });
 }
 
-export {addNewCardEmpty, updateForm, getListCards, clearList, deleteCard};
+export {addNewCardEmpty, updateForm, getListCards, clearList, deleteItem};

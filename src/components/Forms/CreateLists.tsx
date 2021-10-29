@@ -10,13 +10,12 @@ import {
   updateForm,
   getListCards,
   clearList,
-  deleteCard,
+  deleteItem,
 } from './cards';
 import {insert} from '@database/index';
 import AlertPopover from './AlertDialog';
 import {validListTitle} from './validListTitle';
 import {WIDTH_SCREEN as widthScreen} from './Constants';
-import {zIndex} from 'styled-system';
 
 type cardItem = {
   id: number;
@@ -27,7 +26,7 @@ type cardItem = {
 
 type typeInput = 'word' | 'translation' | 'context';
 
-function Form({cardItem}: any) {
+function Form({cardItem, setForms}: any) {
   const [word, setWords] = useState('');
   const [translation, setTranslation] = useState('');
   const [context, setContext] = useState('');
@@ -49,7 +48,8 @@ function Form({cardItem}: any) {
     },
 
     onPanResponderRelease: (event, gesture) => {
-      if (parseInt(gesture.dx.toFixed(), 10) <= -50) {
+      const deleteCard = parseInt(gesture.dx.toFixed(), 10) <= -50;
+      if (deleteCard) {
         Animated.spring(position, {
           toValue: {
             x: widthScreen - 1000,
@@ -58,6 +58,9 @@ function Form({cardItem}: any) {
           tension: 5,
           useNativeDriver: true,
         }).start();
+        deleteItem(cardItem);
+        console.log('lista atual >>>', getListCards());
+        setForms([...getListCards()]);
         return;
       }
       Animated.spring(position, {
@@ -133,7 +136,6 @@ function Form({cardItem}: any) {
               setContext(valueInput);
               changeInput(valueInput, cardItem, 'context');
             }}
-            style={{zIndex: -1}}
             value={context}
             autoCorrect={false}
             variant="underlined"
@@ -193,43 +195,6 @@ function CreateLists() {
     });
   }
 
-  const position = new Animated.ValueXY();
-
-  const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (event, gesture) => {
-      if (parseInt(gesture.dx.toFixed(), 10) >= 0) {
-        position.setValue({x: 0, y: 0});
-        return;
-      }
-      position.setValue({x: gesture.dx, y: 0});
-    },
-
-    onPanResponderRelease: (event, gesture) => {
-      if (parseInt(gesture.dx.toFixed(), 10) <= -50) {
-        Animated.spring(position, {
-          toValue: {
-            x: widthScreen - 1000,
-            y: gesture.dy,
-          },
-          tension: 5,
-          useNativeDriver: true,
-        }).start();
-        return;
-      }
-      Animated.spring(position, {
-        toValue: {
-          x: 0,
-          y: 0,
-        },
-        tension: 5,
-        useNativeDriver: true,
-      }).start();
-    },
-  });
-
-  const handlers = panResponder.panHandlers;
-
   return (
     <>
       <Flex
@@ -287,7 +252,7 @@ function CreateLists() {
         <FlatList
           data={forms}
           renderItem={({item}) => {
-            return <Form cardItem={item} cards={forms} />;
+            return <Form cardItem={item} cards={forms} setForms={setForms} />;
           }}
           keyExtractor={({id}) => id.toString()}
         />
