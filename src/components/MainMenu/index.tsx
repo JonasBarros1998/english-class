@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import IconHome from '../Svgs/Home';
 import IconList from '../Svgs/IconList';
 import IconUser from '../Svgs/IconUser';
+import {CreateLists} from '@components/Forms';
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +56,7 @@ function MainMenu(screens: param) {
           options={{
             headerShown: false,
           }}>
-          {() => <IconUser />}
+          {() => <CreateLists />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>

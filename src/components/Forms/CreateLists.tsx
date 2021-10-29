@@ -1,14 +1,21 @@
 import React, {useState} from 'react';
-import {FlatList, Pressable} from 'react-native';
+import {FlatList, Pressable, Animated, PanResponder} from 'react-native';
 
-import {Input, Box, Center, Button, Flex} from 'native-base';
+import {Input, Box, Center, Button, Flex, View} from 'native-base';
 
 import IconAdd from '../Svgs/Add';
 import Done from '../Svgs/Done';
-import {addNewCardEmpty, updateForm, getListCards, clearList} from './cards';
+import {
+  addNewCardEmpty,
+  updateForm,
+  getListCards,
+  clearList,
+  deleteItem,
+} from './cards';
 import {insert} from '@database/index';
 import AlertPopover from './AlertDialog';
 import {validListTitle} from './validListTitle';
+import {WIDTH_SCREEN as widthScreen} from './Constants';
 
 type cardItem = {
   id: number;
@@ -19,7 +26,7 @@ type cardItem = {
 
 type typeInput = 'word' | 'translation' | 'context';
 
-function Form({cardItem}: any) {
+function Form({cardItem, setForms}: any) {
   const [word, setWords] = useState('');
   const [translation, setTranslation] = useState('');
   const [context, setContext] = useState('');
@@ -28,74 +35,122 @@ function Form({cardItem}: any) {
     updateForm(input, item, inputType);
   }
 
+  const position = new Animated.ValueXY();
+
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderMove: (event, gesture) => {
+      if (parseInt(gesture.dx.toFixed(), 10) >= 0) {
+        position.setValue({x: 0, y: 0});
+        return;
+      }
+      position.setValue({x: gesture.dx, y: 0});
+    },
+
+    onPanResponderRelease: (event, gesture) => {
+      const deleteCard = parseInt(gesture.dx.toFixed(), 10) <= -50;
+      if (deleteCard) {
+        Animated.spring(position, {
+          toValue: {
+            x: widthScreen - 1000,
+            y: gesture.dy,
+          },
+          tension: 5,
+          useNativeDriver: true,
+        }).start();
+        deleteItem(cardItem);
+        console.log('lista atual >>>', getListCards());
+        setForms([...getListCards()]);
+        return;
+      }
+      Animated.spring(position, {
+        toValue: {
+          x: 0,
+          y: 0,
+        },
+        tension: 5,
+        useNativeDriver: true,
+      }).start();
+    },
+  });
+
+  const handlers = panResponder.panHandlers;
+
   return (
-    <Center
-      testID={`card-${cardItem.id}`}
-      width="100%"
-      minWidth="100%"
-      marginBottom="5"
-      bg="#fff"
-      rounded="lg"
-      padding="3"
-      shadow={1}
-      _web={{
-        shadow: 2,
-        borderWidth: 0,
-      }}>
-      <Input
-        onChangeText={(valueInput: string) => {
-          setWords(valueInput);
-          changeInput(valueInput, cardItem, 'word');
-        }}
-        value={word}
-        autoCorrect={false}
-        variant="underlined"
-        placeholder="Palavra"
-        fontSize={16}
-        placeholderTextColor="#78716c"
-        width="100%"
-        fontWeight={600}
-        _focus={{
-          borderBottomColor: '#000',
-        }}
-      />
+    <Animated.View style={[position.getTranslateTransform()]} {...handlers}>
+      <View>
+        <Center
+          testID={`card-${cardItem.id}`}
+          width="100%"
+          minWidth="100%"
+          marginBottom="5"
+          bg="#fff"
+          rounded="lg"
+          padding="3"
+          shadow={1}
+          _web={{
+            shadow: 2,
+            borderWidth: 0,
+          }}>
+          <View width="100%">
+            <Input
+              onChangeText={(valueInput: string) => {
+                setWords(valueInput);
+                changeInput(valueInput, cardItem, 'word');
+              }}
+              bgColor="blue.500"
+              value={word}
+              autoCorrect={false}
+              variant="underlined"
+              placeholder="Palavra"
+              fontSize={16}
+              placeholderTextColor="#78716c"
+              width="100%"
+              fontWeight={600}
+              _focus={{
+                borderBottomColor: '#000',
+              }}
+            />
+          </View>
 
-      <Input
-        onChangeText={(valueInput: string) => {
-          setTranslation(valueInput);
-          changeInput(valueInput, cardItem, 'translation');
-        }}
-        value={translation}
-        autoCorrect={false}
-        variant="underlined"
-        placeholder="Tradução"
-        fontSize={16}
-        placeholderTextColor="#78716c"
-        width="100%"
-        fontWeight={600}
-        _focus={{
-          borderBottomColor: '#000',
-        }}
-      />
+          <Input
+            onChangeText={(valueInput: string) => {
+              setTranslation(valueInput);
+              changeInput(valueInput, cardItem, 'translation');
+            }}
+            value={translation}
+            autoCorrect={false}
+            variant="underlined"
+            placeholder="Tradução"
+            fontSize={16}
+            placeholderTextColor="#78716c"
+            width="100%"
+            fontWeight={600}
+            _focus={{
+              borderBottomColor: '#000',
+            }}
+          />
 
-      <Input
-        onChangeText={(valueInput: string) => {
-          setContext(valueInput);
-          changeInput(valueInput, cardItem, 'context');
-        }}
-        value={context}
-        autoCorrect={false}
-        variant="underlined"
-        placeholder="Contexto"
-        fontSize={16}
-        placeholderTextColor="#78716c"
-        width="100%"
-        fontWeight={600}
-        _focus={{
-          borderBottomColor: '#000',
-        }}
-      />
-    </Center>
+          <Input
+            onChangeText={(valueInput: string) => {
+              setContext(valueInput);
+              changeInput(valueInput, cardItem, 'context');
+            }}
+            value={context}
+            autoCorrect={false}
+            variant="underlined"
+            placeholder="Contexto"
+            fontSize={16}
+            placeholderTextColor="#78716c"
+            width="100%"
+            fontWeight={600}
+            _focus={{
+              borderBottomColor: '#000',
+            }}
+          />
+        </Center>
+      </View>
+    </Animated.View>
   );
 }
 
@@ -196,7 +251,9 @@ function CreateLists() {
       <Box padding="2" flex={1} justifyContent="flex-start" alignItems="center">
         <FlatList
           data={forms}
-          renderItem={({item}) => <Form cardItem={item} cards={forms} />}
+          renderItem={({item}) => {
+            return <Form cardItem={item} cards={forms} setForms={setForms} />;
+          }}
           keyExtractor={({id}) => id.toString()}
         />
         <Button
