@@ -1,21 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
-import {useDisclose, Actionsheet, Box, Text, Button} from 'native-base';
+import {Actionsheet, Box, Text, Button} from 'native-base';
 type params = {
-  enable: boolean;
-  closed: boolean;
+  isOpen: boolean;
+  onClose: () => void;
+  onOpen: () => void;
 };
 
-function ComponentActionSheet({enable, closed}: params) {
-  const {onClose, onOpen, isOpen} = useDisclose();
-  const [cc, setCc] = useState(enable);
-  useEffect(() => {
-    setCc(enable);
-    console.log(cc, enable);
-  }, [enable, cc]);
+function ComponentActionSheet({isOpen, onClose, onOpen}: params) {
   return (
     <>
-      <Actionsheet isOpen={cc} onClose={onClose}>
+      <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
           <Box w="100%" h={60} px={4} justifyContent="center">
             <Text
@@ -30,7 +25,7 @@ function ComponentActionSheet({enable, closed}: params) {
           <Actionsheet.Item>Delete</Actionsheet.Item>
           <Actionsheet.Item>Share</Actionsheet.Item>
           <Actionsheet.Item>
-            <Button onPress={() => setCc(false)}>Click me</Button>
+            <Button>Click me</Button>
           </Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
