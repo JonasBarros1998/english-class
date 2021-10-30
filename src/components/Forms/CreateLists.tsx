@@ -16,6 +16,7 @@ import {insert} from '@database/index';
 import AlertPopover from './AlertDialog';
 import {validListTitle} from './validListTitle';
 import {WIDTH_SCREEN as widthScreen} from './Constants';
+import ComponentActionSheet from './ActionSheet';
 
 type cardItem = {
   id: number;
@@ -59,7 +60,6 @@ function Form({cardItem, setForms}: any) {
           useNativeDriver: true,
         }).start();
         deleteItem(cardItem);
-        console.log('lista atual >>>', getListCards());
         setForms([...getListCards()]);
         return;
       }
@@ -159,6 +159,10 @@ function CreateLists() {
   const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
   const [titleList, setTitleList] = useState('');
   const [visible, setVisible] = useState(false);
+  const [enableScreen, setEnableScreen] = useState({
+    enable: false,
+    closed: true,
+  });
 
   function changeState() {
     addNewCardEmpty();
@@ -187,12 +191,13 @@ function CreateLists() {
         cards: getListCards(),
       },
     ];
-    await insert(submit, '/123456789/lists').finally(function () {
-      setPlaceholder('TITULO DA LISTA');
-      clearList();
-      setForms([...getListCards()]);
-      setTitleList('');
-    });
+    setEnableScreen({enable: true, closed: false});
+    // await insert(submit, '/123456789/lists').finally(function () {
+    //   setPlaceholder('TITULO DA LISTA');
+    //   clearList();
+    //   setForms([...getListCards()]);
+    //   setTitleList('');
+    // });
   }
 
   return (
@@ -237,7 +242,9 @@ function CreateLists() {
               flexDirection: 'column',
               justifyContent: 'center',
             }}
-            onPress={() => submitForm()}>
+            onPress={() => {
+              submitForm();
+            }}>
             <Done />
           </Pressable>
         </Box>
@@ -266,6 +273,10 @@ function CreateLists() {
           <IconAdd />
         </Button>
       </Box>
+      <ComponentActionSheet
+        enable={enableScreen.enable}
+        closed={enableScreen.closed}
+      />
     </>
   );
 }
