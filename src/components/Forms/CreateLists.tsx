@@ -1,7 +1,18 @@
 import React, {useState} from 'react';
 import {FlatList, Pressable, Animated, PanResponder} from 'react-native';
 
-import {Input, Box, Center, Button, Flex, View} from 'native-base';
+import {
+  Input,
+  Box,
+  Center,
+  Button,
+  Flex,
+  View,
+  useDisclose,
+  Actionsheet,
+  Switch,
+  Text,
+} from 'native-base';
 
 import IconAdd from '../Svgs/Add';
 import Done from '../Svgs/Done';
@@ -59,7 +70,6 @@ function Form({cardItem, setForms}: any) {
           useNativeDriver: true,
         }).start();
         deleteItem(cardItem);
-        console.log('lista atual >>>', getListCards());
         setForms([...getListCards()]);
         return;
       }
@@ -98,7 +108,6 @@ function Form({cardItem, setForms}: any) {
                 setWords(valueInput);
                 changeInput(valueInput, cardItem, 'word');
               }}
-              bgColor="blue.500"
               value={word}
               autoCorrect={false}
               variant="underlined"
@@ -159,6 +168,9 @@ function CreateLists() {
   const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
   const [titleList, setTitleList] = useState('');
   const [visible, setVisible] = useState(false);
+  const {isOpen, onClose, onOpen} = useDisclose();
+  const [changeSwitch, setChangeSwitch] = useState(false);
+  const [isPublicList, setIsPublicList] = useState('Apenas eu');
 
   function changeState() {
     addNewCardEmpty();
@@ -173,26 +185,33 @@ function CreateLists() {
     }
   }
 
-  async function submitForm() {
+  async function validTitleList() {
     const listEmpty = validListTitle(titleList);
-
     if (!listEmpty) {
       setVisible(true);
       return;
     }
+    onOpen();
+  }
 
+  async function submitForm() {
     const submit = [
       {
         title: titleList,
         cards: getListCards(),
       },
     ];
-    await insert(submit, '/123456789/lists').finally(function () {
-      setPlaceholder('TITULO DA LISTA');
-      clearList();
-      setForms([...getListCards()]);
-      setTitleList('');
-    });
+
+    if (changeSwitch) {
+      await insert(submit, '/publicList/');
+    } else {
+      await insert(submit, '/123456789/lists');
+    }
+    setPlaceholder('TITULO DA LISTA');
+    clearList();
+    setForms([...getListCards()]);
+    setTitleList('');
+    onClose();
   }
 
   return (
@@ -237,7 +256,9 @@ function CreateLists() {
               flexDirection: 'column',
               justifyContent: 'center',
             }}
-            onPress={() => submitForm()}>
+            onPress={() => {
+              validTitleList();
+            }}>
             <Done />
           </Pressable>
         </Box>
@@ -266,6 +287,55 @@ function CreateLists() {
           <IconAdd />
         </Button>
       </Box>
+      <Actionsheet isOpen={isOpen} onClose={onClose}>
+        <Actionsheet.Content>
+          <Box w="100%" pb={5} justifyContent="center">
+            <Text fontSize="18" color="gray.500" textAlign="center">
+              Quem poderá visualizar sua lista
+            </Text>
+          </Box>
+
+          <Actionsheet.Item>
+            <Box flexDirection="row" w="100%">
+              <Box w="50%">
+                <Text color="black" fontSize="16" bold textAlign="left">
+                  {isPublicList}
+                </Text>
+              </Box>
+
+              <Box w="50%">
+                <Switch
+                  onThumbColor="indigo.500"
+                  onTrackColor="indigo.300"
+                  size="lg"
+                  isChecked={changeSwitch}
+                  onToggle={() => {
+                    if (changeSwitch === false) {
+                      setIsPublicList('Apenas eu');
+                      setChangeSwitch(true);
+                      return;
+                    }
+                    setIsPublicList('Todos');
+                    setChangeSwitch(false);
+                  }}
+                />
+              </Box>
+            </Box>
+          </Actionsheet.Item>
+          <Actionsheet.Item w="100%">
+            <Box justifyContent="center" flexDirection="row">
+              <Button
+                w="100%"
+                backgroundColor="#312E81"
+                onPress={() => {
+                  submitForm();
+                }}>
+                Prosseguir
+              </Button>
+            </Box>
+          </Actionsheet.Item>
+        </Actionsheet.Content>
+      </Actionsheet>
     </>
   );
 }
