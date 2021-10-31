@@ -7,6 +7,7 @@ import IconHome from '../Svgs/Home';
 import IconList from '../Svgs/IconList';
 import IconUser from '../Svgs/IconUser';
 import {CreateLists} from '@components/Forms';
+import IconPlus from '../Svgs/IconPlus';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,10 +30,17 @@ function MainMenu(screens: param) {
               );
             }
 
+            if (route.name === 'createList') {
+              return <IconPlus />;
+            }
+
             if (route.name === 'publicList') {
               return <IconList />;
             }
-            return <IconUser />;
+
+            if (route.name === 'userPerfil') {
+              return <IconUser />;
+            }
           },
         })}>
         <Tab.Screen
@@ -41,6 +49,14 @@ function MainMenu(screens: param) {
             headerShown: false,
           }}>
           {() => <screens.Routes />}
+        </Tab.Screen>
+
+        <Tab.Screen
+          name="createList"
+          options={{
+            headerShown: false,
+          }}>
+          {() => <CreateLists />}
         </Tab.Screen>
 
         <Tab.Screen
