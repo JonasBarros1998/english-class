@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {Actionsheet, Box, Text, Switch, Button} from 'native-base';
 type params = {
@@ -9,9 +9,9 @@ type params = {
 
 /**
  *
- * @param isOpen
- * @param onClose
- * @param onOpen
+ * @param {boolean} isOpen
+ * @param {Function} onClose
+ * @param {Function} onOpen
  *  example The params inOpen, onClose and onOpen are the function useDisclose
  * ```
  * import {useDisclose} from 'native-base';
@@ -21,13 +21,16 @@ type params = {
  * ```
  */
 function ComponentActionSheet({isOpen, onClose, onOpen}: params) {
+  const [changeSwitch, setChangeSwitch] = useState(false);
+  const [isPublicList, setIsPublicList] = useState('Todos');
+
   return (
     <>
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
           <Box w="100%" pb={5} justifyContent="center">
             <Text fontSize="18" color="gray.500" textAlign="center">
-              Sua lista vai ser pública?
+              Quem poderá visualizar sua lista
             </Text>
           </Box>
 
@@ -35,7 +38,7 @@ function ComponentActionSheet({isOpen, onClose, onOpen}: params) {
             <Box flexDirection="row" w="100%">
               <Box w="50%">
                 <Text color="black" fontSize="16" bold textAlign="left">
-                  Sim
+                  {isPublicList}
                 </Text>
               </Box>
 
@@ -44,13 +47,25 @@ function ComponentActionSheet({isOpen, onClose, onOpen}: params) {
                   onThumbColor="indigo.500"
                   onTrackColor="indigo.300"
                   size="lg"
+                  isChecked={changeSwitch}
+                  onToggle={() => {
+                    if (changeSwitch === false) {
+                      setIsPublicList('Apenas eu');
+                      setChangeSwitch(true);
+                      return;
+                    }
+                    setIsPublicList('Todos');
+                    setChangeSwitch(false);
+                  }}
                 />
               </Box>
             </Box>
           </Actionsheet.Item>
           <Actionsheet.Item w="100%">
             <Box justifyContent="center" flexDirection="row">
-              <Button w="100%">Proseguir</Button>
+              <Button w="100%" backgroundColor="#312E81">
+                Prosseguir
+              </Button>
             </Box>
           </Actionsheet.Item>
         </Actionsheet.Content>
