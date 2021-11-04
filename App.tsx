@@ -7,6 +7,7 @@ import {NativeBaseProvider} from 'native-base';
 import PublicListScreen from './src/screen/publicListScreen';
 import MainMenu from '@components/MainMenu';
 import Routes from './src/routes';
+import LoginScreen from '@screen/LoginScreen';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -18,7 +19,10 @@ export const App = () => {
     <NativeBaseProvider initialWindowMetrics={inset}>
       <SafeAreaView />
       <StatusBar />
+      <LoginScreen />
+      {/*
       <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />
+      */}
       <SafeAreaView />
     </NativeBaseProvider>
   );
