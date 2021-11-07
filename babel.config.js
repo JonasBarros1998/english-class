@@ -5,20 +5,16 @@ module.exports = {
       'module-resolver',
       {
         root: ['.'],
-        extensions: [
-          '.ts',
-          '.jsx',
-          '.tsx',
-          '.js',
-          '.json',
-        ],
+        extensions: ['.ts', '.jsx', '.tsx', '.js', '.json'],
         alias: {
           '@lists': './src/lists',
           '@components': './src/components',
           '@database': './src/database',
           '@screen': './src/screen',
-        }
-      }
-    ]
-  ]
+          '@env': './env',
+          '@auth': './src/auth',
+        },
+      },
+    ],
+  ],
 };
