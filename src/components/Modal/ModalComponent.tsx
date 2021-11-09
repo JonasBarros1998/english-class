@@ -10,6 +10,7 @@ type param = {
 
 function ModalComponent({visible, /*setmodalClosed*/ size, content}: param) {
   const [modalClose, setModalClosed] = useState(visible);
+  /*
   useEffect(() => {
     if (modalClose === true) {
       setModalClosed(true);
@@ -17,7 +18,7 @@ function ModalComponent({visible, /*setmodalClosed*/ size, content}: param) {
       return;
     }
     setModalClosed(false);
-  }, [modalClose, visible]);
+  }, [modalClose, visible]);*/
 
   return (
     <Modal isOpen={modalClose} onClose={setModalClosed} size={size}>
