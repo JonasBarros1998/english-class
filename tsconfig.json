@@ -21,7 +21,9 @@
       "@database/*": ["./src/database/*"],
       "@screen/*": ["./src/screen/*"],
       "@env/*": ["./env/*"],
-      "@auth/*": ["./src/auth/*"]
+      "@auth/*": ["./src/auth/*"],
+      "@publisher/*": ["./src/publisher/*"],
+      "@pubsub/*": ["./src/pubsub/*"]
     }
   },
   "exclude": [
