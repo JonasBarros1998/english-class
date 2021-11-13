@@ -25,9 +25,9 @@
     "react-native-screens": "^3.7.2",
     "react-native-svg": "^12.1.1",
     "react-native-webview": "^11.14.2",
+    "react-redux": "^7.2.6",
     "styled-components": "^5.3.1",
-    "styled-system": "^5.1.5",
-    "use-pubsub-js": "^1.0.6"
+    "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -38,6 +38,7 @@
     "@testing-library/jest-native": "^4.0.2",
     "@testing-library/react-native": "^7.2.0",
     "@types/jest": "^26.0.23",
+    "@types/pubsub-js": "^1.8.3",
     "@types/react": "^17.0.24",
     "@types/react-native": "^0.65.0",
     "@types/react-test-renderer": "^17.0.1",
