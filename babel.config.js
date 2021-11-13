@@ -13,6 +13,8 @@ module.exports = {
           '@screen': './src/screen',
           '@env': './env',
           '@auth': './src/auth',
+          '@publisher': './src/publisher',
+          '@pubsub': './src/pubsub',
         },
       },
     ],
