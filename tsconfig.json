@@ -23,7 +23,8 @@
       "@env/*": ["./env/*"],
       "@auth/*": ["./src/auth/*"],
       "@publisher/*": ["./src/publisher/*"],
-      "@pubsub/*": ["./src/pubsub/*"]
+      "@pubsub/*": ["./src/pubsub/*"],
+      "@storage/*": ["./src/storage/*"]
     }
   },
   "exclude": [

@@ -15,6 +15,7 @@ module.exports = {
           '@auth': './src/auth',
           '@publisher': './src/publisher',
           '@pubsub': './src/pubsub',
+          '@storage': './src/storage',
         },
       },
     ],
