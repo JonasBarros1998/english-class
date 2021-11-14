@@ -7,7 +7,8 @@ import {NativeBaseProvider} from 'native-base';
 import PublicListScreen from './src/screen/publicListScreen';
 import MainMenu from '@components/MainMenu';
 import Routes from './src/routes';
-import LoginScreen from '@screen/LoginScreen';
+import store from './src/pubsub/store';
+import {Provider} from 'react-redux';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -16,15 +17,14 @@ const inset = {
 
 export const App = () => {
   return (
-    <NativeBaseProvider initialWindowMetrics={inset}>
-      <SafeAreaView />
-      <StatusBar />
-      <LoginScreen />
-      {/*
-      <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />
-      */}
-      <SafeAreaView />
-    </NativeBaseProvider>
+    <Provider store={store}>
+      <NativeBaseProvider initialWindowMetrics={inset}>
+        <SafeAreaView />
+        <StatusBar />
+        <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />
+        <SafeAreaView />
+      </NativeBaseProvider>
+    </Provider>
   );
 };
 export default App;
