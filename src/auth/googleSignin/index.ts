@@ -16,4 +16,8 @@ async function login() {
   return await GoogleSignin.signIn();
 }
 
-export {configureGoogleSignIn, login, GoogleSigninButton};
+async function logout() {
+  GoogleSignin.signOut();
+}
+
+export {configureGoogleSignIn, login, logout, GoogleSigninButton};
