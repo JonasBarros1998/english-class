@@ -3,13 +3,13 @@ import database, {firebase} from '@react-native-firebase/database';
 type connectionDatabase = {
   appId: string;
   projectId: string;
-  apiKey?:string;
-  databaseURL?:string;
+  apiKey?: string;
+  databaseURL?: string;
   storageBucket?: string;
-  messagingSenderId?:string;
-  clientId?:string;
-  androidClientId?:string;
-}
+  messagingSenderId?: string;
+  clientId?: string;
+  androidClientId?: string;
+};
 
 async function db(connectionDatabase?: connectionDatabase) {
   if (typeof connectionDatabase === 'undefined') {
