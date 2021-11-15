@@ -3,7 +3,8 @@ import {NativeBaseProvider} from 'native-base';
 
 import {render} from '@testing-library/react-native';
 
-import CreateLists from '@components/Forms/CreateLists';
+/*import CreateLists from '@components/Forms/CreateLists';*/
+import CreateLists from '../../../../src/components/Forms/CreateLists';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -20,3 +21,5 @@ test('should render one card with tree inputs', function () {
   const queryById = renderLists.getByTestId(new RegExp('card-[0-9]*', 'g'));
   expect(queryById.props.children).toHaveLength(3);
 });
+
+// @react-native-firebase/database
