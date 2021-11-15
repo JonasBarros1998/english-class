@@ -16,12 +16,13 @@ async function db(connectionDatabase?: connectionDatabase) {
     return Promise.resolve(database()); 
   }
 
-  return firebase.initializeApp(connectionDatabase)
-    .then(function(app) {
-      return app.database()
+  return firebase
+    .initializeApp(connectionDatabase)
+    .then(function (app) {
+      return app.database();
     })
-    .catch(function(erro){
-      return Promise.reject(new Error(erro))
+    .catch(function (erro) {
+      return Promise.reject(new Error(erro));
     });
 }
 
