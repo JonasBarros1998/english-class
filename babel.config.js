@@ -5,20 +5,24 @@ module.exports = {
       'module-resolver',
       {
         root: ['.'],
-        extensions: [
-          '.ts',
-          '.jsx',
-          '.tsx',
-          '.js',
-          '.json',
-        ],
+        extensions: ['.ts', '.jsx', '.tsx', '.js', '.json'],
         alias: {
           '@lists': './src/lists',
           '@components': './src/components',
           '@database': './src/database',
           '@screen': './src/screen',
-        }
-      }
-    ]
-  ]
+          '@env': './env',
+          '@auth': './src/auth',
+          '@publisher': './src/publisher',
+          '@pubsub': './src/pubsub',
+          '@storage': './src/storage',
+        },
+      },
+    ],
+  ],
+  env: {
+    testing: {
+      presets: [['@babel/preset-env', {targets: {node: 'current'}}]],
+    },
+  },
 };
