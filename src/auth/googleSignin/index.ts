@@ -4,7 +4,14 @@ import {
 } from '@react-native-google-signin/google-signin';
 import {WEB_CLIENT_ID} from '@env/env.json';
 
-async function configureGoogleSignIn() {
+async function configureGoogleSignIn(webClientId?: string) {
+  if (typeof webClientId !== 'undefined') {
+    GoogleSignin.configure({
+      webClientId: webClientId,
+      offlineAccess: false,
+    });
+  }
+
   GoogleSignin.configure({
     webClientId: WEB_CLIENT_ID,
     offlineAccess: false,
