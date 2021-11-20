@@ -3,18 +3,20 @@ import {Dispatch} from 'redux';
 import {onOff} from '@pubsub/onOffSlice';
 import {addUserInfoStorage} from './addUserInfoStorage';
 import {PLAY_SERVICES_NOT_AVAILABLE, SIGN_IN_CANCELLED} from '../constants';
+import {saveUserInfo} from './saveUserInfo';
 
 async function userSignin(dispatch: Dispatch) {
-  login()
+  const userData = await login()
     .then(async function (sucessLogin) {
       await addUserInfoStorage(JSON.stringify(sucessLogin));
+      return sucessLogin;
     })
     .catch(function (error: any) {
       if (error.message === PLAY_SERVICES_NOT_AVAILABLE) {
         dispatch(
           onOff({
             status: true,
-            message: 'play service indisponível',
+            message: 'google play service indisponível',
           }),
         );
         return;
@@ -27,6 +29,7 @@ async function userSignin(dispatch: Dispatch) {
             message: 'processo cancelado',
           }),
         );
+        return;
       }
 
       dispatch(
@@ -36,6 +39,10 @@ async function userSignin(dispatch: Dispatch) {
         }),
       );
     });
+
+  if (typeof userData !== 'undefined') {
+    await saveUserInfo(userData.user.id, userData);
+  }
 }
 
 export {userSignin};
