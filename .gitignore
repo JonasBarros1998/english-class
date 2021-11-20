@@ -64,3 +64,4 @@ android/app/debug.keystore
 android/app/src/debug/java/com/englishclass/ReactNativeFlipper.java
 android/app/_BUCK
 architecture.drawio
+annotations.md
