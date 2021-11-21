@@ -24,7 +24,11 @@ async function login() {
 }
 
 async function logout() {
-  GoogleSignin.signOut();
+  return GoogleSignin.signOut();
 }
 
-export {configureGoogleSignIn, login, logout, GoogleSigninButton};
+async function currentUser() {
+  return GoogleSignin.getCurrentUser();
+}
+
+export {configureGoogleSignIn, login, logout, GoogleSigninButton, currentUser};
