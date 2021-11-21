@@ -1,1 +1,1 @@
-export const USER_STORAGE = '@USER_STORAGE';
+export const USER_STORAGE = '@USER_ID';
