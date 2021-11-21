@@ -1,14 +1,19 @@
 import {login} from '@auth/googleSignin/index';
 import {Dispatch} from 'redux';
-import {onOff} from '@pubsub/onOffSlice';
-import {addUserInfoStorage} from './addUserInfoStorage';
+import {onOff, userInfo} from '@pubsub/slices';
+// import {addUserInfoStorage} from './addUserInfoStorage';
 import {PLAY_SERVICES_NOT_AVAILABLE, SIGN_IN_CANCELLED} from '../constants';
 import {saveUserInfo} from './saveUserInfo';
 
 async function userSignin(dispatch: Dispatch) {
   const userData = await login()
     .then(async function (sucessLogin) {
-      await addUserInfoStorage(JSON.stringify(sucessLogin));
+      dispatch(
+        userInfo({
+          name: sucessLogin.user.name,
+          id: sucessLogin.user.id,
+        }),
+      );
       return sucessLogin;
     })
     .catch(function (error: any) {
