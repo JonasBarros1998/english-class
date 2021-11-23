@@ -24,6 +24,7 @@ async function login() {
 }
 
 async function logout() {
+  await configureGoogleSignIn();
   return GoogleSignin.signOut();
 }
 

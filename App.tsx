@@ -1,8 +1,8 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import {SafeAreaView, StatusBar} from 'react-native';
 
-import {NativeBaseProvider} from 'native-base';
+import {Center, NativeBaseProvider, Text} from 'native-base';
 
 import {Provider, useSelector} from 'react-redux';
 
@@ -25,37 +25,41 @@ type selector = {
   };
 };
 
-function SelectMainPage() {
+function SelectMainPage(): JSX.Element {
   const [userLogged, setUserLogged] = useState(false);
+  const [loadComponent, setLoadComponent] = useState(true);
 
   useSelector((state: selector) => state.userInfo);
 
-  const setUserLoggedCallback = useCallback(function () {
-    // logout().then(() => console.log('deslogado'));
-
-    currentUser().then(user => {
-      if (user === null) {
-        setUserLogged(false);
-        return;
-      }
-      setUserLogged(true);
+  currentUser().then(function (userInfo) {
+    console.log('userInfo >>> ', userInfo);
+    if (userInfo === null) {
+      setUserLogged(false);
+      setLoadComponent(false);
       return;
-    });
-  }, []);
-
-  useEffect(() => {
-    setUserLoggedCallback();
+    }
+    setUserLogged(true);
+    setLoadComponent(false);
   });
 
-  return (
-    <>
-      {userLogged === true ? (
-        <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />
-      ) : (
-        <Login />
-      )}
-    </>
-  );
+  // logout().then(() => console.log('deslogado'));
+  console.log('>>>>>>>>>> Olá jonas como vai');
+
+  if (loadComponent === true) {
+    return (
+      <Center flex={1}>
+        <Text>Aguarde....</Text>
+      </Center>
+    );
+  }
+
+  if (userLogged === false) {
+    return <Login />;
+  }
+
+  if (userLogged === true) {
+    return <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />;
+  }
 }
 
 export const App = () => {
