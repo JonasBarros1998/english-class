@@ -71,7 +71,7 @@ function MainMenu(screens: param) {
           options={{
             headerShown: false,
           }}>
-          {() => <CreateLists />}
+          {() => null}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>

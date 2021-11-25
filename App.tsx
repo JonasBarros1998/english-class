@@ -32,7 +32,7 @@ function SelectMainPage(): JSX.Element {
   useSelector((state: selector) => state.userInfo);
 
   currentUser().then(function (userInfo) {
-    console.log('userInfo >>> ', userInfo);
+    // console.log('userInfo >>> ', userInfo);
     if (userInfo === null) {
       setUserLogged(false);
       setLoadComponent(false);
@@ -43,7 +43,7 @@ function SelectMainPage(): JSX.Element {
   });
 
   // logout().then(() => console.log('deslogado'));
-  console.log('>>>>>>>>>> Olá jonas como vai');
+  // console.log('>>>>>>>>>> Olá jonas como vai');
 
   if (loadComponent === true) {
     return (
