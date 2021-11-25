@@ -21,7 +21,7 @@ export function Card(card: params) {
   }
 
   return (
-    <Center alignItems="flex-start" testID="publicCard">
+    <Center alignItems="center" testID="publicCard">
       <Box
         bgColor="white"
         shadow={1}
@@ -56,12 +56,7 @@ export function Card(card: params) {
             criada por: {card.user.name}
           </Text>
 
-          <Avatar
-            size="sm"
-            source={{
-              uri: 'https://pbs.twimg.com/profile_images/1177303899243343872/B0sUJIH0_400x400.jpg',
-            }}
-          />
+          <Avatar size="sm" />
         </HStack>
       </Box>
     </Center>

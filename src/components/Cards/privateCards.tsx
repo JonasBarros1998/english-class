@@ -18,7 +18,7 @@ function PrivateCards(card: params) {
   }
 
   return (
-    <Center alignItems="flex-start" testID="publicCard">
+    <Center alignItems="center" testID="publicCard">
       <Box
         bgColor="white"
         shadow={1}

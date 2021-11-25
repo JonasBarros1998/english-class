@@ -7,7 +7,6 @@ import FavouriteList from '@lists/favouriteLists';
 import {changeComponents} from './useCase/changeComponents';
 
 function UserListScreen({route, navigation}: any) {
-  console.log(route.params.screen);
   const [attComponents, setAttComponents] = useState(
     changeComponents(route.params.screen),
   );
