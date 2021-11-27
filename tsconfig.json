@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "baseUrl": "./", 
     "paths": {
-      "@lists/*": ["./src/lists/*"],
+      "@lists/*": ["src/components/Lists/lists/*"],
       "@components/*": ["./src/components/*"],
       "@database/*": ["./src/database/*"],
       "@screen/*": ["./src/screen/*"],

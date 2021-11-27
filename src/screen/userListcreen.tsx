@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Box, Button, HStack, Text, View} from 'native-base';
 
-import PrivateLists from '@lists/privateLists';
-import FavouriteList from '@lists/favouriteLists';
+import PrivateLists from '@components/Lists/lists/privateLists';
+import FavouriteList from '@components/Lists/lists/favouriteLists';
 
 import {changeComponents} from './useCase/changeComponents';
 

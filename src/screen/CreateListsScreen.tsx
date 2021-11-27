@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {CreateLists} from '@components/Forms';
+import {CreateLists} from '@components/Lists';
 
 function CreateListsScreen() {
   return <CreateLists />;

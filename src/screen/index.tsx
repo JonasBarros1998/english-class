@@ -3,8 +3,8 @@ import {Pressable} from 'react-native';
 
 import {Box, HStack, Text, Center} from 'native-base';
 
-import OneCardPrivateList from '@lists/privateLists/oneCard';
-import OneCardFavouriteList from '@lists/favouriteLists/oneCard';
+import OneCardPrivateList from '@components/Lists/lists/privateLists/oneCard';
+import OneCardFavouriteList from '@components/Lists/lists/favouriteLists/oneCard';
 
 function MainPage({navigation}: any) {
   return (

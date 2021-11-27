@@ -1,10 +1,11 @@
 import React from 'react';
+
 import {FlatList} from 'react-native';
-import Card from '../../components/Cards';
 
 import {database} from './database';
+import Card from '../../../Cards';
 
-function PublicList() {
+function FavouriteList() {
   return (
     <FlatList
       data={database}
@@ -14,4 +15,4 @@ function PublicList() {
   );
 }
 
-export default PublicList;
+export default FavouriteList;
