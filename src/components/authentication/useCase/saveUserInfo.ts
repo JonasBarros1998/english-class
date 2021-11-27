@@ -1,4 +1,5 @@
 import {insert} from '@database/index';
+import {select} from '@database/index';
 
 type userInfo = {
   scopes?: string[];
@@ -14,13 +15,31 @@ type userInfo = {
   };
 };
 
-async function saveUserInfo(userId: string, userInfo: userInfo) {
-  if (typeof userId === 'undefined' && typeof userInfo === 'undefined') {
+async function saveUserInfo(userUid: string, userInfo: userInfo) {
+  if (typeof userUid === 'undefined' && typeof userInfo === 'undefined') {
     throw new TypeError(`The parameters userID and userInfo 
       not should the type undefined`);
   }
-  const url = `users/${userId}`;
-  await insert([userInfo], url);
+
+  const where = `users/${userUid}`;
+  const userData = await existUser(where);
+  if (userData === false) {
+    insert([userInfo], where);
+    return userData;
+  }
+}
+
+async function existUser(where: string) {
+  return select(where)
+    .then(function (userData) {
+      if (userData.toJSON() === null) {
+        return false;
+      }
+      return true;
+    })
+    .catch(function (error) {
+      throw new Error(error);
+    });
 }
 
 export {saveUserInfo};

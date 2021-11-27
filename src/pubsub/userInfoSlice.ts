@@ -5,11 +5,13 @@ export const userInfoSlice = createSlice({
   initialState: {
     userId: null,
     name: '',
+    uid: null,
   },
   reducers: {
     userInfo: (state, action) => {
       state.name = action.payload.name;
       state.userId = action.payload.id;
+      state.uid = action.payload.uid;
     },
   },
 });
