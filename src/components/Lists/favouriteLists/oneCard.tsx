@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {database} from './database';
-import Card from '../../../Cards';
+import Card from '../../Cards';
 
 function OneCardFavouriteList() {
   const [item] = database;
