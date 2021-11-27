@@ -32,7 +32,6 @@ function SelectMainPage(): JSX.Element {
   useSelector((state: selector) => state.userInfo);
 
   currentUser().then(function (userInfo) {
-    // console.log('userInfo >>> ', userInfo);
     if (userInfo === null) {
       setUserLogged(false);
       setLoadComponent(false);

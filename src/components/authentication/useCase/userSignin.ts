@@ -1,19 +1,29 @@
 import {login} from '@auth/googleSignin/index';
 import {Dispatch} from 'redux';
 import {onOff, userInfo} from '@pubsub/slices';
-// import {addUserInfoStorage} from './addUserInfoStorage';
+import {addUserInfoStorage} from './addUserInfoStorage';
 import {PLAY_SERVICES_NOT_AVAILABLE, SIGN_IN_CANCELLED} from '../constants';
 import {saveUserInfo} from './saveUserInfo';
+import auth from '@react-native-firebase/auth';
 
 async function userSignin(dispatch: Dispatch) {
-  const userData = await login()
+  login()
     .then(async function (sucessLogin) {
-      dispatch(
-        userInfo({
-          name: sucessLogin.user.name,
-          id: sucessLogin.user.id,
-        }),
-      );
+      if (sucessLogin.idToken !== null) {
+        const firebaseAuth = await toAutenticateFirebase(sucessLogin.idToken);
+
+        if (firebaseAuth !== null) {
+          const userDatas = {
+            name: sucessLogin.user.name,
+            id: sucessLogin.user.id,
+            uid: firebaseAuth.uid,
+            email: sucessLogin.user.email,
+          };
+          dispatch(userInfo(userDatas));
+          addUserInfoStorage(JSON.stringify(userDatas));
+          saveUserInfo(firebaseAuth.uid, sucessLogin);
+        }
+      }
       return sucessLogin;
     })
     .catch(function (error: any) {
@@ -43,11 +53,25 @@ async function userSignin(dispatch: Dispatch) {
           message: 'Um erro ocorreu, tente novamente mais tarde',
         }),
       );
+      return;
     });
+}
 
-  if (typeof userData !== 'undefined') {
-    await saveUserInfo(userData.user.id, userData);
-  }
+async function toAutenticateFirebase(
+  tokenId: string,
+): Promise<{uid: string} | null> {
+  return new Promise(async (resolve, reject) => {
+    const googleCredential = auth.GoogleAuthProvider.credential(tokenId);
+    await auth().signInWithCredential(googleCredential);
+    auth().onAuthStateChanged(user => {
+      if (user !== null) {
+        resolve({uid: user.uid});
+        return;
+      }
+      resolve(null);
+      return;
+    });
+  });
 }
 
 export {userSignin};

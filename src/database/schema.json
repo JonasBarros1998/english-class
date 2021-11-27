@@ -1,0 +1,34 @@
+{
+  "publicList": [{}, {}],
+  "privateList": {
+    "UID_123": {},
+    "UID_321": {}
+  },
+  "users": {
+    "UID_123": {
+      "ID_FIREBASE": {
+        "idToken": 123456789,
+        "user": {
+          "email": "",
+          "familyName": "",
+          "givenName": "",
+          "id": "",
+          "name": "",
+          "photo": "" 
+        } 
+      }
+    },
+    "UID_321": {
+      "ID_FIREBASE": {
+        "user": {
+          "email": "",
+          "familyName": "",
+          "givenName": "",
+          "id": "",
+          "name": "",
+          "photo": "" 
+        }
+      }
+    }
+  }
+}

@@ -27,6 +27,7 @@ import {insert} from '@database/index';
 import AlertPopover from './AlertDialog';
 import {validListTitle} from './validListTitle';
 import {WIDTH_SCREEN as widthScreen} from './Constants';
+import {saveUserList} from '@services/saveLists/save';
 
 type cardItem = {
   id: number;
@@ -205,7 +206,8 @@ function CreateLists() {
     if (changeSwitch) {
       await insert(submit, '/publicList/');
     } else {
-      await insert(submit, '/123456789/lists');
+      saveUserList(submit);
+      // await insert(submit, '/123456789/lists');
     }
     setPlaceholder('TITULO DA LISTA');
     clearList();
