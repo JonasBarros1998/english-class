@@ -25,8 +25,8 @@ import {
 } from './cards';
 import {insert} from '@database/index';
 import AlertPopover from './AlertDialog';
-import {validListTitle} from './validListTitle';
-import {WIDTH_SCREEN as widthScreen} from './Constants';
+import {validListTitle} from '../Save/validListTitle';
+import {WIDTH_SCREEN as widthScreen} from './constants';
 import {saveUserList} from '@services/saveLists/save';
 
 type cardItem = {

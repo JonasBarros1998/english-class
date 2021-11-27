@@ -1,7 +1,7 @@
 import React from 'react';
 import {Animated, PanResponder, StyleSheet} from 'react-native';
 import {Center} from 'native-base';
-import {WIDTH_SCREEN as widthScreen} from './Constants';
+import {WIDTH_SCREEN as widthScreen} from './constants';
 
 const styles = StyleSheet.create({
   ball: {

@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import IconHome from '../Svgs/Home';
 import IconList from '../Svgs/IconList';
 import IconUser from '../Svgs/IconUser';
-import {CreateLists} from '@components/Lists';
+import {CreateLists} from '@components/Save/index';
 import IconPlus from '../Svgs/IconPlus';
 const Tab = createBottomTabNavigator();
 
