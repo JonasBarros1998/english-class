@@ -1,6 +1,6 @@
 import React from 'react';
 import {fireEvent, render} from '@testing-library/react-native';
-import ListDetails from '@lists/listDetails';
+import ListDetails from '@components/Lists/listDetails';
 import {NativeBaseProvider} from 'native-base';
 import {ReactTestInstance} from 'react-test-renderer';
 

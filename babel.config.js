@@ -17,6 +17,7 @@ module.exports = {
           '@pubsub': './src/pubsub',
           '@storage': './src/storage',
           '@services': './src/services',
+          '@global': './src/global',
         },
       },
     ],

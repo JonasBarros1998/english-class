@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Text} from 'native-base';
 
-import PublicLists from '@lists/publicLists';
+import PublicLists from '@components/Lists/publicLists';
 
 function PublicListScreen({navigation}: any) {
   return (

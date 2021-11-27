@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "baseUrl": "./", 
     "paths": {
-      "@lists/*": ["./src/lists/*"],
+      "@lists/*": ["src/components/Lists/lists/*"],
       "@components/*": ["./src/components/*"],
       "@database/*": ["./src/database/*"],
       "@screen/*": ["./src/screen/*"],
@@ -25,7 +25,8 @@
       "@publisher/*": ["./src/publisher/*"],
       "@pubsub/*": ["./src/pubsub/*"],
       "@storage/*": ["./src/storage/*"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@global/*": ["./src/global/*"]
     }
   },
   "exclude": [

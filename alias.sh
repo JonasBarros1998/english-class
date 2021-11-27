@@ -11,7 +11,7 @@ rm -rf ios/build android/app/build
 #limpeza de cache
 watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache verify && yarn install
 
-yarn start
+yarn start --reset-cache
 
 echo ''
 echo ''

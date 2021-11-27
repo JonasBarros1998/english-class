@@ -4,7 +4,7 @@ import {NativeBaseProvider} from 'native-base';
 import {render} from '@testing-library/react-native';
 
 /*import CreateLists from '@components/Forms/CreateLists';*/
-import CreateLists from '../../../../src/components/Forms/CreateLists';
+import CreateLists from '../../../../src/components/Lists/CreateLists';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},

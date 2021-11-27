@@ -1,6 +1,6 @@
 import {addNewCardEmpty, 
   getListCards, 
-  updateForm} from '@components/Forms/cards'; 
+  updateForm} from '@components/Lists/cards'; 
 
 test('should add new card', function() {
   addNewCardEmpty();

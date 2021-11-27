@@ -3,7 +3,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 
 import {database} from './database';
-import Card from '../../components/Cards';
+import Card from '../../Cards';
 
 function FavouriteList() {
   return (

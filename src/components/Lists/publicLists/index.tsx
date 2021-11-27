@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import Card from '../../components/Cards';
+import Card from '../../Cards';
 
 import {database} from './database';
 
