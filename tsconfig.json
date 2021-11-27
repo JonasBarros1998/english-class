@@ -25,7 +25,8 @@
       "@publisher/*": ["./src/publisher/*"],
       "@pubsub/*": ["./src/pubsub/*"],
       "@storage/*": ["./src/storage/*"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@global/*": ["./src/global/*"]
     }
   },
   "exclude": [
