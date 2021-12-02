@@ -1,5 +1,5 @@
 import React from 'react';
-import UserListScreen from '@screen/userListcreen';
+import PrivateListScreen from '@screen/PrivateListScreen';
 import MainPage from '@screen/index';
 import ListDetailsScreen from '@screen/ListDetailsScreen';
 
@@ -29,7 +29,7 @@ function Routes() {
         options={{
           headerShown: false,
         }}>
-        {props => <UserListScreen {...props} />}
+        {props => <PrivateListScreen {...props} />}
       </Stack.Screen>
 
       <Stack.Screen
