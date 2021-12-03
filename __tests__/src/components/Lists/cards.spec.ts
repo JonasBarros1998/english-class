@@ -1,11 +1,13 @@
-import {addNewCardEmpty, 
-  getListCards, 
-  updateForm} from '@components/Lists/cards'; 
+import {
+  addNewCardEmpty,
+  getListCards,
+  updateForm,
+} from '@components/Save/useCase/index';
 
-test('should add new card', function() {
+test('should add new card', function () {
   addNewCardEmpty();
 
-  getListCards().map(function(item) {
+  getListCards().map(function (item) {
     expect(item).toEqual(
       expect.objectContaining({
         id: expect.any(Number),
@@ -17,7 +19,7 @@ test('should add new card', function() {
   });
 });
 
-test('should return a card', function() {
+test('should return a card', function () {
   const [card] = getListCards();
   expect(card).toEqual(
     expect.objectContaining({
@@ -29,16 +31,16 @@ test('should return a card', function() {
   );
 });
 
-test('should edit a card', function() {
+test('should edit a card', function () {
   const [getCard] = getListCards();
 
   updateForm('editing text', getCard, 'word');
   expect(getCard).toEqual(
     expect.objectContaining({
-    id: expect.any(Number),
-    word: 'editing text',
-    translation: expect.any(String),
-    context: expect.any(String),
-  }),
+      id: expect.any(Number),
+      word: 'editing text',
+      translation: expect.any(String),
+      context: expect.any(String),
+    }),
   );
 });

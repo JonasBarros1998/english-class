@@ -15,7 +15,7 @@ async function createStorage() {
 test('should return user info stored the storage mobile', async function () {
   await createStorage();
   const storage = await storageGetItem(nameStorage);
-  expect(storage).toEqual(JSON.stringify(userInfo));
+  expect(storage).toEqual(userInfo);
 });
 
 test('should return a error, if send a invalid parameter', async function name() {

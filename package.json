@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest __tests__/src/auth/googleSignin/index.ts",
+    "test": "jest __tests__/src/lists/listDetails/index.spec.tsx",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
