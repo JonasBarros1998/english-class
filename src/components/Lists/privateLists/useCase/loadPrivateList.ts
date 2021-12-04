@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import {select} from '@database/repository/search';
+import {selectWithLimit} from '@database/repository/search';
 import {storageGetItem} from '@storage/index';
 import {USER_STORAGE} from '@global/constants';
 import {userList} from '@global/types/userList';
@@ -15,7 +14,7 @@ async function loadPrivateList(userId?: string) {
     where = `privateList/${loadUserDataInLocalstorage.uid}`;
   }
 
-  await select(where)
+  await selectWithLimit(where, 10)
     .then(response => {
       response.forEach(list => {
         const dados = list.toJSON();
@@ -33,7 +32,7 @@ async function loadPrivateList(userId?: string) {
       });
     })
     .catch(function (erro) {
-      return Promise.reject(new Error(erro));
+      return Promise.reject(new Error(erro.message));
     });
 
   return datasList;
