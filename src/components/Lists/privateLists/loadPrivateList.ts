@@ -1,13 +1,21 @@
+/* eslint-disable prettier/prettier */
 import {select} from '@database/repository/search';
 import {storageGetItem} from '@storage/index';
 import {USER_STORAGE} from '@global/constants';
 import {userList} from '@global/types/userList';
 import {userInfo} from '@global/types/userInfo';
 
-async function loadPrivateList() {
+async function loadPrivateList(userId?: string) {
+  let where = '';
   const datasList: userList[] = [];
-  const dataOfTheUser = await loadUserId();
-  await select(`privateList/${dataOfTheUser.uid}`)
+  if (typeof userId !== 'undefined') {
+    where = `privateList/${userId}`;
+  } else {
+    const loadUserDataInLocalstorage = await loadUserId();
+    where = `privateList/${loadUserDataInLocalstorage.uid}`;
+  }
+
+  await select(where)
     .then(response => {
       response.forEach(list => {
         const dados = list.toJSON();
