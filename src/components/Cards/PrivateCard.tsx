@@ -4,7 +4,7 @@ import React from 'react';
 import {Box, Center, Text} from 'native-base';
 import {userList} from '@global/types/userList';
 
-function PrivateCards(card: userList) {
+function PrivateCard(card: userList) {
   function changeText(quantity: number) {
     if (quantity > 1) {
       return 'palavras';
@@ -40,4 +40,4 @@ function PrivateCards(card: userList) {
   );
 }
 
-export default PrivateCards;
+export default PrivateCard;
