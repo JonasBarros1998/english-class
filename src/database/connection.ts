@@ -13,7 +13,7 @@ type connectionDatabase = {
 
 async function db(connectionDatabase?: connectionDatabase) {
   if (typeof connectionDatabase === 'undefined') {
-    return Promise.resolve(database()); 
+    return Promise.resolve(database());
   }
 
   return firebase
