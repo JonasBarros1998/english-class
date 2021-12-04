@@ -2,16 +2,11 @@
 import React from 'react';
 
 import {Box, Center, Text} from 'native-base';
+import {userList} from '@global/types/userList';
 
-type params = {
-  name: string;
-  quantityWords: string;
-  idioma: string;
-};
-
-function PrivateCards(card: params) {
-  function changeText(quantity: string) {
-    if (parseInt(quantity) > 1) {
+function PrivateCards(card: userList) {
+  function changeText(quantity: number) {
+    if (quantity > 1) {
       return 'palavras';
     }
     return 'palavra';
@@ -29,7 +24,7 @@ function PrivateCards(card: params) {
         mb={2}
         p={2}>
         <Text fontFamily="body" fontWeight={600} fontSize={19} pb={1} bold>
-          {card.name}
+          {card.listTitle}
         </Text>
 
         <Text
@@ -38,11 +33,7 @@ function PrivateCards(card: params) {
           fontSize={17}
           pb={1}
           testID="quantityWords">
-          {card.quantityWords} {changeText(card.quantityWords)}
-        </Text>
-
-        <Text fontFamily="body" fontWeight={600} fontSize={17}>
-          {card.idioma}
+          {card.quantity} {changeText(card.quantity)}
         </Text>
       </Box>
     </Center>

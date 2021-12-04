@@ -6,9 +6,16 @@ import {render} from '@testing-library/react-native';
 import PrivateCards from '@components/Cards/privateCards';
 
 const database = {
-  name: 'my house',
-  quantityWords: '9',
-  idioma: 'inglês',
+  quantity: 12,
+  listTitle: 'my list',
+  cards: [
+    {
+      id: 123,
+      word: 'home',
+      translation: 'casa',
+      context: 'my home',
+    },
+  ],
 };
 
 const inset = {
@@ -25,11 +32,11 @@ it('should return palavras if total quantity bigger 1', function () {
 
   const queryById = queryByTestId('quantityWords');
   const totalWoord = queryById?.props.children.join('');
-  expect(totalWoord).toEqual('9 palavras');
+  expect(totalWoord).toEqual('12 palavras');
 });
 
 it('should returned ', function () {
-  database.quantityWords = '1';
+  database.quantity = 1;
 
   const {queryByTestId} = render(
     <NativeBaseProvider initialWindowMetrics={inset}>

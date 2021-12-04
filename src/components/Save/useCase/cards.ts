@@ -1,11 +1,4 @@
-type card = {
-  id: number;
-  word: string;
-  translation: string;
-  context: string;
-};
-
-type inputType = 'word' | 'translation' | 'context';
+import {createCard, inputName} from '@global/types/cards';
 
 const initialCard = {
   id: Math.floor(Math.random() * 10000),
@@ -14,7 +7,7 @@ const initialCard = {
   context: '',
 };
 
-let listAllCards: Array<card> = [initialCard];
+let listAllCards: Array<createCard> = [initialCard];
 
 function addNewCardEmpty() {
   listAllCards.push({
@@ -25,7 +18,7 @@ function addNewCardEmpty() {
   });
 }
 
-function updateForm(input: string, card: card, inputType: inputType) {
+function updateForm(input: string, card: createCard, inputType: inputName) {
   card[inputType] = input;
 
   listAllCards.filter((item, index) => {
@@ -44,7 +37,7 @@ function clearList() {
   addNewCardEmpty();
 }
 
-function deleteItem(card: card) {
+function deleteItem(card: createCard) {
   listAllCards.some(function (currentValue, index) {
     if (currentValue.id === card.id) {
       listAllCards.splice(index, 1);

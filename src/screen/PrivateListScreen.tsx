@@ -1,19 +1,19 @@
 import React, {useState} from 'react';
 import {Box, Button, HStack, Text, View} from 'native-base';
 
-import PrivateLists from '@components/Lists/privateLists';
+import PrivateList from '@components/Lists/privateLists/PrivateList';
 import FavouriteList from '@components/Lists/favouriteLists';
 
 import {changeComponents} from './useCase/changeComponents';
 
-function UserListScreen({route, navigation}: any) {
+function PrivateListScreen({route, navigation}: any) {
   const [attComponents, setAttComponents] = useState(
     changeComponents(route.params.screen),
   );
 
   function loadComponentList() {
     if (attComponents.component.loadComponentPrivateList === true) {
-      return <PrivateLists navigation={navigation} />;
+      return <PrivateList navigation={navigation} />;
     }
 
     return <FavouriteList />;
@@ -53,4 +53,4 @@ function UserListScreen({route, navigation}: any) {
   );
 }
 
-export default UserListScreen;
+export default PrivateListScreen;

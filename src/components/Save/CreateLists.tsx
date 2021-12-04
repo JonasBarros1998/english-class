@@ -22,19 +22,13 @@ import {
   getListCards,
   clearList,
   deleteItem,
-} from './cards';
-import {insert} from '@database/index';
+} from './useCase/cards';
 import AlertPopover from './AlertDialog';
 import {validListTitle} from '../Save/validListTitle';
 import {WIDTH_SCREEN as widthScreen} from './constants';
 import {saveUserList} from './useCase/saveUserList';
-
-type cardItem = {
-  id: number;
-  word: string;
-  translation: string;
-  context: string;
-};
+import {managerPropertiesInUserList} from './useCase/addNewProperties';
+import {createCard} from '@global/types/cards';
 
 type typeInput = 'word' | 'translation' | 'context';
 
@@ -43,7 +37,7 @@ function Form({cardItem, setForms}: any) {
   const [translation, setTranslation] = useState('');
   const [context, setContext] = useState('');
 
-  function changeInput(input: string, item: cardItem, inputType: typeInput) {
+  function changeInput(input: string, item: createCard, inputType: typeInput) {
     updateForm(input, item, inputType);
   }
 
@@ -196,14 +190,9 @@ function CreateLists() {
   }
 
   async function submitForm() {
-    const submit = [
-      {
-        title: titleList,
-        cards: getListCards(),
-      },
-    ];
+    const datas = managerPropertiesInUserList(getListCards(), titleList);
 
-    saveUserList(changeSwitch, submit);
+    saveUserList(changeSwitch, datas);
 
     setPlaceholder('TITULO DA LISTA');
     clearList();
