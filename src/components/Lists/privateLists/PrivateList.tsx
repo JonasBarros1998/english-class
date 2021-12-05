@@ -32,7 +32,7 @@ function PrivateList({navigation}: any) {
           </Pressable>
         );
       }}
-      keyExtractor={({id}) => String(id)}
+      keyExtractor={({id}, key) => String(key)}
     />
   );
 }

@@ -14,7 +14,7 @@ async function loadPrivateList(userId?: string) {
 
   const checkUserList = await checkUserListOffline();
 
-  if (checkUserList === true) {
+  if (checkUserList === false) {
     await selectWithLimit(queryString, 10)
       .then(response => {
         response.forEach(list => {
@@ -27,7 +27,6 @@ async function loadPrivateList(userId?: string) {
               cards: datasUserList.cards,
               quantity: datasUserList.quantity,
             });
-            console.log(datasList, response.key);
           }
         });
       })
@@ -37,8 +36,7 @@ async function loadPrivateList(userId?: string) {
     addUserListInStorage(datasList);
     return datasList;
   }
-  console.log(await loadUserListOffline());
-  // return await loadUserListOffline();
+  return await loadUserListOffline();
 }
 
 async function loadUserId(): Promise<userInfo> {
