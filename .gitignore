@@ -66,3 +66,4 @@ android/app/_BUCK
 architecture.drawio
 annotations.md
 test.json
+env/env-test.json

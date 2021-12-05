@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 
 import {FlatList, Pressable} from 'react-native';
 
-import PrivateCards from '@components/Cards/privateCards';
-import {loadPrivateList} from './loadPrivateList';
+import PrivateCards from '@components/Cards/PrivateCard';
+import {loadPrivateList} from './useCase/loadPrivateList';
 
 function PrivateList({navigation}: any) {
   const [privateLists, setPrivateLists] = useState([]) as any[];
@@ -20,7 +20,6 @@ function PrivateList({navigation}: any) {
     <FlatList
       data={privateLists}
       renderItem={({item}) => {
-        console.log(item);
         return (
           <Pressable
             onPress={() => {

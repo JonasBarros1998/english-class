@@ -1,5 +1,5 @@
-import {insert} from '@database/index';
-import {select} from '@database/index';
+import {insert} from '@database/repository/insert';
+import {select} from '@database/repository/search';
 
 type userInfo = {
   scopes?: string[];

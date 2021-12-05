@@ -10,4 +10,14 @@ async function select(where: string) {
     });
 }
 
-export {select};
+async function selectWithLimit(where: string, limit: number) {
+  return database()
+    .then(async function (connection) {
+      return connection.ref(where).limitToFirst(limit).once('value');
+    })
+    .catch(function (error) {
+      return Promise.reject(new Error(error.message));
+    });
+}
+
+export {select, selectWithLimit};
