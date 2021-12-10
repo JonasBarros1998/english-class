@@ -33,7 +33,7 @@ function PrivateCard(card: userList) {
           fontSize={17}
           pb={1}
           testID="quantityWords">
-          {card.quantity} {changeText(card.quantity)}
+          {card.quantity} {changeText(card.quantity as number)}
         </Text>
       </Box>
     </Center>
