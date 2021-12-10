@@ -1,6 +1,7 @@
-import React, {useEffect, useCallback, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Text, Center} from 'native-base';
+import {useDispatch} from 'react-redux';
 
 import PrivateCard from '@components/Cards/PrivateCard';
 import {loadPrivateList} from './useCase/loadPrivateList';
@@ -8,15 +9,19 @@ import {userList} from '@global/types/userList';
 
 function LoadOneCardPrivateList() {
   const [itemUserList, setItemsUserList] = useState<userList>();
+  const dispatch = useDispatch();
 
-  const dataUserList = useCallback(async () => {
-    const [datas] = await loadPrivateList();
-    return setItemsUserList(datas);
-  }, []);
-
-  useEffect(() => {
-    dataUserList();
-  });
+  useEffect(
+    function () {
+      loadPrivateList({
+        dispatch,
+      }).then(function (datas) {
+        const [loadOneItem] = datas;
+        setItemsUserList(loadOneItem);
+      });
+    },
+    [dispatch],
+  );
 
   return typeof itemUserList === 'undefined' ? (
     <Center marginBottom="10px" marginTop="10px">

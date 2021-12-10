@@ -4,18 +4,25 @@ import {FlatList, Pressable} from 'react-native';
 
 import PrivateCards from '@components/Cards/PrivateCard';
 import {loadPrivateList} from './useCase/loadPrivateList';
+import {useDispatch} from 'react-redux';
 
 function PrivateList({navigation}: any) {
   const [privateLists, setPrivateLists] = useState([]) as any[];
-  useEffect(function () {
-    loadPrivateList()
-      .then(function (response) {
-        setPrivateLists([...response]);
+  const dispatch = useDispatch();
+  useEffect(
+    function () {
+      loadPrivateList({
+        dispatch,
       })
-      .catch(function () {
-        setPrivateLists([]);
-      });
-  }, []);
+        .then(function (response) {
+          setPrivateLists([...response]);
+        })
+        .catch(function () {
+          setPrivateLists([]);
+        });
+    },
+    [dispatch],
+  );
   return (
     <FlatList
       data={privateLists}
