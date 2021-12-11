@@ -1,4 +1,4 @@
 import {onOff} from './onOffSlice';
-import {userInfo} from './userInfoSlice';
+import {loggedUser} from './loggedUser';
 
-export {onOff, userInfo};
+export {onOff, loggedUser};

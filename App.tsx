@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-
 import {SafeAreaView, StatusBar} from 'react-native';
 
 import {Center, NativeBaseProvider, Text} from 'native-base';
@@ -11,7 +10,7 @@ import MainMenu from '@components/MainMenu';
 import Routes from './src/routes';
 import store from './src/pubsub/store';
 import Login from '@components/authentication/Login';
-import {currentUser, logout} from '@auth/googleSignin/index';
+import {currentUser} from '@auth/googleSignin/index';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -19,9 +18,8 @@ const inset = {
 };
 
 type selector = {
-  userInfo: {
-    name: string;
-    userId: number;
+  loggedUser: {
+    status: boolean;
   };
 };
 
@@ -29,7 +27,7 @@ function SelectMainPage(): JSX.Element {
   const [userLogged, setUserLogged] = useState(false);
   const [loadComponent, setLoadComponent] = useState(true);
 
-  useSelector((state: selector) => state.userInfo);
+  useSelector((state: selector) => state.loggedUser);
 
   currentUser().then(function (userInfo) {
     if (userInfo === null) {
@@ -40,9 +38,6 @@ function SelectMainPage(): JSX.Element {
     setUserLogged(true);
     setLoadComponent(false);
   });
-
-  // logout().then(() => console.log('deslogado'));
-  // console.log('>>>>>>>>>> Olá jonas como vai');
 
   if (loadComponent === true) {
     return (
@@ -55,7 +50,6 @@ function SelectMainPage(): JSX.Element {
   if (userLogged === false) {
     return <Login />;
   }
-
   if (userLogged === true) {
     return <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />;
   }
