@@ -3,4 +3,5 @@ export type userInfo = {
   id: number;
   uid: string;
   email: string;
+  photoUrl: string;
 };

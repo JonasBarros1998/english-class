@@ -28,6 +28,10 @@ async function loadPrivateList(params: param) {
             listTitle: datasUserList.listTitle,
             cards: datasUserList.cards,
             quantity: datasUserList.quantity,
+            user: {
+              userName: datasUserList.user.userName,
+              photoUrl: datasUserList.user.photoUrl,
+            },
           });
         }
       });
@@ -66,13 +70,10 @@ async function where(userId?: string) {
   if (typeof userId !== 'undefined') {
     return `privateList/${userId}`;
   } else {
+    console.log('carregou o where');
     const loadUserDataInLocalstorage = await loadUserId();
     return `privateList/${loadUserDataInLocalstorage.uid}`;
   }
 }
-/*
-function addUserListInState(dispatch: Dispatch, datasUserList: typeUserList[]) {
-  dispatch(userList(datasUserList));
-}*/
 
 export {loadPrivateList};

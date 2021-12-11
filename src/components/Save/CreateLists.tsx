@@ -190,7 +190,7 @@ function CreateLists() {
   }
 
   async function submitForm() {
-    const datas = managerPropertiesInUserList(getListCards(), titleList);
+    const datas = await managerPropertiesInUserList(getListCards(), titleList);
 
     saveUserList(changeSwitch, datas);
 

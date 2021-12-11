@@ -5,4 +5,8 @@ export type userList = {
   cards: createCard[];
   listTitle: string;
   quantity: number;
+  user: {
+    userName: string;
+    photoUrl: string;
+  };
 };

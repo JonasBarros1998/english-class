@@ -1,20 +1,9 @@
-/* eslint-disable radix */
 import React from 'react';
 import {Center, Box, Text, HStack, Avatar} from 'native-base';
 
-type params = {
-  name: string;
-  quantityWords: string;
-  idioma: string;
-  user: {
-    name: string;
-    photo: string;
-  };
-};
-
-export function Card(card: params) {
-  function changeText(quantity: string) {
-    if (parseInt(quantity) > 1) {
+export function Card(card: any) {
+  function changeText(quantity: number) {
+    if (quantity > 1) {
       return 'palavras';
     }
     return 'palavra';
@@ -32,7 +21,7 @@ export function Card(card: params) {
         mb={2}
         p={2}>
         <Text fontFamily="body" fontWeight={600} fontSize={19} pb={1} bold>
-          {card.name}
+          {card.listTitle}
         </Text>
 
         <Text
@@ -41,11 +30,7 @@ export function Card(card: params) {
           fontSize={17}
           pb={1}
           testID="quantityWords">
-          {card.quantityWords} {changeText(card.quantityWords)}
-        </Text>
-
-        <Text fontFamily="body" fontWeight={600} fontSize={17}>
-          {card.idioma}
+          {card.quantity} {changeText(card.quantity)}
         </Text>
 
         <HStack
@@ -53,10 +38,15 @@ export function Card(card: params) {
           alignItems="flex-end"
           justifyContent="space-between">
           <Text fontFamily="body" fontWeight={600} fontSize={17}>
-            criada por: {card.user.name}
+            criada por: {card.user.userName}
           </Text>
 
-          <Avatar size="sm" />
+          <Avatar
+            size="sm"
+            source={{
+              uri: card.user.photoUrl,
+            }}
+          />
         </HStack>
       </Box>
     </Center>
