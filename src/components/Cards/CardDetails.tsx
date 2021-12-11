@@ -31,7 +31,6 @@ type cardItemParam = {
 async function loadUserList(cardItemId: string): Promise<cards> {
   return select(`123456789/lists/${cardItemId}`)
     .then(function (response) {
-      console.log('loadUserList >>>', response.toJSON());
       return response.toJSON() as cards;
     })
     .catch(function (error) {

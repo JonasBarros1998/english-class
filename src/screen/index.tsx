@@ -4,7 +4,7 @@ import {Pressable} from 'react-native';
 import {Box, HStack, Text, Center} from 'native-base';
 
 import OneCardPrivateList from '@components/Lists/privateLists/LoadOneCardPrivateList';
-import OneCardFavouriteList from '@components/Lists/favouriteLists/oneCard';
+// import OneCardFavouriteList from '@components/Lists/favouriteLists/oneCard';
 
 function MainPage({navigation}: any) {
   return (
@@ -40,7 +40,7 @@ function MainPage({navigation}: any) {
             </Pressable>
           </HStack>
         </Center>
-        <OneCardFavouriteList />
+        {/*<OneCardFavouriteList />*/}
       </Box>
     </Box>
   );

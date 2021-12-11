@@ -10,7 +10,6 @@ type paramsListDetails = {
 };
 
 function ListDetails({word, translation, phrase}: paramsListDetails) {
-  // bgCard = backgroud color card
   const [bgCard, setBgCard] = useState('white');
 
   const [userPhrase, setUserPhrase] = useState(phrase);
