@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {userList} from '@global/types/userList';
 
 export const lists = createSlice({
   name: 'lists',
