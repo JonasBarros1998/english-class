@@ -1,7 +1,8 @@
 import React from 'react';
 import {Center, Box, Text, HStack, Avatar} from 'native-base';
+import {userList} from '@global/types/userList';
 
-export function Card(card: any) {
+export function Card(card: userList) {
   function changeText(quantity: number) {
     if (quantity > 1) {
       return 'palavras';
