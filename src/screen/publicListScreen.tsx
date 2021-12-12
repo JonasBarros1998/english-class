@@ -26,13 +26,4 @@ function PublicListScreen({navigation}: any) {
   );
 }
 
-/**
- * bg="#312E81"
-        display="flex"
-        width="100%"
-        direction="row"
-        paddingTop={2}
-        paddingBottom={2}
-        justifyContent="space-between"
- */
 export default PublicListScreen;
