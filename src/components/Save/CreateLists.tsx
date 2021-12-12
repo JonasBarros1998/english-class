@@ -166,7 +166,7 @@ function CreateLists() {
   const [titleList, setTitleList] = useState('');
   const [visible, setVisible] = useState(false);
   const {isOpen, onClose, onOpen} = useDisclose();
-  const [changeSwitch, setChangeSwitch] = useState(false);
+  const [changeSwitch, setChangeSwitch] = useState(true);
   const [isPublicList, setIsPublicList] = useState('Apenas eu');
 
   const dispatch = useDispatch();
@@ -193,20 +193,25 @@ function CreateLists() {
     onOpen();
   }
 
-  async function submitForm() {
-    const datas = await managerPropertiesInUserList(getListCards(), titleList);
-
-    await saveUserList(changeSwitch, datas);
-
-    if (changeSwitch === true) {
-      dispatch(publicLists(datas));
-    }
-
+  function clearComponent() {
     setPlaceholder('TITULO DA LISTA');
     clearList();
     setForms([...getListCards()]);
     setTitleList('');
+    setChangeSwitch(true);
+    setIsPublicList('Apenas eu');
     onClose();
+  }
+
+  async function submitForm() {
+    const datas = await managerPropertiesInUserList(getListCards(), titleList);
+
+    await saveUserList(changeSwitch, datas);
+    if (changeSwitch === false) {
+      dispatch(publicLists(datas));
+    }
+
+    clearComponent();
   }
 
   return (
@@ -305,13 +310,12 @@ function CreateLists() {
                   size="lg"
                   isChecked={changeSwitch}
                   onToggle={() => {
-                    if (changeSwitch === false) {
+                    setChangeSwitch(!changeSwitch);
+                    if (isPublicList === 'Apenas eu') {
+                      setIsPublicList('Todos');
+                    } else {
                       setIsPublicList('Apenas eu');
-                      setChangeSwitch(true);
-                      return;
                     }
-                    setIsPublicList('Todos');
-                    setChangeSwitch(false);
                   }}
                 />
               </Box>
