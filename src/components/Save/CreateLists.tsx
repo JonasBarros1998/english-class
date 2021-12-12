@@ -29,6 +29,8 @@ import {WIDTH_SCREEN as widthScreen} from './constants';
 import {saveUserList} from './useCase/saveUserList';
 import {managerPropertiesInUserList} from './useCase/addNewProperties';
 import {createCard} from '@global/types/cards';
+import {useDispatch} from 'react-redux';
+import {publicLists} from '@pubsub/lists';
 
 type typeInput = 'word' | 'translation' | 'context';
 
@@ -167,6 +169,8 @@ function CreateLists() {
   const [changeSwitch, setChangeSwitch] = useState(false);
   const [isPublicList, setIsPublicList] = useState('Apenas eu');
 
+  const dispatch = useDispatch();
+
   function changeState() {
     addNewCardEmpty();
     setForms([...getListCards()]);
@@ -192,7 +196,12 @@ function CreateLists() {
   async function submitForm() {
     const datas = await managerPropertiesInUserList(getListCards(), titleList);
 
-    saveUserList(changeSwitch, datas);
+    await saveUserList(changeSwitch, datas);
+    console.log(changeSwitch);
+
+    if (changeSwitch === true) {
+      dispatch(publicLists(datas));
+    }
 
     setPlaceholder('TITULO DA LISTA');
     clearList();
