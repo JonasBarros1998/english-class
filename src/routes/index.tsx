@@ -5,6 +5,8 @@ import ListDetailsScreen from '@screen/ListDetailsScreen';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+import PublicListScreen from '@screen/publicListScreen';
+
 const Stack = createNativeStackNavigator();
 
 function Routes() {
@@ -38,6 +40,14 @@ function Routes() {
           headerShown: false,
         }}>
         {props => <ListDetailsScreen {...props} />}
+      </Stack.Screen>
+
+      <Stack.Screen
+        name="publicList"
+        options={{
+          headerShown: false,
+        }}>
+        {props => <PublicListScreen {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
