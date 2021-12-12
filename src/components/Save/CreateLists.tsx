@@ -197,7 +197,6 @@ function CreateLists() {
     const datas = await managerPropertiesInUserList(getListCards(), titleList);
 
     await saveUserList(changeSwitch, datas);
-    console.log(changeSwitch);
 
     if (changeSwitch === true) {
       dispatch(publicLists(datas));

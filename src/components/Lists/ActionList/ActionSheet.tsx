@@ -21,7 +21,7 @@ type params = {
  * ```
  */
 function ComponentActionSheet({isOpen, onClose, onOpen}: params) {
-  const [changeSwitch, setChangeSwitch] = useState(false);
+  const [changeSwitch, setChangeSwitch] = useState(true);
   const [isPublicList, setIsPublicList] = useState('Todos');
 
   return (
