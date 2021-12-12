@@ -4,7 +4,7 @@ import {Pressable} from 'react-native';
 import {Box, HStack, Text, Center} from 'native-base';
 
 import OneCardPrivateList from '@components/Lists/privateLists/LoadOneCardPrivateList';
-// import OneCardFavouriteList from '@components/Lists/favouriteLists/oneCard';
+import PublicListInMainPage from '@components/Lists/publicLists/PublicListInMainPage';
 
 function MainPage({navigation}: any) {
   return (
@@ -32,7 +32,7 @@ function MainPage({navigation}: any) {
             <Text fontSize={16}>Listas favoritas</Text>
             <Pressable
               onPress={() =>
-                navigation.navigate('userList', {screen: 'favouriteList'})
+                navigation.navigate('publicList', {screen: 'publicList'})
               }>
               <Text color="#0ea5e9" fontSize={16} bold>
                 Ver todas
@@ -40,7 +40,7 @@ function MainPage({navigation}: any) {
             </Pressable>
           </HStack>
         </Center>
-        {/*<OneCardFavouriteList />*/}
+        <PublicListInMainPage />
       </Box>
     </Box>
   );
