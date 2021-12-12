@@ -70,7 +70,6 @@ async function where(userId?: string) {
   if (typeof userId !== 'undefined') {
     return `privateList/${userId}`;
   } else {
-    console.log('carregou o where');
     const loadUserDataInLocalstorage = await loadUserId();
     return `privateList/${loadUserDataInLocalstorage.uid}`;
   }
