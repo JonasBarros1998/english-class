@@ -6,9 +6,7 @@ export const lists = createSlice({
   initialState: [],
   reducers: {
     publicLists: (state: any, action: any) => {
-      state.push(action.payload);
-      // console.log('action >>>', action.payload);
-      // console.log('state >>> ', state);
+      state.push(...action.payload);
     },
 
     privateLists: () => {},
