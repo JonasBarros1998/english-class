@@ -38,7 +38,7 @@ function clearList() {
 }
 
 function deleteItem(card: createCard) {
-  listAllCards.some(function (currentValue, index) {
+  listAllCards.filter(function (currentValue, index) {
     if (currentValue.id === card.id) {
       listAllCards.splice(index, 1);
       return;

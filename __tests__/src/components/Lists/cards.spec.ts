@@ -2,7 +2,7 @@ import {
   addNewCardEmpty,
   getListCards,
   updateForm,
-} from '@components/Save/useCase/index';
+} from '@components/Cards/useCase/index';
 
 test('should add new card', function () {
   addNewCardEmpty();
