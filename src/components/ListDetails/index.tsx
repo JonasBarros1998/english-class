@@ -1,24 +1,14 @@
 import React from 'react';
 import {FlatList} from 'react-native';
+import {userList as typeUserList} from '@global/types/userList';
+import CreateCards from '@components/Cards/createCards';
 
-import {Box, Center} from 'native-base';
-import {Card} from '@components/Cards/index';
-import {createCard} from '@global/types/cards';
-
-function ListDetails(cards: createCard[]) {
+function ListDetails(userList: typeUserList) {
   return (
-    <Center alignItems="flex-start">
-      <Box
-        shadow={2}
-        rounded="lg"
-        maxWidth="90%"
-        width="90%"
-        mt={3}
-        mb={2}
-        p={2}>
-        <FlatList data={cards} renderItem={({item}) => <Card {...item} />} />
-      </Box>
-    </Center>
+    <FlatList
+      data={userList.cards}
+      renderItem={({item}) => <CreateCards {...item} />}
+    />
   );
 }
 
