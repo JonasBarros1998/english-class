@@ -11,6 +11,10 @@ export const cardsSlice = createSlice({
     deleteCard: (state, action) => {
       throw 'METHOD NOT IMPLEMENTED';
     },
+
+    updateCards: (state, action) => {
+      throw 'METHOD NOT IMPLEMENTED';
+    },
   },
 });
 
