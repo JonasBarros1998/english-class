@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import {FlatList, Pressable, Animated, PanResponder} from 'react-native';
+import {FlatList, Pressable /*Animated, PanResponder*/} from 'react-native';
 
 import {
   Input,
   Box,
-  Center,
   Button,
   Flex,
-  View,
   useDisclose,
   Actionsheet,
   Switch,
@@ -16,152 +14,16 @@ import {
 
 import IconAdd from '../Svgs/Add';
 import Done from '../Svgs/Done';
-import {
-  addNewCardEmpty,
-  updateForm,
-  getListCards,
-  clearList,
-  deleteItem,
-} from './useCase/cards';
+
 import AlertPopover from './AlertDialog';
 import {validListTitle} from '../Save/validListTitle';
-import {WIDTH_SCREEN as widthScreen} from './constants';
-import {saveUserList} from './useCase/saveUserList';
-import {managerPropertiesInUserList} from './useCase/addNewProperties';
-import {createCard} from '@global/types/cards';
+import {saveUserList} from '../Cards/useCase/saveUserList';
+import {managerPropertiesInUserList} from '../Cards/useCase/addNewProperties';
 import {useDispatch} from 'react-redux';
 import {publicLists} from '@pubsub/lists';
-
-type typeInput = 'word' | 'translation' | 'context';
-
-function Form({cardItem, setForms}: any) {
-  const [word, setWords] = useState('');
-  const [translation, setTranslation] = useState('');
-  const [context, setContext] = useState('');
-
-  function changeInput(input: string, item: createCard, inputType: typeInput) {
-    updateForm(input, item, inputType);
-  }
-
-  const position = new Animated.ValueXY();
-
-  const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (event, gesture) => {
-      if (parseInt(gesture.dx.toFixed(), 10) >= 0) {
-        position.setValue({x: 0, y: 0});
-        return;
-      }
-      position.setValue({x: gesture.dx, y: 0});
-    },
-
-    onPanResponderRelease: (event, gesture) => {
-      const deleteCard = parseInt(gesture.dx.toFixed(), 10) <= -50;
-      if (deleteCard) {
-        Animated.spring(position, {
-          toValue: {
-            x: widthScreen - 1000,
-            y: gesture.dy,
-          },
-          tension: 5,
-          useNativeDriver: true,
-        }).start();
-        deleteItem(cardItem);
-        setForms([...getListCards()]);
-        return;
-      }
-      Animated.spring(position, {
-        toValue: {
-          x: 0,
-          y: 0,
-        },
-        tension: 5,
-        useNativeDriver: true,
-      }).start();
-    },
-  });
-
-  const handlers = panResponder.panHandlers;
-
-  return (
-    <Animated.View style={[position.getTranslateTransform()]} {...handlers}>
-      <View>
-        <Center
-          testID={`card-${cardItem.id}`}
-          width="100%"
-          minWidth="100%"
-          marginBottom="5"
-          bg="#fff"
-          rounded="lg"
-          padding="3"
-          shadow={1}
-          _web={{
-            shadow: 2,
-            borderWidth: 0,
-          }}>
-          <View width="100%">
-            <Input
-              onChangeText={(valueInput: string) => {
-                setWords(valueInput);
-                changeInput(valueInput, cardItem, 'word');
-              }}
-              value={word}
-              autoCorrect={false}
-              variant="underlined"
-              placeholder="Palavra"
-              fontSize={16}
-              placeholderTextColor="#78716c"
-              width="100%"
-              fontWeight={600}
-              _focus={{
-                borderBottomColor: '#000',
-              }}
-            />
-          </View>
-
-          <Input
-            onChangeText={(valueInput: string) => {
-              setTranslation(valueInput);
-              changeInput(valueInput, cardItem, 'translation');
-            }}
-            value={translation}
-            autoCorrect={false}
-            variant="underlined"
-            placeholder="Tradução"
-            fontSize={16}
-            placeholderTextColor="#78716c"
-            width="100%"
-            fontWeight={600}
-            _focus={{
-              borderBottomColor: '#000',
-            }}
-          />
-
-          <Input
-            onChangeText={(valueInput: string) => {
-              setContext(valueInput);
-              changeInput(valueInput, cardItem, 'context');
-            }}
-            value={context}
-            autoCorrect={false}
-            variant="underlined"
-            placeholder="Contexto"
-            fontSize={16}
-            placeholderTextColor="#78716c"
-            width="100%"
-            fontWeight={600}
-            _focus={{
-              borderBottomColor: '#000',
-            }}
-          />
-        </Center>
-      </View>
-    </Animated.View>
-  );
-}
+import CreateCards from '@components/Cards/AnimatedCards/createCards';
 
 function CreateLists() {
-  const [forms, setForms] = useState(getListCards());
   const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
   const [titleList, setTitleList] = useState('');
   const [visible, setVisible] = useState(false);
@@ -172,8 +34,8 @@ function CreateLists() {
   const dispatch = useDispatch();
 
   function changeState() {
-    addNewCardEmpty();
-    setForms([...getListCards()]);
+    // addNewCardEmpty();
+    // setForms([...getListCards()]);
   }
 
   function managementTitleList(input: string) {
@@ -195,8 +57,8 @@ function CreateLists() {
 
   function clearComponent() {
     setPlaceholder('TITULO DA LISTA');
-    clearList();
-    setForms([...getListCards()]);
+    // clearList();
+    //setForms([...getListCards()]);
     setTitleList('');
     setChangeSwitch(true);
     setIsPublicList('Apenas eu');
@@ -273,19 +135,10 @@ function CreateLists() {
         <FlatList
           data={forms}
           renderItem={({item}) => {
-            return <Form cardItem={item} cards={forms} setForms={setForms} />;
+            return <CreateCards cardItem={item} />;
           }}
           keyExtractor={({id}) => id.toString()}
         />
-        <Button
-          borderRadius={100}
-          onPress={() => changeState()}
-          width="53px"
-          height="53px"
-          variant="unstyled"
-          bg="#312E81">
-          <IconAdd />
-        </Button>
       </Box>
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>

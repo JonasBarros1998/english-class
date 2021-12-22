@@ -1,6 +1,5 @@
 import React from 'react';
-
-import {createCard, inputName} from '@global/types/cards';
+import {createCard} from '@global/types/cards';
 import Form from './Form';
 import AnimatedCard from './Animated';
 
