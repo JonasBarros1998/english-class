@@ -1,8 +1,11 @@
 import React from 'react';
-import RenderCards from '@components/Cards/CardDetails';
+import ListDetails from '@components/ListDetails/index';
 
-function ListDetailsScreen({navigation, route}: any) {
-  return <RenderCards cardItem={route.params.cardItem} />;
+function ListDetailsScreen({route, navigation}: any) {
+  // console.log('>>> ', route.params.cardItem);
+  // console.log('>>> ', navigation);
+
+  return <ListDetails {...route.params.cardItem} />;
 }
 
 export default ListDetailsScreen;
