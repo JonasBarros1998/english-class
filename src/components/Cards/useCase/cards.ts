@@ -1,21 +1,21 @@
 import {createCard, inputName} from '@global/types/cards';
 
-const initialCard = {
-  id: Math.floor(Math.random() * 10000),
-  word: '',
-  translation: '',
-  context: '',
-};
+function generateUniqueId() {
+  return Math.floor(Math.random() * 1000000);
+}
 
-let listAllCards: Array<createCard> = [initialCard];
+let listAllCards: Array<createCard> = [];
 
 function addNewCardEmpty() {
-  listAllCards.push({
-    id: Math.floor(Math.random() * 10000),
+  const cardEmpty = {
+    id: generateUniqueId(),
     word: '',
     translation: '',
     context: '',
-  });
+  };
+  listAllCards.push(cardEmpty);
+
+  return cardEmpty;
 }
 
 function updateForm(input: string, card: createCard, inputType: inputName) {
@@ -26,6 +26,12 @@ function updateForm(input: string, card: createCard, inputType: inputName) {
       listAllCards[index] = item;
     }
   });
+}
+
+function updateCardList(cards: createCard[]) {
+  listAllCards = [];
+  listAllCards.push(...cards);
+  console.log(cards);
 }
 
 function getListCards() {
@@ -46,4 +52,11 @@ function deleteItem(card: createCard) {
   });
 }
 
-export {addNewCardEmpty, updateForm, getListCards, clearList, deleteItem};
+export {
+  addNewCardEmpty,
+  updateForm,
+  getListCards,
+  clearList,
+  deleteItem,
+  updateCardList,
+};
