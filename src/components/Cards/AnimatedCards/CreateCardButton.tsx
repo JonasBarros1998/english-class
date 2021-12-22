@@ -1,15 +1,12 @@
 import React from 'react';
 import {Button} from 'native-base';
 import IconAdd from '@components/Svgs/Add';
-import {addNewCardEmpty, getListCards} from '../useCase/cards';
-import {useDispatch} from 'react-redux';
-import {addCardEmpty} from '@pubsub/reducers/cards';
+import {addNewCardEmpty} from '../useCase/cards';
 
-function CreateCardButton() {
-  const dispatch = useDispatch();
-
+function CreateCardButton(props: any) {
   function addNewCard() {
-    dispatch(addCardEmpty(addNewCardEmpty()));
+    addNewCardEmpty();
+    props.updateCard();
   }
 
   return (

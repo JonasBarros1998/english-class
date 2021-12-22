@@ -1,20 +1,39 @@
-import React from 'react';
-import {createCard} from '@global/types/cards';
+import React, {useState} from 'react';
+import {FlatList} from 'react-native';
+import {Center} from 'native-base';
 import Form from './Form';
 import AnimatedCard from './Animated';
+import {userList as typeUserList} from '@global/types/userList';
+import {createCard} from '@global/types/cards';
+import CreateCardButton from './CreateCardButton';
 
-// import {
-//   deleteItem,
-//   getListCards,
-//   updateForm,
-//   addNewCardEmpty,
-// } from '../useCase/cards';
+import {getListCards} from '../useCase/cards';
 
-function CreateCards(card: createCard) {
+function CreateCards(userList: typeUserList) {
+  const [listCards, setlistCards] = useState<createCard[]>(userList.cards);
+
+  function updateStateComponent() {
+    setlistCards(getListCards());
+  }
+
+  console.log('JONAS');
+
   return (
-    <AnimatedCard>
-      <Form {...card} />
-    </AnimatedCard>
+    <>
+      <FlatList
+        data={listCards}
+        renderItem={({item}) => {
+          return (
+            <AnimatedCard>
+              <Form {...item} />
+            </AnimatedCard>
+          );
+        }}
+      />
+      <Center paddingY="1.5">
+        <CreateCardButton updateCard={updateStateComponent} />
+      </Center>
+    </>
   );
 }
 
