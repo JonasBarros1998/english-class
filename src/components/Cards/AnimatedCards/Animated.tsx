@@ -1,7 +1,8 @@
 import React from 'react';
 import {Animated, PanResponder} from 'react-native';
 import {WIDTH_SCREEN as widthScreen} from '@global/constants';
-import {Center, View} from 'native-base';
+import {View} from 'native-base';
+import {deleteItem} from '../useCase/cards';
 
 function AnimatedCard(props: any) {
   const position = new Animated.ValueXY();
@@ -27,8 +28,8 @@ function AnimatedCard(props: any) {
           tension: 5,
           useNativeDriver: true,
         }).start();
-        // deleteItem(cardItem);
-        // setForms([...getListCards()]);
+        deleteItem(props.cardItem);
+        props.updateStateComponent();
         return;
       }
       Animated.spring(position, {
