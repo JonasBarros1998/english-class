@@ -6,17 +6,14 @@ import AnimatedCard from './Animated';
 import {userList as typeUserList} from '@global/types/userList';
 import {createCard} from '@global/types/cards';
 import CreateCardButton from './CreateCardButton';
-
 import {getListCards} from '../useCase/cards';
 
 function CreateCards(userList: typeUserList) {
   const [listCards, setlistCards] = useState<createCard[]>(userList.cards);
 
   function updateStateComponent() {
-    setlistCards(getListCards());
+    setlistCards([...getListCards()]);
   }
-
-  console.log('JONAS');
 
   return (
     <>
@@ -24,8 +21,13 @@ function CreateCards(userList: typeUserList) {
         data={listCards}
         renderItem={({item}) => {
           return (
-            <AnimatedCard>
-              <Form {...item} />
+            <AnimatedCard
+              updateStateComponent={updateStateComponent}
+              cardItem={item}>
+              <Form
+                inputCard={item}
+                updateStateComponent={updateStateComponent}
+              />
             </AnimatedCard>
           );
         }}
