@@ -14,8 +14,6 @@ function addNewCardEmpty() {
     context: '',
   };
   listAllCards.push(cardEmpty);
-
-  return cardEmpty;
 }
 
 function updateForm(input: string, card: createCard, inputType: inputName) {
@@ -31,7 +29,6 @@ function updateForm(input: string, card: createCard, inputType: inputName) {
 function updateCardList(cards: createCard[]) {
   listAllCards = [];
   listAllCards.push(...cards);
-  console.log(cards);
 }
 
 function getListCards() {
