@@ -1,24 +1,29 @@
 import React, {useState} from 'react';
 import {Input, Box, View} from 'native-base';
-import {createCard} from '@global/types/cards';
+import {createCard, inputName} from '@global/types/cards';
+import {updateForm} from '../useCase/cards';
 
-function Form(inputCard: createCard) {
-  const [inputWord, setInputWord] = useState(inputCard.word);
+type param = {
+  inputCard: createCard;
+  updateStateComponent: Function;
+};
+
+function Form(props: param) {
+  const [inputWord, setInputWord] = useState(props.inputCard.word);
   const [inputTranslation, setInputTranslation] = useState(
-    inputCard.translation,
+    props.inputCard.translation,
   );
-  const [inputContext, setInputContext] = useState(inputCard.context);
+  const [inputContext, setInputContext] = useState(props.inputCard.context);
 
   function changeInput(input: string, inputType: inputName) {
-    // updateForm(input, inputType);
-    // console.log('input >> ', input);
-    // console.log('inputType >> ', inputType);
+    updateForm(input, props.inputCard, inputType);
+    props.updateStateComponent();
   }
 
   return (
     <Box
       width="90%"
-      testID={`card-${inputCard.id}`}
+      testID={`card-${props.inputCard.id}`}
       marginBottom="3"
       bg="#fff"
       rounded="lg"
@@ -31,7 +36,7 @@ function Form(inputCard: createCard) {
         <Input
           onChangeText={(wordValueInput: string) => {
             setInputWord(wordValueInput);
-            // changeInput(wordValueInput, 'word');
+            changeInput(wordValueInput, 'word');
           }}
           value={inputWord}
           autoCorrect={false}
@@ -51,7 +56,7 @@ function Form(inputCard: createCard) {
         <Input
           onChangeText={(translationValueInput: string) => {
             setInputTranslation(translationValueInput);
-            // changeInput(translationValueInput, 'translation');
+            changeInput(translationValueInput, 'translation');
           }}
           value={inputTranslation}
           autoCorrect={false}
@@ -71,7 +76,7 @@ function Form(inputCard: createCard) {
         <Input
           onChangeText={(contextValueInput: string) => {
             setInputContext(contextValueInput);
-            // changeInput(contextValueInput, 'context');
+            changeInput(contextValueInput, 'context');
           }}
           value={inputContext}
           autoCorrect={false}
