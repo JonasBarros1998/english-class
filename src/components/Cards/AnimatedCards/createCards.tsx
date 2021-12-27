@@ -3,13 +3,15 @@ import {FlatList} from 'react-native';
 import {Center} from 'native-base';
 import Form from './Form';
 import AnimatedCard from './Animated';
-import {userList as typeUserList} from '@global/types/userList';
 import {createCard} from '@global/types/cards';
 import CreateCardButton from './CreateCardButton';
 import {getListCards} from '../useCase/cards';
+type params = {
+  userList: createCard[];
+};
 
-function CreateCards(userList: typeUserList) {
-  const [listCards, setlistCards] = useState<createCard[]>(userList.cards);
+function CreateCards(props: params) {
+  const [listCards, setlistCards] = useState<createCard[]>(props.userList);
 
   function updateStateComponent() {
     setlistCards([...getListCards()]);
