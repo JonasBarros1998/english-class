@@ -37,7 +37,6 @@ function getListCards() {
 
 function clearList() {
   listAllCards = [];
-  addNewCardEmpty();
 }
 
 function deleteItem(card: createCard) {
