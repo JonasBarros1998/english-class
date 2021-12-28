@@ -30,9 +30,7 @@ function ListDetails(userList: typeUserList) {
         <Box width="91%" backgroundColor="#312E81">
           <Input
             paddingTop={3}
-            // onPressIn={() => {}}
             value={userList.listTitle}
-            // onChangeText={(valueInput: string) => {// managementTitleList(valueInput);}}
             autoCorrect={false}
             variant="underlined"
             borderBottomColor="#312E81"
