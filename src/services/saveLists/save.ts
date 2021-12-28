@@ -6,8 +6,6 @@ function saveUserList(datas: any) {
   firebase.auth().onAuthStateChanged(user => {
     console.log('null >> ', user);
   });
-  // console.log('>>> current User', getAuth.currentUser);
-  // insert(datas, where);
 }
 
 export {saveUserList};
