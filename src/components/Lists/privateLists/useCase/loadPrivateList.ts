@@ -24,11 +24,12 @@ async function loadPrivateList(params: param) {
         if (dados !== null) {
           const datasUserList = dados as typeUserList;
           datasOfTheList.push({
-            id: response.key as string,
+            id: datasUserList.id,
             listTitle: datasUserList.listTitle,
             cards: datasUserList.cards,
             quantity: datasUserList.quantity,
             user: {
+              id: response.key as string,
               userName: datasUserList.user.userName,
               photoUrl: datasUserList.user.photoUrl,
             },

@@ -6,6 +6,7 @@ export type userList = {
   listTitle: string;
   quantity: number;
   user: {
+    id: string;
     userName: string;
     photoUrl: string;
   };

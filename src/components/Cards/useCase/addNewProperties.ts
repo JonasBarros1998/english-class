@@ -22,6 +22,7 @@ async function managerPropertiesInUserList(
       quantity: cards.length,
       cards: cards,
       user: {
+        id: loadUser.id,
         userName: loadUser.name,
         photoUrl: loadUser.photoUrl,
       },

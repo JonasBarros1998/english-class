@@ -16,11 +16,12 @@ async function loadPublicList(): Promise<userList[] | null> {
       response.forEach(function (response) {
         const datasPublicList = response.toJSON() as typeUserList;
         datasOfTheList.push({
-          id: response.key as string,
+          id: datasPublicList.id,
           listTitle: datasPublicList.listTitle,
           cards: datasPublicList.cards,
           quantity: datasPublicList.quantity,
           user: {
+            id: datasPublicList.user.id,
             userName: datasPublicList.user.userName,
             photoUrl: datasPublicList.user.photoUrl,
           },
