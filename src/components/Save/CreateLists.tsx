@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {FlatList, Pressable /*Animated, PanResponder*/} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {Pressable} from 'react-native';
 
 import {
   Input,
@@ -12,7 +12,6 @@ import {
   Text,
 } from 'native-base';
 
-import IconAdd from '../Svgs/Add';
 import Done from '../Svgs/Done';
 
 import AlertPopover from './AlertDialog';
@@ -22,21 +21,33 @@ import {managerPropertiesInUserList} from '../Cards/useCase/addNewProperties';
 import {useDispatch} from 'react-redux';
 import {publicLists} from '@pubsub/lists';
 import CreateCards from '@components/Cards/AnimatedCards/createCards';
+import {
+  getListCards,
+  addNewCardEmpty,
+  clearList,
+} from '@components/Cards/useCase/cards';
+import {createCard} from '@global/types/cards';
 
 function CreateLists() {
   const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
   const [titleList, setTitleList] = useState('');
   const [visible, setVisible] = useState(false);
-  const {isOpen, onClose, onOpen} = useDisclose();
   const [changeSwitch, setChangeSwitch] = useState(true);
   const [isPublicList, setIsPublicList] = useState('Apenas eu');
+  const [cards, setCards] = useState<createCard[]>([]);
+  const {isOpen, onClose, onOpen} = useDisclose();
+
+  const updateListCards = useCallback(() => {
+    clearList();
+    addNewCardEmpty();
+    setCards([...getListCards()]);
+  }, [setCards]);
+
+  useEffect(() => {
+    updateListCards();
+  }, [updateListCards]);
 
   const dispatch = useDispatch();
-
-  function changeState() {
-    // addNewCardEmpty();
-    // setForms([...getListCards()]);
-  }
 
   function managementTitleList(input: string) {
     setTitleList(input);
@@ -57,8 +68,6 @@ function CreateLists() {
 
   function clearComponent() {
     setPlaceholder('TITULO DA LISTA');
-    // clearList();
-    //setForms([...getListCards()]);
     setTitleList('');
     setChangeSwitch(true);
     setIsPublicList('Apenas eu');
@@ -72,7 +81,6 @@ function CreateLists() {
     if (changeSwitch === false) {
       dispatch(publicLists(datas));
     }
-
     clearComponent();
   }
 
@@ -130,16 +138,7 @@ function CreateLists() {
         text={'Digite o titulo da lista'}
         setVisible={setVisible}
       />
-
-      <Box padding="2" flex={1} justifyContent="flex-start" alignItems="center">
-        <FlatList
-          data={forms}
-          renderItem={({item}) => {
-            return <CreateCards cardItem={item} />;
-          }}
-          keyExtractor={({id}) => id.toString()}
-        />
-      </Box>
+      <CreateCards userList={cards} />
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
           <Box w="100%" pb={5} justifyContent="center">

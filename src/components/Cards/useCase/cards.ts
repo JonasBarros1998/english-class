@@ -27,7 +27,7 @@ function updateForm(input: string, card: createCard, inputType: inputName) {
 }
 
 function updateCardList(cards: createCard[]) {
-  listAllCards = [];
+  listAllCards.splice(0, listAllCards.length);
   listAllCards.push(...cards);
 }
 
@@ -36,7 +36,7 @@ function getListCards() {
 }
 
 function clearList() {
-  listAllCards = [];
+  listAllCards.splice(0, listAllCards.length);
 }
 
 function deleteItem(card: createCard) {

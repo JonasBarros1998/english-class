@@ -18,9 +18,13 @@ function CreateCards(props: params) {
     setlistCards([...getListCards()]);
   }
 
-  useEffect(() => {
+  const updateCards = useCallback(() => {
     setlistCards([...props.userList]);
   }, [setlistCards, props.userList]);
+
+  useEffect(() => {
+    updateCards();
+  }, [updateCards]);
 
   return (
     <>
