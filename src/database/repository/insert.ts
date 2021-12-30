@@ -5,9 +5,10 @@ async function insert(datas: Array<any>, where: string): Promise<any[]> {
     .then(function (database) {
       const reference = database.ref(where);
       return datas.map((data: any) => {
-        reference
-          .push()
-          .set(data)
+        const pushData = reference.push();
+        const card = addUniqueId(data, pushData.key);
+        pushData
+          .set(card)
           .then(function () {
             return data;
           })
@@ -19,6 +20,17 @@ async function insert(datas: Array<any>, where: string): Promise<any[]> {
     .catch(function (erro) {
       return Promise.reject(new Error(erro.message));
     });
+}
+
+function addUniqueId(card: any, idFirestore: string | null): any {
+  Object.defineProperty(card, 'id', {
+    enumerable: true,
+    configurable: true,
+    writable: true,
+    value: idFirestore,
+  });
+
+  return card;
 }
 
 export {insert};

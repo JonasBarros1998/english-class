@@ -13,8 +13,7 @@ import {
 } from 'native-base';
 
 import Done from '../Svgs/Done';
-
-import AlertPopover from './AlertDialog';
+import AlertPopover from '@components/Alerts/AlertPopover';
 import {validListTitle} from '../Save/validListTitle';
 import {saveUserList} from '../Cards/useCase/saveUserList';
 import {managerPropertiesInUserList} from '../Cards/useCase/addNewProperties';
@@ -133,11 +132,13 @@ function CreateLists() {
           </Pressable>
         </Box>
       </Flex>
+
       <AlertPopover
-        visible={visible}
-        text={'Digite o titulo da lista'}
         setVisible={setVisible}
+        text="Digite o titulo da lista"
+        visible={visible}
       />
+
       <CreateCards userList={cards} />
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>

@@ -1,6 +1,6 @@
 export type userInfo = {
   name: string;
-  id: number;
+  id: string;
   uid: string;
   email: string;
   photoUrl: string;
