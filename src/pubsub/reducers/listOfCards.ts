@@ -16,13 +16,13 @@ export const listOfCards = createSlice({
       console.log('>>> payload', action.payload);
       state.push(action.payload);
     },
-    updateAllListData: (state: any, action: any) => {
+    updateAllCards: (state: any, action: any) => {
       if (state.length === 0) {
-        state.push(action.payload);
+        state.push(...action.payload);
         return;
       }
       state.splice(0, state.length);
-      state.push(action.payload);
+      state.push(...action.payload);
     },
   },
 });
@@ -32,7 +32,7 @@ export const {
   updateTextOfCard,
   deleteOneCard,
   addNewCard,
-  updateAllListData,
+  updateAllCards,
 } = listOfCards.actions;
 
 export default listOfCards.reducer;

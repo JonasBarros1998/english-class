@@ -1,19 +1,57 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Pressable} from 'react-native';
 import {Box, Input, Flex} from 'native-base';
 import {userList as typeUserList} from '@global/types/userList';
 import CreateCards from '@components/Cards/AnimatedCards/createCards';
-import {updateCardList, getListCards} from '@components/Cards/useCase/cards';
 import Done from '@components/Svgs/Done';
+import AlertPopover from '@components/Alerts/AlertPopover';
 import {updateListDetails} from './useCase/updateList';
+import {validListTitle} from './useCase/validListTitle';
+import {updateAllCards} from '@pubsub/reducers/listOfCards';
+import {useDispatch} from 'react-redux';
 
-function ListDetails(userList: typeUserList) {
-  updateCardList(userList.cards);
+type param = {
+  userList: typeUserList;
+  navigation: any;
+};
 
-  function updateList() {
-    const copyObjUserList = Object.assign({}, userList);
-    copyObjUserList.cards = getListCards();
-    updateListDetails(copyObjUserList);
+function ListDetails(params: param) {
+  const [titleList, setTitleList] = useState(params.userList.listTitle);
+  const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  async function updateUserList() {
+    if (visible === true) {
+      return;
+    }
+
+    const copyObjUserList = Object.assign({}, params.userList);
+    // copyObjUserList.cards = getListCards();
+    // copyObjUserList.listTitle = titleList;
+    await updateListDetails(copyObjUserList);
+    params.navigation.navigate('homePage', {
+      screen: 'homePage',
+    });
+    clearComponent();
+  }
+
+  useEffect(() => {
+    dispatch(updateAllCards(params.userList.cards));
+    console.log('useEffect');
+  });
+
+  function updateListOfTitle(input: string) {
+    setTitleList(input);
+    const listIsEmpty = validListTitle(input);
+    if (listIsEmpty === false) {
+      setVisible(true);
+      return;
+    }
+    setVisible(false);
+  }
+
+  function clearComponent() {
+    setVisible(false);
   }
 
   return (
@@ -30,7 +68,8 @@ function ListDetails(userList: typeUserList) {
         <Box width="91%" backgroundColor="#312E81">
           <Input
             paddingTop={3}
-            value={userList.listTitle}
+            value={titleList}
+            onChangeText={(input: string) => updateListOfTitle(input)}
             autoCorrect={false}
             variant="underlined"
             borderBottomColor="#312E81"
@@ -53,13 +92,18 @@ function ListDetails(userList: typeUserList) {
               justifyContent: 'center',
             }}
             onPress={() => {
-              updateList();
+              updateUserList();
             }}>
             <Done />
           </Pressable>
         </Box>
       </Flex>
-      <CreateCards userList={userList.cards} />
+      <AlertPopover
+        visible={visible}
+        text={'Digite o titulo da lista'}
+        setVisible={setVisible}
+      />
+      <CreateCards />
     </>
   );
 }
