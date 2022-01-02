@@ -1,6 +1,6 @@
 import React from 'react';
 import {Animated, PanResponder} from 'react-native';
-import {WIDTH_SCREEN as widthScreen} from '@global/constants';
+import {WIDTH_SCREEN as widthScreen, HALF_THE_SCREEN} from '@global/constants';
 import {View} from 'native-base';
 import {createCard} from '@global/types/cards';
 
@@ -26,29 +26,29 @@ function AnimatedCard(props: params) {
       }
       position.setValue({x: gesture.dx, y: 0});
     },
-
-    onPanResponderRelease: (event, gesture) => {
-      const deleteCard = parseInt(gesture.dx.toFixed(), 10) <= -50;
+    onPanResponderEnd: (event, gesture) => {
+      const deleteCard = parseInt(gesture.dx.toFixed(), 10) <= -HALF_THE_SCREEN;
       if (deleteCard) {
         Animated.spring(position, {
           toValue: {
-            x: widthScreen - 1000,
-            y: gesture.dy,
+            x: -widthScreen,
+            y: 0,
           },
-          tension: 5,
+          tension: 2,
           useNativeDriver: true,
         }).start();
-        removeCard(props.cardItem);
+        setTimeout(() => removeCard(props.cardItem), 400);
         return;
+      } else {
+        Animated.spring(position, {
+          toValue: {
+            x: 0,
+            y: 0,
+          },
+          tension: 10,
+          useNativeDriver: true,
+        }).start();
       }
-      Animated.spring(position, {
-        toValue: {
-          x: 0,
-          y: 0,
-        },
-        tension: 5,
-        useNativeDriver: true,
-      }).start();
     },
   });
 
