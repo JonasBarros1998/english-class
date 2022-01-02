@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React from 'react';
 import {FlatList} from 'react-native';
 import {Center} from 'native-base';
 import {useSelector, useDispatch} from 'react-redux';
@@ -16,7 +16,6 @@ import {deleteOneCard} from '@pubsub/reducers/listOfCards';
  *
  */
 function Cards() {
-  const [listCards, setlistCards] = useState<createCard[]>();
   const datasOfList = useSelector(({listOfCards}: any) => listOfCards);
   const dispatch = useDispatch();
 
@@ -37,18 +36,10 @@ function Cards() {
     dispatch(deleteOneCard({type: 'cards', form: {card: card}}));
   }
 
-  const updateCards = useCallback(() => {
-    setlistCards([...datasOfList.cards]);
-  }, [datasOfList]);
-
-  useEffect(() => {
-    updateCards();
-  }, [updateCards]);
-
   return (
     <>
       <FlatList
-        data={listCards}
+        data={datasOfList.cards}
         renderItem={({item}) => {
           return (
             <AnimatedCard cardItem={item} deleteCard={deleteCard}>
