@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Input, Box, View} from 'native-base';
 import {createCard, inputName} from '@global/types/cards';
 import {updateForm} from '../useCase/cards';
+import {useDispatch} from 'react-redux';
+import {updateTextOfCard} from '@pubsub/reducers/listOfCards';
 
 type param = {
   inputCard: createCard;
@@ -9,6 +11,7 @@ type param = {
 };
 
 function Form(props: param) {
+  const dispatch = useDispatch();
   const [inputWord, setInputWord] = useState(props.inputCard.word);
   const [inputTranslation, setInputTranslation] = useState(
     props.inputCard.translation,
@@ -16,8 +19,20 @@ function Form(props: param) {
   const [inputContext, setInputContext] = useState(props.inputCard.context);
 
   function changeInput(input: string, inputType: inputName) {
-    updateForm(input, props.inputCard, inputType);
-    props.updateStateComponent();
+    const changeCard = {
+      context: props.inputCard.context,
+      id: props.inputCard.id,
+      word: props.inputCard.word,
+      translation: props.inputCard.translation,
+    };
+    changeCard[inputType] = input;
+
+    dispatch(
+      updateTextOfCard({
+        form: {input: input, card: changeCard, inputType: inputType},
+        type: 'cards',
+      }),
+    );
   }
 
   return (
