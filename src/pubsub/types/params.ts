@@ -1,4 +1,4 @@
-import {createCard, inputName} from '@global/types/cards';
+import {createCard} from '@global/types/cards';
 
 export type param = {payload: 'createCards' | 'cards'};
 
@@ -12,6 +12,6 @@ export type paramAddNewCard = {
 export type paramUpdateTextCard = {
   payload: {
     type: 'createCards' | 'cards';
-    form: {input: string; card: createCard; inputType: inputName};
+    form: {card: createCard};
   };
 };
