@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 
 import {
@@ -20,12 +20,6 @@ import {managerPropertiesInUserList} from '../Cards/useCase/addNewProperties';
 import {useDispatch} from 'react-redux';
 import {publicLists} from '@pubsub/lists';
 import CreateCards from '@components/Cards/AnimatedCards/createCards';
-import {
-  getListCards,
-  addNewCardEmpty,
-  clearList,
-} from '@components/Cards/useCase/cards';
-import {createCard} from '@global/types/cards';
 
 function CreateLists() {
   const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
@@ -33,18 +27,7 @@ function CreateLists() {
   const [visible, setVisible] = useState(false);
   const [changeSwitch, setChangeSwitch] = useState(true);
   const [isPublicList, setIsPublicList] = useState('Apenas eu');
-  const [cards, setCards] = useState<createCard[]>([]);
   const {isOpen, onClose, onOpen} = useDisclose();
-
-  const updateListCards = useCallback(() => {
-    clearList();
-    addNewCardEmpty();
-    setCards([...getListCards()]);
-  }, [setCards]);
-
-  useEffect(() => {
-    updateListCards();
-  }, [updateListCards]);
 
   const dispatch = useDispatch();
 
@@ -138,8 +121,7 @@ function CreateLists() {
         text="Digite o titulo da lista"
         visible={visible}
       />
-
-      <CreateCards userList={cards} />
+      <CreateCards />
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
           <Box w="100%" pb={5} justifyContent="center">
