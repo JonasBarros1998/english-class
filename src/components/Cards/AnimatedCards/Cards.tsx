@@ -6,24 +6,25 @@ import Form from './Form';
 import AnimatedCard from './Animated';
 import {createCard} from '@global/types/cards';
 import CreateCardButton from './CreateCardButton';
-import {addNewCard} from '@pubsub/reducers/listOfCards';
 import {useDispatch} from 'react-redux';
+import {addNewCard} from '@pubsub/reducers/listOfCards';
 import {addNewCardEmpty} from '../useCase/cards';
 
 /**
- * Component for create new cards
+ * Component for render list all cards and upload cards
+ *
  */
-function CreateCards() {
+function Cards() {
   const [listCards, setlistCards] = useState<createCard[]>();
   const datasOfList = useSelector(({listOfCards}: any) => listOfCards);
   const dispatch = useDispatch();
 
   function updateStateComponent() {
-    dispatch(addNewCard({cards: addNewCardEmpty(), type: 'createCards'}));
+    dispatch(addNewCard({type: 'cards', cards: addNewCardEmpty()}));
   }
 
   const updateCards = useCallback(() => {
-    setlistCards([...datasOfList.createCards]);
+    setlistCards([...datasOfList.cards]);
   }, [datasOfList]);
 
   useEffect(() => {
@@ -54,4 +55,4 @@ function CreateCards() {
   );
 }
 
-export default CreateCards;
+export default Cards;
