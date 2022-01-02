@@ -2,10 +2,20 @@ import React from 'react';
 import {Animated, PanResponder} from 'react-native';
 import {WIDTH_SCREEN as widthScreen} from '@global/constants';
 import {View} from 'native-base';
-import {deleteItem} from '../useCase/cards';
+import {createCard} from '@global/types/cards';
 
-function AnimatedCard(props: any) {
+type params = {
+  deleteCard: (card: createCard) => void;
+  cardItem: createCard;
+  children: React.ReactNode;
+};
+
+function AnimatedCard(props: params) {
   const position = new Animated.ValueXY();
+
+  function removeCard(cardItem: createCard) {
+    props.deleteCard(cardItem);
+  }
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -28,8 +38,7 @@ function AnimatedCard(props: any) {
           tension: 5,
           useNativeDriver: true,
         }).start();
-        deleteItem(props.cardItem);
-        props.updateStateComponent();
+        removeCard(props.cardItem);
         return;
       }
       Animated.spring(position, {
