@@ -39,7 +39,7 @@ export const listOfCards = createSlice({
             return card;
           }
         });
-        return {...state, cards: createCards};
+        return {...state, createCards: createCards};
       }
       const cards = state.cards.filter(function (card: createCard) {
         if (card.id !== form.card.id) {
