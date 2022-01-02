@@ -1,38 +1,51 @@
+import {createCard} from '@global/types/cards';
 import {createSlice} from '@reduxjs/toolkit';
+
+type param = {payload: 'createCards' | 'cards'};
+
+type paramAddNewCard = {
+  payload: {
+    type: 'createCards' | 'cards';
+    cards: createCard[] | createCard;
+  };
+};
 
 export const listOfCards = createSlice({
   name: 'listOfCards',
-  initialState: [],
+  initialState: {cards: [], createCards: []},
   reducers: {
-    clearAllListData: (state: any, action: any) => {
-      if (state.length === 0) {
-        return;
+    clearAllListCards: (state: any, action: param) => {
+      if (action.payload === 'createCards') {
+        return {...state, createCards: []};
       }
-      state.splice(0, state.length);
+      return {...state, cards: []};
     },
     updateTextOfCard: (state: any, action: any) => {},
     deleteOneCard: (state: any, action: any) => {},
-    addNewCard: (state: any, action: any) => {
-      console.log('>>> payload', action.payload);
-      state.push(action.payload);
-    },
-    updateAllCards: (state: any, action: any) => {
-      if (state.length === 0) {
-        state.push(...action.payload);
-        return;
+    addNewCard: (state: any, action: paramAddNewCard) => {
+      if (action.payload.type === 'createCards') {
+        state.createCards.push(action.payload.cards);
       }
-      state.splice(0, state.length);
-      state.push(...action.payload);
+      state.cards.push(action.payload.cards);
+    },
+    updateAllCards: (state: any, action: paramAddNewCard) => {
+      if (action.payload.type === 'createCards') {
+        return {...state, createCards: []};
+      }
+
+      return {...state, cards: action.payload.cards};
     },
   },
 });
 
 export const {
-  clearAllListData,
+  clearAllListCards,
   updateTextOfCard,
   deleteOneCard,
   addNewCard,
   updateAllCards,
 } = listOfCards.actions;
+
+export const selectTodos = (cards: any) => cards.listOfCards;
 
 export default listOfCards.reducer;
