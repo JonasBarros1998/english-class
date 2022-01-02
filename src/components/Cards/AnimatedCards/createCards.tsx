@@ -1,26 +1,30 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {FlatList} from 'react-native';
 import {Center} from 'native-base';
+import {useSelector} from 'react-redux';
 import Form from './Form';
 import AnimatedCard from './Animated';
 import {createCard} from '@global/types/cards';
 import CreateCardButton from './CreateCardButton';
-import {getListCards} from '../useCase/cards';
+import {addNewCard} from '@pubsub/reducers/listOfCards';
+import {useDispatch} from 'react-redux';
+import {addNewCardEmpty} from '../useCase/cards';
 
-type params = {
-  userList: createCard[];
-};
-
-function CreateCards(props: params) {
-  const [listCards, setlistCards] = useState<createCard[]>([]);
+/**
+ * Component for create new cards
+ */
+function CreateCards() {
+  const [listCards, setlistCards] = useState<createCard[]>();
+  const datasOfList = useSelector(({listOfCards}: any) => listOfCards);
+  const dispatch = useDispatch();
 
   function updateStateComponent() {
-    setlistCards([...getListCards()]);
+    dispatch(addNewCard({cards: addNewCardEmpty(), type: 'createCards'}));
   }
 
   const updateCards = useCallback(() => {
-    setlistCards([...props.userList]);
-  }, [setlistCards, props.userList]);
+    setlistCards([...datasOfList.createCards]);
+  }, [datasOfList]);
 
   useEffect(() => {
     updateCards();
@@ -28,7 +32,6 @@ function CreateCards(props: params) {
 
   return (
     <>
-      {console.log(listCards)}
       <FlatList
         data={listCards}
         renderItem={({item}) => {
