@@ -1,11 +1,21 @@
 import React from 'react';
 import {Animated, PanResponder} from 'react-native';
-import {WIDTH_SCREEN as widthScreen} from '@global/constants';
+import {WIDTH_SCREEN as widthScreen, HALF_THE_SCREEN} from '@global/constants';
 import {View} from 'native-base';
-import {deleteItem} from '../useCase/cards';
+import {createCard} from '@global/types/cards';
 
-function AnimatedCard(props: any) {
+type params = {
+  deleteCard: (card: createCard) => void;
+  cardItem: createCard;
+  children: React.ReactNode;
+};
+
+function AnimatedCard(props: params) {
   const position = new Animated.ValueXY();
+
+  function removeCard(cardItem: createCard) {
+    props.deleteCard(cardItem);
+  }
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -16,30 +26,29 @@ function AnimatedCard(props: any) {
       }
       position.setValue({x: gesture.dx, y: 0});
     },
-
-    onPanResponderRelease: (event, gesture) => {
-      const deleteCard = parseInt(gesture.dx.toFixed(), 10) <= -50;
+    onPanResponderEnd: (event, gesture) => {
+      const deleteCard = parseInt(gesture.dx.toFixed(), 10) <= -HALF_THE_SCREEN;
       if (deleteCard) {
         Animated.spring(position, {
           toValue: {
-            x: widthScreen - 1000,
-            y: gesture.dy,
+            x: -widthScreen,
+            y: 0,
           },
-          tension: 5,
+          tension: 2,
           useNativeDriver: true,
         }).start();
-        deleteItem(props.cardItem);
-        props.updateStateComponent();
+        setTimeout(() => removeCard(props.cardItem), 400);
         return;
+      } else {
+        Animated.spring(position, {
+          toValue: {
+            x: 0,
+            y: 0,
+          },
+          tension: 10,
+          useNativeDriver: true,
+        }).start();
       }
-      Animated.spring(position, {
-        toValue: {
-          x: 0,
-          y: 0,
-        },
-        tension: 5,
-        useNativeDriver: true,
-      }).start();
     },
   });
 

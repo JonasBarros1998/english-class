@@ -9,7 +9,7 @@ export type paramAddNewCard = {
   };
 };
 
-export type paramUpdateTextCard = {
+export type paramUpdateCards = {
   payload: {
     type: 'createCards' | 'cards';
     form: {card: createCard};

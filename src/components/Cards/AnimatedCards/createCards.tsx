@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React from 'react';
 import {FlatList} from 'react-native';
 import {Center} from 'native-base';
 import {useSelector} from 'react-redux';
@@ -9,18 +9,21 @@ import CreateCardButton from './CreateCardButton';
 import {addNewCard} from '@pubsub/reducers/listOfCards';
 import {useDispatch} from 'react-redux';
 import {addNewCardEmpty} from '../useCase/cards';
-import {updateTextOfCard} from '@pubsub/reducers/listOfCards';
+import {updateTextOfCard, deleteOneCard} from '@pubsub/reducers/listOfCards';
 
 /**
  * Component for create new cards
  */
 function CreateCards() {
-  const [listCards, setlistCards] = useState<createCard[]>();
   const datasOfList = useSelector(({listOfCards}: any) => listOfCards);
   const dispatch = useDispatch();
 
   function updateStateComponent() {
     dispatch(addNewCard({cards: addNewCardEmpty(), type: 'createCards'}));
+  }
+
+  function deleteCard(card: createCard) {
+    dispatch(deleteOneCard({type: 'createCards', form: {card: card}}));
   }
 
   function changeInputs(cards: createCard) {
@@ -32,23 +35,13 @@ function CreateCards() {
     );
   }
 
-  const updateCards = useCallback(() => {
-    setlistCards([...datasOfList.createCards]);
-  }, [datasOfList]);
-
-  useEffect(() => {
-    updateCards();
-  }, [updateCards]);
-
   return (
     <>
       <FlatList
-        data={listCards}
+        data={datasOfList.createCards}
         renderItem={({item}) => {
           return (
-            <AnimatedCard
-              updateStateComponent={updateStateComponent}
-              cardItem={item}>
+            <AnimatedCard deleteCard={deleteCard} cardItem={item}>
               <Form
                 inputCard={item}
                 updateStateComponent={updateStateComponent}
