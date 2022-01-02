@@ -1,14 +1,6 @@
 import {createCard} from '@global/types/cards';
 import {createSlice} from '@reduxjs/toolkit';
-
-type param = {payload: 'createCards' | 'cards'};
-
-type paramAddNewCard = {
-  payload: {
-    type: 'createCards' | 'cards';
-    cards: createCard[] | createCard;
-  };
-};
+import {param, paramAddNewCard, paramUpdateTextCard} from '../types/params';
 
 export const listOfCards = createSlice({
   name: 'listOfCards',
@@ -20,7 +12,23 @@ export const listOfCards = createSlice({
       }
       return {...state, cards: []};
     },
-    updateTextOfCard: (state: any, action: any) => {},
+    updateTextOfCard: (state: any, action: paramUpdateTextCard) => {
+      const {form, type} = action.payload;
+      if (type === 'createCards') {
+        state.createCards.filter((item: createCard, index: number) => {
+          if (item.id === form.card.id) {
+            state.createCards[index] = item;
+          }
+        });
+        return;
+      }
+
+      state.cards.filter((item: createCard, index: number) => {
+        if (item.id === form.card.id) {
+          state.cards[index] = form.card;
+        }
+      });
+    },
     deleteOneCard: (state: any, action: any) => {},
     addNewCard: (state: any, action: paramAddNewCard) => {
       if (action.payload.type === 'createCards') {

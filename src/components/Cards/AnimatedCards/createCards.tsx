@@ -9,6 +9,7 @@ import CreateCardButton from './CreateCardButton';
 import {addNewCard} from '@pubsub/reducers/listOfCards';
 import {useDispatch} from 'react-redux';
 import {addNewCardEmpty} from '../useCase/cards';
+import {updateTextOfCard} from '@pubsub/reducers/listOfCards';
 
 /**
  * Component for create new cards
@@ -20,6 +21,15 @@ function CreateCards() {
 
   function updateStateComponent() {
     dispatch(addNewCard({cards: addNewCardEmpty(), type: 'createCards'}));
+  }
+
+  function changeInputs(cards: createCard) {
+    dispatch(
+      updateTextOfCard({
+        form: {card: cards},
+        type: 'createCards',
+      }),
+    );
   }
 
   const updateCards = useCallback(() => {
@@ -42,6 +52,7 @@ function CreateCards() {
               <Form
                 inputCard={item}
                 updateStateComponent={updateStateComponent}
+                changeInputs={changeInputs}
               />
             </AnimatedCard>
           );

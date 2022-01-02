@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {Input, Box, View} from 'native-base';
 import {createCard, inputName} from '@global/types/cards';
-import {updateForm} from '../useCase/cards';
 
 type param = {
   inputCard: createCard;
   updateStateComponent: Function;
+  changeInputs: Function;
 };
 
 function Form(props: param) {
@@ -16,8 +16,14 @@ function Form(props: param) {
   const [inputContext, setInputContext] = useState(props.inputCard.context);
 
   function changeInput(input: string, inputType: inputName) {
-    updateForm(input, props.inputCard, inputType);
-    props.updateStateComponent();
+    const changeCard = {
+      context: props.inputCard.context,
+      id: props.inputCard.id,
+      word: props.inputCard.word,
+      translation: props.inputCard.translation,
+    };
+    changeCard[inputType] = input;
+    props.changeInputs(changeCard);
   }
 
   return (
