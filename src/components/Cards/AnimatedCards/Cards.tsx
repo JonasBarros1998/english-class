@@ -1,15 +1,15 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {FlatList} from 'react-native';
 import {Center} from 'native-base';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Form from './Form';
 import AnimatedCard from './Animated';
 import {createCard} from '@global/types/cards';
 import CreateCardButton from './CreateCardButton';
-import {useDispatch} from 'react-redux';
 import {addNewCard} from '@pubsub/reducers/listOfCards';
 import {addNewCardEmpty} from '../useCase/cards';
 import {updateTextOfCard} from '@pubsub/reducers/listOfCards';
+import {deleteOneCard} from '@pubsub/reducers/listOfCards';
 
 /**
  * Component for render list all cards and upload cards
@@ -33,6 +33,10 @@ function Cards() {
     );
   }
 
+  function deleteCard(card: createCard) {
+    dispatch(deleteOneCard({type: 'cards', form: {card: card}}));
+  }
+
   const updateCards = useCallback(() => {
     setlistCards([...datasOfList.cards]);
   }, [datasOfList]);
@@ -47,9 +51,7 @@ function Cards() {
         data={listCards}
         renderItem={({item}) => {
           return (
-            <AnimatedCard
-              updateStateComponent={updateStateComponent}
-              cardItem={item}>
+            <AnimatedCard cardItem={item} deleteCard={deleteCard}>
               <Form
                 inputCard={item}
                 updateStateComponent={updateStateComponent}
