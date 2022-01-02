@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {Pressable} from 'react-native';
 import {Box, Input, Flex} from 'native-base';
 import {userList as typeUserList} from '@global/types/userList';
-import CreateCards from '@components/Cards/AnimatedCards/createCards';
 import Done from '@components/Svgs/Done';
 import AlertPopover from '@components/Alerts/AlertPopover';
 import {updateListDetails} from './useCase/updateList';
 import {validListTitle} from './useCase/validListTitle';
 import {updateAllCards} from '@pubsub/reducers/listOfCards';
 import {useDispatch} from 'react-redux';
+import Cards from '@components/Cards/AnimatedCards/Cards';
 
 type param = {
   userList: typeUserList;
@@ -26,8 +26,6 @@ function ListDetails(params: param) {
     }
 
     const copyObjUserList = Object.assign({}, params.userList);
-    // copyObjUserList.cards = getListCards();
-    // copyObjUserList.listTitle = titleList;
     await updateListDetails(copyObjUserList);
     params.navigation.navigate('homePage', {
       screen: 'homePage',
@@ -36,8 +34,7 @@ function ListDetails(params: param) {
   }
 
   useEffect(() => {
-    dispatch(updateAllCards(params.userList.cards));
-    console.log('useEffect');
+    dispatch(updateAllCards({type: 'cards', cards: params.userList.cards}));
   });
 
   function updateListOfTitle(input: string) {
@@ -103,7 +100,7 @@ function ListDetails(params: param) {
         text={'Digite o titulo da lista'}
         setVisible={setVisible}
       />
-      <CreateCards />
+      <Cards />
     </>
   );
 }
