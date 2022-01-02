@@ -15,7 +15,6 @@ export const listOfCards = createSlice({
     updateTextOfCard: (state: any, action: paramUpdateTextCard) => {
       const {form, type} = action.payload;
       if (type === 'createCards') {
-        form.card[form.inputType] = action.payload.form.input;
         state.createCards.filter((item: createCard, index: number) => {
           if (item.id === form.card.id) {
             state.createCards[index] = item;
