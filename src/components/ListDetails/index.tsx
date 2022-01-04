@@ -9,6 +9,7 @@ import {updateListDetails} from './useCase/updateList';
 import {validListTitle} from './useCase/validListTitle';
 import {updateAllCards} from '@pubsub/reducers/listOfCards';
 import Cards from '@components/Cards/AnimatedCards/Cards';
+import {countTotalOfCards} from './useCase/countQuantityTotalOfCards';
 
 type param = {
   userList: typeUserList;
@@ -29,7 +30,8 @@ function ListDetails(props: param) {
 
     const copyObjUserList = Object.assign({}, props.userList);
     copyObjUserList.cards = datasOfList.cards;
-    await updateListDetails(copyObjUserList);
+    const listOfUser = countTotalOfCards(copyObjUserList);
+    await updateListDetails(listOfUser);
     props.navigation.navigate('homePage', {
       screen: 'homePage',
     });
