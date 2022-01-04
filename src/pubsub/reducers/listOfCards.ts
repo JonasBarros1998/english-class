@@ -17,7 +17,7 @@ export const listOfCards = createSlice({
       if (type === 'createCards') {
         state.createCards.filter((item: createCard, index: number) => {
           if (item.id === form.card.id) {
-            state.createCards[index] = item;
+            state.createCards[index] = form.card;
           }
         });
         return;

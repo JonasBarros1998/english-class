@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
-
 import {
   Input,
   Box,
@@ -11,7 +10,6 @@ import {
   Switch,
   Text,
 } from 'native-base';
-
 import Done from '../Svgs/Done';
 import AlertPopover from '@components/Alerts/AlertPopover';
 import {validListTitle} from '../Save/validListTitle';
@@ -19,15 +17,18 @@ import {saveUserList} from '../Cards/useCase/saveUserList';
 import {managerPropertiesInUserList} from '../Cards/useCase/addNewProperties';
 import {useDispatch} from 'react-redux';
 import {publicLists} from '@pubsub/lists';
+import {clearAllListCards} from '@pubsub/reducers/listOfCards';
 import CreateCards from '@components/Cards/AnimatedCards/createCards';
+import {useSelector} from 'react-redux';
 
-function CreateLists() {
+function CreateLists(props: any) {
   const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
   const [titleList, setTitleList] = useState('');
   const [visible, setVisible] = useState(false);
   const [changeSwitch, setChangeSwitch] = useState(true);
   const [isPublicList, setIsPublicList] = useState('Apenas eu');
   const {isOpen, onClose, onOpen} = useDisclose();
+  const cards = useSelector((state: any) => state.listOfCards);
 
   const dispatch = useDispatch();
 
@@ -57,13 +58,18 @@ function CreateLists() {
   }
 
   async function submitForm() {
-    const datas = await managerPropertiesInUserList(getListCards(), titleList);
+    const datas = await managerPropertiesInUserList(
+      cards.createCards,
+      titleList,
+    );
 
     await saveUserList(changeSwitch, datas);
     if (changeSwitch === false) {
       dispatch(publicLists(datas));
     }
     clearComponent();
+    dispatch(clearAllListCards('createCards'));
+    props.routes.navigate('homePage');
   }
 
   return (
