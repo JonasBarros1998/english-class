@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Text} from 'native-base';
 
-import PublicLists from '@components/Lists/publicLists';
+import PublicLists from '@components/Lists/publicLists/PublicLists';
 
 function PublicListScreen({navigation}: any) {
   return (
@@ -20,7 +20,7 @@ function PublicListScreen({navigation}: any) {
         </Text>
       </Box>
       <Box bg="#e7e5e4" flex={1}>
-        <PublicLists />
+        <PublicLists route={navigation} />
       </Box>
     </>
   );

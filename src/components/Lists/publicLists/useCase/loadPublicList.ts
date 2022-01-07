@@ -1,9 +1,14 @@
 import {select} from '@database/repository/search';
 import {userList} from '@global/types/userList';
+import {userInfo} from '@global/types/userInfo';
 import {userList as typeUserList} from '@global/types/userList';
+import {USER_STORAGE} from '@global/constants';
+import {storageGetItem} from '@storage/getItem';
 
 async function loadPublicList(): Promise<userList[] | null> {
-  const where = 'publicList/';
+  const datasOfUser = await toLoadDatasOfUser();
+  const where = `publicList/${datasOfUser.uid}`;
+
   const datasOfTheList: typeUserList[] = [];
 
   return select(where)
@@ -33,6 +38,10 @@ async function loadPublicList(): Promise<userList[] | null> {
     .catch(function (error) {
       throw new Error(error.message);
     });
+}
+
+async function toLoadDatasOfUser(): Promise<userInfo> {
+  return JSON.parse(await storageGetItem(USER_STORAGE));
 }
 
 export {loadPublicList};
