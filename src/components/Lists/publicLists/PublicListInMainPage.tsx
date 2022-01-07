@@ -14,13 +14,13 @@ function PublicListInMainPage() {
   const loadData = useCallback(() => {
     loadPublicList().then(function (response) {
       setPublicList(response);
-      if (response === null) {
+      if (response === null || typeof response === 'undefined') {
         setPublicList(null);
         return;
       }
       dispatch(publicLists(response));
-      const [firstItem, secondItem] = response;
-      setPublicList([firstItem, secondItem]);
+      const loadTwoListOfUser = response.filter((_, index) => index !== 2);
+      setPublicList([...loadTwoListOfUser]);
     });
   }, [dispatch]);
 
@@ -28,12 +28,16 @@ function PublicListInMainPage() {
     loadData();
   }, [loadData]);
 
-  return publicList === null || typeof publicList === 'undefined' ? (
+  if (publicList === null) {
+    return <Text textAlign="center">Nenhuma lista pública foi criada</Text>;
+  }
+
+  return typeof publicList === 'undefined' ? (
     <Text textAlign="center"> Aguarde...</Text>
   ) : (
     <FlatList
       data={publicList}
-      keyExtractor={({id}, key) => String(key)}
+      keyExtractor={({id}) => String(id)}
       renderItem={({item}) => <Card {...item} />}
     />
   );
