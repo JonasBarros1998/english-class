@@ -7,14 +7,10 @@ async function insert(datas: Array<any>, where: string): Promise<any[]> {
       return datas.map((data: any) => {
         const pushData = reference.push();
         const card = addUniqueId(data, pushData.key);
-        pushData
-          .set(card)
-          .then(function () {
-            return data;
-          })
-          .catch(function (error) {
-            return Promise.reject(new Error(error.message));
-          });
+        pushData.set(card).catch(function (error) {
+          return Promise.reject(new Error(error.message));
+        });
+        return data;
       });
     })
     .catch(function (erro) {
@@ -23,14 +19,14 @@ async function insert(datas: Array<any>, where: string): Promise<any[]> {
 }
 
 function addUniqueId(card: any, idFirestore: string | null): any {
-  Object.defineProperty(card, 'id', {
+  const cardCopy = Object.assign(card, {});
+  Object.defineProperty(cardCopy, 'id', {
     enumerable: true,
     configurable: true,
     writable: true,
     value: idFirestore,
   });
-
-  return card;
+  return cardCopy;
 }
 
 export {insert};

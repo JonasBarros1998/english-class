@@ -32,7 +32,10 @@ function MainPage({navigation}: any) {
             <Text fontSize={16}>Listas Públicas</Text>
             <Pressable
               onPress={() =>
-                navigation.navigate('publicList', {screen: 'publicList'})
+                navigation.navigate('publicList', {
+                  screen: 'publicList',
+                  publicListOfLoggedUser: true,
+                })
               }>
               <Text color="#0ea5e9" fontSize={16} bold>
                 Ver todas

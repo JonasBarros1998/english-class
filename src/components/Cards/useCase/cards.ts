@@ -14,6 +14,7 @@ function addNewCardEmpty() {
     context: '',
   };
   listAllCards.push(cardEmpty);
+  return cardEmpty;
 }
 
 function updateForm(input: string, card: createCard, inputType: inputName) {
@@ -27,7 +28,7 @@ function updateForm(input: string, card: createCard, inputType: inputName) {
 }
 
 function updateCardList(cards: createCard[]) {
-  listAllCards.splice(0, listAllCards.length);
+  listAllCards = [];
   listAllCards.push(...cards);
 }
 
@@ -36,7 +37,7 @@ function getListCards() {
 }
 
 function clearList() {
-  listAllCards.splice(0, listAllCards.length);
+  listAllCards = [];
 }
 
 function deleteItem(card: createCard) {

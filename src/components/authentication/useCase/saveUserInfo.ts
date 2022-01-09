@@ -1,21 +1,8 @@
 import {insert} from '@database/repository/insert';
 import {select} from '@database/repository/search';
+import {userInfo as typeUserInfo} from '@global/types/userInfo';
 
-type userInfo = {
-  scopes?: string[];
-  serverAuthCode: null | string;
-  idToken: string | null;
-  user: {
-    photo: string | null;
-    email: string;
-    familyName: string | null;
-    givenName: string | null;
-    name: string | null;
-    id: number | null | string;
-  };
-};
-
-async function saveUserInfo(userUid: string, userInfo: userInfo) {
+async function saveUserInfo(userUid: string, userInfo: typeUserInfo) {
   if (typeof userUid === 'undefined' && typeof userInfo === 'undefined') {
     throw new TypeError(`The parameters userID and userInfo 
       not should the type undefined`);

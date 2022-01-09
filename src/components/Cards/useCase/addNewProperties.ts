@@ -22,9 +22,9 @@ async function managerPropertiesInUserList(
       quantity: cards.length,
       cards: cards,
       user: {
-        id: loadUser.id,
-        userName: loadUser.name,
-        photoUrl: loadUser.photoUrl,
+        id: loadUser.user.id as string,
+        userName: loadUser.user.name as string,
+        photoUrl: loadUser.user.photo as string,
       },
     },
   ];
@@ -32,7 +32,7 @@ async function managerPropertiesInUserList(
 
 async function loadUserInfo(): Promise<typeUserInfo> {
   const load = await storageGetItem(USER_STORAGE);
-  return JSON.parse(load);
+  return load;
 }
 
 export {managerPropertiesInUserList};

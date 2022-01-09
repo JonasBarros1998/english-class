@@ -1,7 +1,7 @@
 import {login} from '@auth/googleSignin/index';
 import {Dispatch} from 'redux';
 import {onOff, loggedUser} from '@pubsub/slices';
-import {addUserInfoStorage} from './addUserInfoStorage';
+import {addUserInfoStorage} from './addUserInfoOnStorage';
 import {PLAY_SERVICES_NOT_AVAILABLE, SIGN_IN_CANCELLED} from '../constants';
 import {saveUserInfo} from './saveUserInfo';
 import auth from '@react-native-firebase/auth';
@@ -11,17 +11,17 @@ async function userSignin(dispatch: Dispatch) {
     .then(async function (sucessLogin) {
       if (sucessLogin.idToken !== null) {
         const firebaseAuth = await toAutenticateFirebase(sucessLogin.idToken);
-
         if (firebaseAuth !== null) {
-          const userDatas = {
-            name: sucessLogin.user.name,
-            id: sucessLogin.user.id,
+          const userData = {
+            ...sucessLogin,
             uid: firebaseAuth.uid,
-            email: sucessLogin.user.email,
-            photoUrl: sucessLogin.user.photo,
+            lists: {
+              publicLists: [],
+              privateLists: [],
+            },
           };
-          await addUserInfoStorage(JSON.stringify(userDatas));
-          await saveUserInfo(firebaseAuth.uid, sucessLogin);
+          await addUserInfoStorage(JSON.stringify(userData));
+          await saveUserInfo(firebaseAuth.uid, userData);
           dispatch(loggedUser({status: true}));
         }
       }
