@@ -41,8 +41,7 @@ async function addListIdOnUser(params: typeParam) {
   const copyUser = Object.assign(params.user, {});
 
   userDatas.map(async function (list: typeUserList) {
-    const where = `users/${user.uid}/${list.id}`;
-    copyUser.lists.privateLists.push(list.id as string);
+    const where = `users/${user.uid}/${user.user}`;
     if (typeof list.id !== 'undefined') {
       if (listIsPrivate) {
         copyUser.lists.privateLists.push(list.id as string);

@@ -6,8 +6,8 @@ async function insert(datas: Array<any>, where: string): Promise<any[]> {
       const reference = database.ref(where);
       return datas.map((data: any) => {
         const pushData = reference.push();
-        const card = addUniqueId(data, pushData.key);
-        pushData.set(card).catch(function (error) {
+        const item = addUniqueId(data, pushData.key);
+        pushData.set(item).catch(function (error) {
           return Promise.reject(new Error(error.message));
         });
         return data;
