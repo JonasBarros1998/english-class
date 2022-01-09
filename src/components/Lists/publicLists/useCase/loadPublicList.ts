@@ -5,8 +5,9 @@ import {userList as typeUserList} from '@global/types/userList';
 import {USER_STORAGE} from '@global/constants';
 import {storageGetItem} from '@storage/getItem';
 
-async function loadPublicList(): Promise<userList[] | null> {
+async function loadPublicListOfUserLogged(): Promise<userList[] | null> {
   const datasOfUser = await toLoadDatasOfUser();
+  loadAllPublicList();
   const where = `publicList/${datasOfUser.uid}`;
 
   const datasOfTheList: typeUserList[] = [];
@@ -40,8 +41,28 @@ async function loadPublicList(): Promise<userList[] | null> {
     });
 }
 
-async function toLoadDatasOfUser(): Promise<userInfo> {
-  return JSON.parse(await storageGetItem(USER_STORAGE));
+async function loadAllPublicList() {
+  const datasOfUser = await toLoadDatasOfUser();
+  const where = 'publicList/';
+
+  return select(where)
+    .then(function (response) {
+      const datas = response.toJSON();
+      if (datas === null) {
+        return null;
+      }
+      const rp = response.forEach(function (listItem: any) {
+        return listItem;
+      });
+      console.log(rp);
+    })
+    .catch(function (error) {
+      throw new Error(error.message);
+    });
 }
 
-export {loadPublicList};
+async function toLoadDatasOfUser(): Promise<userInfo> {
+  return await storageGetItem(USER_STORAGE);
+}
+
+export {loadPublicListOfUserLogged, loadAllPublicList};

@@ -56,7 +56,7 @@ function MainMenu(screens: param) {
           options={{
             headerShown: false,
           }}>
-          {(props) => (
+          {props => (
             <>
               <CreateListsScreen {...props} />
             </>

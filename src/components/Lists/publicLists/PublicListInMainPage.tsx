@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import Card from '../../Cards';
-import {loadPublicList} from './useCase/loadPublicList';
+import {FlatList, Text} from 'native-base';
 import {useDispatch} from 'react-redux';
+import Card from '../../Cards';
+import {loadPublicListOfUserLogged} from './useCase/loadPublicList';
 import {publicLists} from '@pubsub/lists';
 import {userList as typeUserList} from '@global/types/userList';
-import {FlatList, Text} from 'native-base';
 
 function PublicListInMainPage() {
   const [publicList, setPublicList] = useState<null | typeUserList[]>();
@@ -12,7 +12,7 @@ function PublicListInMainPage() {
   const dispatch = useDispatch();
 
   const loadData = useCallback(() => {
-    loadPublicList().then(function (response) {
+    loadPublicListOfUserLogged().then(function (response) {
       setPublicList(response);
       if (response === null || typeof response === 'undefined') {
         setPublicList(null);

@@ -45,27 +45,8 @@ async function loadPrivateList(params: param) {
 }
 
 async function loadUserId(): Promise<userInfo> {
-  return await storageGetItem(USER_STORAGE).then(user => JSON.parse(user));
+  return await storageGetItem(USER_STORAGE).then(user => user);
 }
-
-/*
-async function checkUserListOffline() {
-  return searchUserListInStorage(USER_LIST)
-    .then(function (user) {
-      if (user === null) {
-        return false;
-      }
-      return true;
-    })
-    .catch(function (error) {
-      return Promise.reject(error);
-    });
-}*/
-
-/*
-async function loadUserListOffline(): Promise<typeUserList[]> {
-  return await searchUserListInStorage(USER_LIST);
-}*/
 
 async function where(userId?: string) {
   if (typeof userId !== 'undefined') {

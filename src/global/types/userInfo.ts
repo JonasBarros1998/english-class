@@ -1,7 +1,18 @@
 export type userInfo = {
-  name: string;
-  id: string;
+  scopes?: string[];
+  serverAuthCode: null | string;
+  idToken: string | null;
   uid: string;
-  email: string;
-  photoUrl: string;
+  user: {
+    photo: string | null;
+    email: string;
+    familyName: string | null;
+    givenName: string | null;
+    name: string | null;
+    id: number | null | string;
+  };
+  lists: {
+    publicLists: string[];
+    privateLists: string[];
+  };
 };
