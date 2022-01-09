@@ -20,8 +20,9 @@ async function userSignin(dispatch: Dispatch) {
               privateLists: [],
             },
           };
-          await addUserInfoStorage(JSON.stringify(userData));
-          await saveUserInfo(firebaseAuth.uid, userData);
+          const userOfData = await saveUserInfo(firebaseAuth.uid, userData);
+          const [firstElement] = userOfData;
+          await addUserInfoStorage(JSON.stringify(firstElement));
           dispatch(loggedUser({status: true}));
         }
       }

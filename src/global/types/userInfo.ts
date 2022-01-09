@@ -1,4 +1,5 @@
 export type userInfo = {
+  id?: string;
   scopes?: string[];
   serverAuthCode: null | string;
   idToken: string | null;

@@ -43,7 +43,7 @@ async function loadPublicListOfUserLogged(): Promise<userList[] | null> {
 
 async function loadAllPublicList() {
   const datasOfUser = await toLoadDatasOfUser();
-  const where = 'publicList/';
+  const where = `publicList/${datasOfUser.uid}`;
 
   return select(where)
     .then(function (response) {
