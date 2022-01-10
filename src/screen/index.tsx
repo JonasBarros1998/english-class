@@ -29,12 +29,11 @@ function MainPage({navigation}: any) {
       <Box>
         <Center marginTop={4}>
           <HStack justifyContent="space-between" width="90%">
-            <Text fontSize={16}>Listas Públicas</Text>
+            <Text fontSize={16}>Minhas Listas Públicas</Text>
             <Pressable
               onPress={() =>
-                navigation.navigate('publicList', {
-                  screen: 'publicList',
-                  publicListOfLoggedUser: true,
+                navigation.navigate('publicListOfUser', {
+                  screen: 'publicListOfUser',
                 })
               }>
               <Text color="#0ea5e9" fontSize={16} bold>
