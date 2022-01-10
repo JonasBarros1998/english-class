@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {FlatList, Pressable} from 'react-native';
 import {Text} from 'native-base';
-import {useSelector} from 'react-redux';
 import {userList} from '@global/types/userList';
 import Card from '../../Cards';
+import {loadAllPublicListOfTheUserLogged} from './useCase/loadPublicList';
 
 type param = {
   route: any;
@@ -12,15 +12,22 @@ type param = {
 function PublicList(props: param) {
   const [publicList, setPublicList] = useState<null | userList[]>();
 
-  const datasUserList = useSelector((state: any) => state.lists);
+  const toLoadListOfTheUser = useCallback(async () => {
+    const lists = await loadAllPublicListOfTheUserLogged();
+
+    setPublicList([...lists]);
+    console.log('OK > useCallback');
+  }, [setPublicList]);
 
   useEffect(() => {
-    setPublicList([...datasUserList]);
-  }, [datasUserList]);
+    toLoadListOfTheUser();
+  }, [toLoadListOfTheUser]);
 
-  return typeof publicList === 'undefined' ? (
-    <Text textAlign="center"> Aguarde...</Text>
-  ) : (
+  if (typeof publicList === 'undefined') {
+    return <Text textAlign="center">Aguarda...</Text>;
+  }
+
+  return (
     <FlatList
       data={publicList}
       renderItem={({item}) => {
