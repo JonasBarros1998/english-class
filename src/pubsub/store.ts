@@ -3,7 +3,6 @@ import onOff from './onOffSlice';
 import loggedUser from './loggedUser';
 import userListOffline from './reducers/userListOffline';
 import listOfCards from './reducers/listOfCards';
-import cards from './reducers/cards';
 import lists from './lists';
 
 export default configureStore({
@@ -13,6 +12,5 @@ export default configureStore({
     loggedUser,
     userListOffline,
     listOfCards,
-    cards,
   },
 });
