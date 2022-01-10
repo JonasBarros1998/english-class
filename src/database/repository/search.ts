@@ -1,23 +1,16 @@
 import {db as database} from '../connection';
 
-async function select(where: string) {
+async function select(where: string, quantity?: number) {
   return database()
     .then(async function (connection) {
-      return connection.ref(where).once('value');
+      if (typeof quantity === 'undefined') {
+        return connection.ref(where).once('value');
+      }
+      return connection.ref(where).limitToFirst(quantity).once('value');
     })
     .catch(function (error) {
       return Promise.reject(new Error(error));
     });
 }
 
-async function selectWithLimit(where: string, limit: number) {
-  return database()
-    .then(async function (connection) {
-      return connection.ref(where).limitToFirst(limit).once('value');
-    })
-    .catch(function (error) {
-      return Promise.reject(new Error(error.message));
-    });
-}
-
-export {select, selectWithLimit};
+export {select};
