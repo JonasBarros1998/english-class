@@ -2,10 +2,9 @@ import React from 'react';
 import PrivateListScreen from '@screen/PrivateListScreen';
 import MainPage from '@screen/index';
 import ListDetailsScreen from '@screen/ListDetailsScreen';
-
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
 import PublicListScreen from '@screen/publicListScreen';
+import PublicListOfUserScreen from '@screen/PublicListOfUserScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +47,14 @@ function Routes() {
           headerShown: false,
         }}>
         {props => <PublicListScreen {...props} />}
+      </Stack.Screen>
+
+      <Stack.Screen
+        name="publicListOfUser"
+        options={{
+          headerShown: false,
+        }}>
+        {props => <PublicListOfUserScreen route={props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
