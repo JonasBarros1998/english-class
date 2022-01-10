@@ -2,20 +2,20 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, Text} from 'native-base';
 import {useDispatch} from 'react-redux';
 import Card from '../../Cards';
-import {loadPublicListOfUserLogged} from './useCase/loadPublicList';
+import {toLoadPublicListOfTheUserLogged} from './useCase/loadPublicList';
 import {publicLists} from '@pubsub/lists';
 import {userList as typeUserList} from '@global/types/userList';
 
 function PublicListInMainPage() {
-  const [publicList, setPublicList] = useState<null | typeUserList[]>();
+  const [publicList, setPublicList] = useState<typeUserList[]>();
 
   const dispatch = useDispatch();
 
   const loadData = useCallback(() => {
-    loadPublicListOfUserLogged().then(function (response) {
+    toLoadPublicListOfTheUserLogged(10).then(function (response) {
       setPublicList(response);
       if (response === null || typeof response === 'undefined') {
-        setPublicList(null);
+        setPublicList(undefined);
         return;
       }
       dispatch(publicLists(response));
@@ -28,13 +28,17 @@ function PublicListInMainPage() {
     loadData();
   }, [loadData]);
 
-  if (publicList === null) {
-    return <Text textAlign="center">Nenhuma lista pública foi criada</Text>;
+  if (typeof publicList === 'undefined') {
+    return <Text textAlign="center"> Aguarde...</Text>;
   }
 
-  return typeof publicList === 'undefined' ? (
-    <Text textAlign="center"> Aguarde...</Text>
-  ) : (
+  if (publicList.length === 0) {
+    return (
+      <Text textAlign="center">Você ainda não criou nenhuma lista pública</Text>
+    );
+  }
+
+  return (
     <FlatList
       data={publicList}
       keyExtractor={({id}) => String(id)}

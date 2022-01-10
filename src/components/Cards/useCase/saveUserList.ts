@@ -26,7 +26,7 @@ async function saveUserList(listIsPrivate: boolean, datas: any[]) {
       return;
     }
   }
-  const where = `publicList/${storage.uid}`;
+  const where = 'publicList/';
   const userPublicList = await insert(datas, where);
   addListIdOnUser({
     listIsPrivate: false,

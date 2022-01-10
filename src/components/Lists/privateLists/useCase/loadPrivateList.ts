@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux';
 
-import {selectWithLimit} from '@database/repository/search';
+import {select} from '@database/repository/search';
 import {storageGetItem} from '@storage/index';
 import {USER_STORAGE} from '@global/constants';
 import {userList as typeUserList} from '@global/types/userList';
@@ -17,7 +17,7 @@ async function loadPrivateList(params: param) {
 
   const queryString = await where(params.userId);
 
-  await selectWithLimit(queryString, 10)
+  await select(queryString, 10)
     .then(response => {
       response.forEach(list => {
         const dados = list.toJSON();
