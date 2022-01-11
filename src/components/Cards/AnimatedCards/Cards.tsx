@@ -15,7 +15,12 @@ import {deleteOneCard} from '@pubsub/reducers/listOfCards';
  * Component for render list all cards and upload cards
  *
  */
-function Cards() {
+
+type param = {
+  isDisableButton?: boolean;
+};
+
+function Cards(props: param) {
   const dispatch = useDispatch();
   const listOfCards = useSelector((state: any) => state.listOfCards);
 
@@ -36,15 +41,6 @@ function Cards() {
     dispatch(deleteOneCard({type: 'cards', form: {card: card}}));
   }
 
-  // const updateCards = useCallback(() => {
-  //   setListCards([...props.cards]);
-  //   dispatch(updateAllCards({type: 'cards', cards: listCards}));
-  // }, [dispatch, listCards, props.cards]);
-
-  // useEffect(() => {
-  //   updateCards();
-  // }, [updateCards]);
-
   return (
     <>
       <FlatList
@@ -61,9 +57,14 @@ function Cards() {
           );
         }}
       />
-      <Center paddingY="1.5">
-        <CreateCardButton updateCard={updateStateComponent} />
-      </Center>
+      {typeof props.isDisableButton === 'undefined' ||
+      props.isDisableButton === true ? (
+        <Center paddingY="1.5">
+          <CreateCardButton updateCard={updateStateComponent} />
+        </Center>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
