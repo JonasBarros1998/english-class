@@ -16,7 +16,6 @@ function PublicList(props: param) {
     const lists = await loadAllPublicListOfTheUserLogged();
 
     setPublicList([...lists]);
-    console.log('OK > useCallback');
   }, [setPublicList]);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ function PublicList(props: param) {
   }, [toLoadListOfTheUser]);
 
   if (typeof publicList === 'undefined') {
-    return <Text textAlign="center">Aguarda...</Text>;
+    return <Text textAlign="center">Aguarde...</Text>;
   }
 
   return (
