@@ -36,6 +36,7 @@ function PublicList(props: param) {
               props.route.navigate('listDetails', {
                 screen: 'listDetails',
                 cardItem: item,
+                isPublicList: true,
               });
             }}>
             <Card {...item} />
