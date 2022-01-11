@@ -15,6 +15,7 @@ import {theUserCanToEditTheList} from './useCase/theUserCanToEditTheList';
 type param = {
   userList: typeUserList;
   navigation: any;
+  isPulicList: boolean;
 };
 
 function ListDetails(props: param) {
@@ -33,8 +34,9 @@ function ListDetails(props: param) {
 
     const copyObjUserList = Object.assign({}, props.userList);
     copyObjUserList.cards = datasOfList.cards;
+    copyObjUserList.listTitle = titleList;
     const listOfUser = countTotalOfCards(copyObjUserList);
-    await updateListDetails(listOfUser);
+    await updateListDetails(listOfUser, props.isPulicList);
     props.navigation.navigate('homePage', {
       screen: 'homePage',
     });
