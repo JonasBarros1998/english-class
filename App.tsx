@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
-
 import {Center, NativeBaseProvider, Text} from 'native-base';
-
 import {Provider, useSelector} from 'react-redux';
-
 import PublicListScreen from './src/screen/publicListScreen';
 import MainMenu from '@components/MainMenu';
 import Routes from './src/routes';

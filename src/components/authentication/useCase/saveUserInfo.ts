@@ -2,10 +2,7 @@ import {insert} from '@database/repository/insert';
 import {select} from '@database/repository/search';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
 
-async function saveUserInfo(
-  userUid: string,
-  userInfo: typeUserInfo,
-): Promise<typeUserInfo[]> {
+async function saveUserInfo(userUid: string, userInfo: typeUserInfo): Promise<typeUserInfo[]> {
   if (typeof userUid === 'undefined' && typeof userInfo === 'undefined') {
     throw new TypeError(`The parameters userID and userInfo 
       not should the type undefined`);
@@ -18,16 +15,21 @@ async function saveUserInfo(
     return userData;
   }
 
-  return [user];
+  return user;
 }
 
-async function existUser(where: string): Promise<typeUserInfo | false> {
+async function existUser(where: string): Promise<typeUserInfo[] | false> {
+  const loaduserDataOnFirebase: typeUserInfo[] = [];
+
   return select(where)
     .then(function (userData) {
       if (userData.toJSON() === null) {
         return false;
       }
-      return userData.toJSON() as typeUserInfo;
+      userData.forEach(function (item) {
+        loaduserDataOnFirebase.push(item.toJSON() as typeUserInfo);
+      });
+      return loaduserDataOnFirebase;
     })
     .catch(function (error) {
       throw new Error(error);
