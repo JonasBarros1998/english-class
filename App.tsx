@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 import {Center, NativeBaseProvider, Text} from 'native-base';
 import {Provider, useSelector} from 'react-redux';
@@ -8,6 +8,8 @@ import Routes from './src/routes';
 import store from './src/pubsub/store';
 import Login from '@components/authentication/Login';
 import {currentUser} from '@auth/googleSignin/index';
+import {getUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
+import {useDispatch} from 'react-redux';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -23,18 +25,21 @@ type selector = {
 function SelectMainPage(): JSX.Element {
   const [userLogged, setUserLogged] = useState(false);
   const [loadComponent, setLoadComponent] = useState(true);
-
+  const dispatch = useDispatch();
   useSelector((state: selector) => state.loggedUser);
 
-  currentUser().then(function (userInfo) {
-    if (userInfo === null) {
-      setUserLogged(false);
+  useEffect(() => {
+    currentUser().then(function (userInfo) {
+      if (userInfo === null) {
+        setUserLogged(false);
+        setLoadComponent(false);
+        return;
+      }
+      setUserLogged(true);
       setLoadComponent(false);
-      return;
-    }
-    setUserLogged(true);
-    setLoadComponent(false);
-  });
+    });
+    dispatch(getUserDatasOnStorageAsync());
+  }, [dispatch, setUserLogged, setLoadComponent]);
 
   if (loadComponent === true) {
     return (

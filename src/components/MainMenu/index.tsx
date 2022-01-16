@@ -2,11 +2,11 @@ import React from 'react';
 import {Pressable} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-
 import IconHome from '../Svgs/Home';
 import IconList from '../Svgs/IconList';
 import IconUser from '../Svgs/IconUser';
 import CreateListsScreen from '@screen/CreateListsScreen';
+import UserProfileScreen from '@screen/UserProfileScreen';
 import IconPlus from '../Svgs/IconPlus';
 
 const Tab = createBottomTabNavigator();
@@ -76,7 +76,7 @@ function MainMenu(screens: param) {
           options={{
             headerShown: false,
           }}>
-          {() => null}
+          {() => <UserProfileScreen />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>

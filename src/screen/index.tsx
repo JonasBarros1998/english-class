@@ -1,8 +1,6 @@
 import React from 'react';
 import {Pressable} from 'react-native';
-
 import {Box, HStack, Text, Center} from 'native-base';
-
 import OneCardPrivateList from '@components/Lists/privateLists/LoadOneCardPrivateList';
 import PublicListInMainPage from '@components/Lists/publicLists/PublicListInMainPage';
 
