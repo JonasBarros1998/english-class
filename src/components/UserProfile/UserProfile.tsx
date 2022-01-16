@@ -1,7 +1,9 @@
 import React from 'react';
 import {Box, Center, Avatar, Text, Button} from 'native-base';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {logout} from '@auth/googleSignin/index';
+import {removeUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
 
 type select = {
   userDatasLogged: {
@@ -9,8 +11,14 @@ type select = {
   };
 };
 
-function UserProfile() {
+type params = {
+  navigation: any;
+  route: any;
+};
+
+function UserProfile(props: params) {
   const {userData} = useSelector((state: select) => state.userDatasLogged);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -34,7 +42,11 @@ function UserProfile() {
                 size="xl"
                 marginTop={'10'}
                 source={{
-                  uri: 'https://lh3.googleusercontent.com/a/AATXAJwjaQkIxE81krerG9lbQoskH4U5vHAs3y7CU7qv=s96-c',
+                  uri:
+                    typeof userData.user.photo === 'undefined' ||
+                    userData.user.photo === null
+                      ? ''
+                      : userData.user.photo,
                 }}
               />
               <Box marginTop={'10'}>
@@ -43,7 +55,7 @@ function UserProfile() {
                   fontWeight={'extrabold'}
                   textTransform={'capitalize'}
                   letterSpacing={'xl'}>
-                  {userData.user.name}
+                  {userData.user.name === null ? '' : userData.user.name}
                 </Text>
               </Box>
 
@@ -53,7 +65,7 @@ function UserProfile() {
                   fontSize={'sm'}
                   letterSpacing={'xl'}
                   marginTop={'1.5'}>
-                  {userData.user.email}
+                  {userData.user.email === null ? '' : userData.user.email}
                 </Text>
               </Box>
 
@@ -83,7 +95,11 @@ function UserProfile() {
                   color="white"
                   fontSize={'md'}
                   fontWeight={'medium'}
-                  textTransform={'uppercase'}>
+                  textTransform={'uppercase'}
+                  onPress={() => {
+                    logout();
+                    dispatch(removeUserDatasOnStorageAsync());
+                  }}>
                   Sair
                 </Text>
               </Button>
