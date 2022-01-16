@@ -1,45 +1,44 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
-import {Center, NativeBaseProvider, Text} from 'native-base';
-import {Provider, useSelector} from 'react-redux';
-import PublicListScreen from './src/screen/publicListScreen';
+import {NativeBaseProvider, Center, Text} from 'native-base';
+import {useDispatch, Provider} from 'react-redux';
 import MainMenu from '@components/MainMenu';
+import {Login} from '@components/authentication';
+import {getUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
+import PublicListScreen from './src/screen/publicListScreen';
 import Routes from './src/routes';
 import store from './src/pubsub/store';
-import Login from '@components/authentication/Login';
-import {currentUser} from '@auth/googleSignin/index';
-import {getUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
-import {useDispatch} from 'react-redux';
+import {currentUser} from '@auth/googleSignin';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
   insets: {top: 0, left: 0, right: 0, bottom: 0},
 };
 
-type selector = {
-  loggedUser: {
-    status: boolean;
-  };
-};
-
-function SelectMainPage(): JSX.Element {
+function SelectMainPage() {
   const [userLogged, setUserLogged] = useState(false);
   const [loadComponent, setLoadComponent] = useState(true);
   const dispatch = useDispatch();
-  useSelector((state: selector) => state.loggedUser);
+  dispatch(getUserDatasOnStorageAsync());
 
-  useEffect(() => {
-    currentUser().then(function (userInfo) {
-      if (userInfo === null) {
-        setUserLogged(false);
-        setLoadComponent(false);
-        return;
-      }
+  async function ToChangeComponent(status: boolean) {
+    if (status === true) {
       setUserLogged(true);
       setLoadComponent(false);
-    });
-    dispatch(getUserDatasOnStorageAsync());
-  }, [dispatch, setUserLogged, setLoadComponent]);
+      return;
+    }
+    setUserLogged(false);
+    setLoadComponent(true);
+  }
+
+  currentUser().then(function (item) {
+    if (item !== null) {
+      setUserLogged(true);
+      setLoadComponent(false);
+      return;
+    }
+    setLoadComponent(false);
+  });
 
   if (loadComponent === true) {
     return (
@@ -50,7 +49,7 @@ function SelectMainPage(): JSX.Element {
   }
 
   if (userLogged === false) {
-    return <Login />;
+    return <Login changeComponent={ToChangeComponent} />;
   }
   if (userLogged === true) {
     return <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />;
