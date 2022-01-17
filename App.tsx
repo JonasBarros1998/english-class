@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 import {NativeBaseProvider, Center, Text} from 'native-base';
-import {useDispatch, Provider} from 'react-redux';
+import {useDispatch, Provider, useSelector} from 'react-redux';
 import MainMenu from '@components/MainMenu';
 import {Login} from '@components/authentication';
 import {getUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
+import {currentUser} from '@auth/googleSignin';
 import PublicListScreen from './src/screen/publicListScreen';
 import Routes from './src/routes';
 import store from './src/pubsub/store';
-import {currentUser} from '@auth/googleSignin';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -20,6 +20,7 @@ function SelectMainPage() {
   const [loadComponent, setLoadComponent] = useState(true);
   const dispatch = useDispatch();
   dispatch(getUserDatasOnStorageAsync());
+  useSelector((state: any) => state.loggedUser);
 
   async function ToChangeComponent(status: boolean) {
     if (status === true) {
@@ -38,6 +39,7 @@ function SelectMainPage() {
       return;
     }
     setLoadComponent(false);
+    setUserLogged(false);
   });
 
   if (loadComponent === true) {
