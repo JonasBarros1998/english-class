@@ -7,7 +7,9 @@ const getUserDatasOnStorageAsync = createAsyncThunk(
   'user/getUserDatasOnStorage',
   async () => {
     const userDatas = await storageGetItem(USER_STORAGE);
-    return {userDatas};
+    if (userDatas !== null) {
+      return {userDatas};
+    }
   },
 );
 
@@ -52,7 +54,9 @@ export const userDatasLogged = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(getUserDatasOnStorageAsync.fulfilled, (state, payload) => {
-      return {userData: payload.payload.userDatas, status: 'complete'};
+      if (typeof payload.payload !== 'undefined') {
+        return {userData: payload.payload.userDatas, status: 'complete'};
+      }
     });
 
     builder.addCase(
