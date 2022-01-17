@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {Box, Center, Avatar, Text, Button} from 'native-base';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
-import {useSelector, useDispatch} from 'react-redux';
 import {logout} from '@auth/googleSignin/index';
 import {removeUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
+import {loggedUser} from '@pubsub/loggedUser';
+import AlertDialog from '@components/Alerts/AlertDialog';
 
 type select = {
   userDatasLogged: {
@@ -18,12 +20,29 @@ type params = {
 
 function UserProfile(props: params) {
   const {userData} = useSelector((state: select) => state.userDatasLogged);
+  const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
+
+  async function exitApp() {
+    await logout();
+    dispatch(loggedUser({status: true}));
+    dispatch(removeUserDatasOnStorageAsync());
+  }
+
+  function onClose() {
+    setIsOpen(false);
+  }
+
+  function btnConfirmation() {
+    setIsOpen(false);
+    exitApp();
+  }
 
   return (
     <>
       <Box
-        bg="primary.500"
+        bg="#312E81"
         width="100%"
         borderBottomRadius="3xl"
         height={'72'}
@@ -90,16 +109,19 @@ function UserProfile(props: params) {
                   </Text>
                 </Text>
               </Box>
-              <Button bg="danger.600" w="30%" marginTop={'16'}>
+              <Button
+                variant="unstyled"
+                bg="danger.600"
+                w="30%"
+                marginTop={'16'}
+                onPress={() => {
+                  setIsOpen(!isOpen);
+                }}>
                 <Text
                   color="white"
                   fontSize={'md'}
                   fontWeight={'medium'}
-                  textTransform={'uppercase'}
-                  onPress={() => {
-                    logout();
-                    dispatch(removeUserDatasOnStorageAsync());
-                  }}>
+                  textTransform={'uppercase'}>
                   Sair
                 </Text>
               </Button>
@@ -107,6 +129,16 @@ function UserProfile(props: params) {
           </Box>
         </Center>
       </Box>
+      <AlertDialog
+        title="Deseja sair?"
+        body="Ao sair suas listas ficaram guardadas conosco e você poderá voltar quando quiser"
+        textBtnCancel="Voltar"
+        textBtnConfirmation="Confirmar"
+        isOpen={isOpen}
+        onClose={onClose}
+        btnConfirmation={btnConfirmation}
+        setIsOpen={setIsOpen}
+      />
     </>
   );
 }
