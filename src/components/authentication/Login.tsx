@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {userSignin} from './useCase/userSignin';
 import {styles} from './styles';
+import {addUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
 
 import {
   GoogleSigninButton,
@@ -11,7 +12,11 @@ import {
 
 import ModalComponent from '@components/Modal/ModalComponent';
 
-function Login() {
+type param = {
+  changeComponent: (status: boolean) => void;
+};
+
+function Login(props?: param) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +24,21 @@ function Login() {
   }, []);
 
   async function login() {
-    await userSignin(dispatch);
+    userSignin(dispatch)
+      .then(signin => {
+        if (typeof signin !== 'undefined') {
+          const [firstItem] = signin;
+          dispatch(addUserDatasOnStorageAsync(JSON.stringify(firstItem)));
+          if (typeof props !== 'undefined') {
+            props.changeComponent(true);
+          }
+        }
+      })
+      .catch(() => {
+        if (typeof props !== 'undefined') {
+          props.changeComponent(false);
+        }
+      });
   }
 
   return (

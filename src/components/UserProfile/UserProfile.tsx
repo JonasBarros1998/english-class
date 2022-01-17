@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {Box, Center, Avatar, Text, Button} from 'native-base';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
-import {useSelector} from 'react-redux';
+import {logout} from '@auth/googleSignin/index';
+import {removeUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
+import {loggedUser} from '@pubsub/loggedUser';
+import AlertDialog from '@components/Alerts/AlertDialog';
 
 type select = {
   userDatasLogged: {
@@ -9,13 +13,36 @@ type select = {
   };
 };
 
-function UserProfile() {
+type params = {
+  navigation: any;
+  route: any;
+};
+
+function UserProfile(props: params) {
   const {userData} = useSelector((state: select) => state.userDatasLogged);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  async function exitApp() {
+    await logout();
+    dispatch(loggedUser({status: true}));
+    dispatch(removeUserDatasOnStorageAsync());
+  }
+
+  function onClose() {
+    setIsOpen(false);
+  }
+
+  function btnConfirmation() {
+    setIsOpen(false);
+    exitApp();
+  }
 
   return (
     <>
       <Box
-        bg="primary.500"
+        bg="#312E81"
         width="100%"
         borderBottomRadius="3xl"
         height={'72'}
@@ -34,7 +61,11 @@ function UserProfile() {
                 size="xl"
                 marginTop={'10'}
                 source={{
-                  uri: 'https://lh3.googleusercontent.com/a/AATXAJwjaQkIxE81krerG9lbQoskH4U5vHAs3y7CU7qv=s96-c',
+                  uri:
+                    typeof userData.user.photo === 'undefined' ||
+                    userData.user.photo === null
+                      ? ''
+                      : userData.user.photo,
                 }}
               />
               <Box marginTop={'10'}>
@@ -43,7 +74,7 @@ function UserProfile() {
                   fontWeight={'extrabold'}
                   textTransform={'capitalize'}
                   letterSpacing={'xl'}>
-                  {userData.user.name}
+                  {userData.user.name === null ? '' : userData.user.name}
                 </Text>
               </Box>
 
@@ -53,7 +84,7 @@ function UserProfile() {
                   fontSize={'sm'}
                   letterSpacing={'xl'}
                   marginTop={'1.5'}>
-                  {userData.user.email}
+                  {userData.user.email === null ? '' : userData.user.email}
                 </Text>
               </Box>
 
@@ -78,7 +109,14 @@ function UserProfile() {
                   </Text>
                 </Text>
               </Box>
-              <Button bg="danger.600" w="30%" marginTop={'16'}>
+              <Button
+                variant="unstyled"
+                bg="danger.600"
+                w="30%"
+                marginTop={'16'}
+                onPress={() => {
+                  setIsOpen(!isOpen);
+                }}>
                 <Text
                   color="white"
                   fontSize={'md'}
@@ -91,6 +129,16 @@ function UserProfile() {
           </Box>
         </Center>
       </Box>
+      <AlertDialog
+        title="Deseja sair?"
+        body="Ao sair suas listas ficaram guardadas conosco e você poderá voltar quando quiser"
+        textBtnCancel="Voltar"
+        textBtnConfirmation="Confirmar"
+        isOpen={isOpen}
+        onClose={onClose}
+        btnConfirmation={btnConfirmation}
+        setIsOpen={setIsOpen}
+      />
     </>
   );
 }

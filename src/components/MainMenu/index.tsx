@@ -6,8 +6,8 @@ import IconHome from '../Svgs/Home';
 import IconList from '../Svgs/IconList';
 import IconUser from '../Svgs/IconUser';
 import CreateListsScreen from '@screen/CreateListsScreen';
-import UserProfileScreen from '@screen/UserProfileScreen';
 import IconPlus from '../Svgs/IconPlus';
+import UserProfileScreen from '@screen/UserProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -76,7 +76,12 @@ function MainMenu(screens: param) {
           options={{
             headerShown: false,
           }}>
-          {() => <UserProfileScreen />}
+          {props => (
+            <UserProfileScreen
+              navigation={props.navigation}
+              route={props.route}
+            />
+          )}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>

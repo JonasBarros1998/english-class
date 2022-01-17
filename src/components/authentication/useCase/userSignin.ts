@@ -1,13 +1,12 @@
 import {login} from '@auth/googleSignin/index';
 import {Dispatch} from 'redux';
-import {onOff, loggedUser} from '@pubsub/slices';
-import {addUserInfoStorage} from './addUserInfoOnStorage';
+import {onOff} from '@pubsub/slices';
 import {PLAY_SERVICES_NOT_AVAILABLE, SIGN_IN_CANCELLED} from '../constants';
 import {saveUserInfo} from './saveUserInfo';
 import auth from '@react-native-firebase/auth';
 
 async function userSignin(dispatch: Dispatch) {
-  await login()
+  return await login()
     .then(async function (sucessLogin) {
       if (sucessLogin.idToken !== null) {
         const firebaseAuth = await toAutenticateFirebase(sucessLogin.idToken);
@@ -20,13 +19,10 @@ async function userSignin(dispatch: Dispatch) {
               privateLists: [],
             },
           };
-          const userOfData = await saveUserInfo(firebaseAuth.uid, userData);
-          const [firstElement] = userOfData;
-          await addUserInfoStorage(JSON.stringify(firstElement));
-          dispatch(loggedUser({status: true}));
+          const userInfo = await saveUserInfo(firebaseAuth.uid, userData);
+          return userInfo;
         }
       }
-      return sucessLogin;
     })
     .catch(function (error: any) {
       if (error.message === PLAY_SERVICES_NOT_AVAILABLE) {
