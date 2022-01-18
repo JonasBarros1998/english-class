@@ -1,5 +1,11 @@
 import React from 'react';
-import {Animated, PanResponder} from 'react-native';
+import {
+  Animated,
+  GestureResponderEvent,
+  PanResponder,
+  PanResponderGestureState,
+  Keyboard,
+} from 'react-native';
 import {WIDTH_SCREEN as widthScreen, HALF_THE_SCREEN} from '@global/constants';
 import {View} from 'native-base';
 import {createCard} from '@global/types/cards';
@@ -18,6 +24,16 @@ function AnimatedCard(props: params) {
   }
 
   const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponderCapture: (
+      event: GestureResponderEvent,
+      gestureState: PanResponderGestureState,
+    ) => {
+      if (parseInt(gestureState.dx.toFixed(), 10) <= -3) {
+        return false;
+      }
+      Keyboard.dismiss();
+      return true;
+    },
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (event, gesture) => {
       if (parseInt(gesture.dx.toFixed(), 10) >= 0) {
