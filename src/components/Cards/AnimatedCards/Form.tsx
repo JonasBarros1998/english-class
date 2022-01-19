@@ -14,7 +14,6 @@ function Form(props: param) {
     props.inputCard.translation,
   );
   const [inputContext, setInputContext] = useState(props.inputCard.context);
-
   function changeInput(input: string, inputType: inputName) {
     const changeCard = {
       context: props.inputCard.context,
@@ -45,7 +44,7 @@ function Form(props: param) {
             changeInput(wordValueInput, 'word');
           }}
           value={inputWord}
-          autoCorrect={false}
+          autoCorrect={true}
           variant="underlined"
           placeholder="Palavra"
           fontSize={16}
@@ -65,7 +64,7 @@ function Form(props: param) {
             changeInput(translationValueInput, 'translation');
           }}
           value={inputTranslation}
-          autoCorrect={false}
+          autoCorrect={true}
           variant="underlined"
           placeholder="Tradução"
           fontSize={16}
@@ -85,7 +84,7 @@ function Form(props: param) {
             changeInput(contextValueInput, 'context');
           }}
           value={inputContext}
-          autoCorrect={false}
+          autoCorrect={true}
           variant="underlined"
           placeholder="Contexto"
           fontSize={16}
