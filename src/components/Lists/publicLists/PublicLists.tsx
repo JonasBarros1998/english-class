@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {FlatList, Pressable} from 'react-native';
-import {Text} from 'native-base';
+import {Text, Box} from 'native-base';
 import {userList} from '@global/types/userList';
 import Card from '../../Cards';
 import {loadAllPublicListOfTheUserLogged} from './useCase/loadPublicList';
@@ -10,7 +10,7 @@ type param = {
 };
 
 function PublicList(props: param) {
-  const [publicList, setPublicList] = useState<null | userList[]>();
+  const [publicList, setPublicList] = useState<userList[]>();
 
   const toLoadListOfTheUser = useCallback(async () => {
     const lists = await loadAllPublicListOfTheUserLogged();
@@ -29,7 +29,7 @@ function PublicList(props: param) {
   return (
     <FlatList
       data={publicList}
-      renderItem={({item}) => {
+      renderItem={({item, index}) => {
         return (
           <Pressable
             onPress={() => {
@@ -40,6 +40,13 @@ function PublicList(props: param) {
               });
             }}>
             <Card {...item} />
+            {publicList.length - 1 === index ? (
+              <>
+                <Box marginBottom={'32'} />
+              </>
+            ) : (
+              <></>
+            )}
           </Pressable>
         );
       }}
