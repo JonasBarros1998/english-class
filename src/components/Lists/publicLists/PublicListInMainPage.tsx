@@ -9,12 +9,10 @@ import PrivateCards from '@components/Cards/PrivateCard';
 
 function PublicListInMainPage(props: {navigation: any}) {
   const [publicList, setPublicList] = useState<typeUserList[]>();
-
   const dispatch = useDispatch();
 
   const loadData = useCallback(() => {
-    toLoadPublicListOfTheUserLogged(5).then(function (response) {
-      setPublicList(response);
+    toLoadPublicListOfTheUserLogged(2).then(function (response) {
       if (response === null || typeof response === 'undefined') {
         setPublicList(undefined);
         return;
