@@ -54,7 +54,7 @@ function Routes() {
         options={{
           headerShown: false,
         }}>
-        {props => <PublicListOfUserScreen route={props} />}
+        {props => <PublicListOfUserScreen navigation={props.navigation} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
