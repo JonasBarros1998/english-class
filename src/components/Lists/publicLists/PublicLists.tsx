@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {FlatList, Pressable} from 'react-native';
-import {Text} from 'native-base';
+import {Text, Box} from 'native-base';
 import {userList} from '@global/types/userList';
 import Card from '../../Cards';
 import {loadAllPublicListOfTheUserLogged} from './useCase/loadPublicList';
