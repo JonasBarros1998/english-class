@@ -4,7 +4,11 @@ import {toLoadPublicListOfTheUserLogged} from './useCase/loadPublicList';
 import PrivateCards from '@components/Cards/PrivateCard';
 import {userList} from '@global/types/userList';
 
-function PublicListOfUser() {
+type param = {
+  navigation: any;
+};
+
+function PublicListOfUser(props: param) {
   const [publicList, setPublicList] = useState<userList[]>();
   const loadPublicList = useCallback(async () => {
     const loadList = await toLoadPublicListOfTheUserLogged();
@@ -31,8 +35,15 @@ function PublicListOfUser() {
       data={publicList}
       renderItem={({item}) => {
         return (
-          <Pressable>
-            <PrivateCards {...item} />
+          <Pressable
+            onPress={() => {
+              props.navigation.navigate('listDetails', {
+                screen: 'listDetails',
+                cardItem: item,
+                isPublicList: true,
+              });
+            }}>
+            <PrivateCards card={item} />
           </Pressable>
         );
       }}

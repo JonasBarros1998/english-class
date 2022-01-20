@@ -30,7 +30,7 @@ function LoadOneCardPrivateList() {
       </Text>
     </Center>
   ) : (
-    <PrivateCard {...itemUserList} />
+    <PrivateCard card={itemUserList} />
   );
 }
 
