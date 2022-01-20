@@ -1,26 +1,24 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {Pressable} from 'react-native';
 import {FlatList, Text} from 'native-base';
 import {useDispatch} from 'react-redux';
-import Card from '../../Cards';
-import {toLoadPublicListOfTheUserLogged} from './useCase/loadPublicList';
 import {publicLists} from '@pubsub/lists';
 import {userList as typeUserList} from '@global/types/userList';
+import {toLoadPublicListOfTheUserLogged} from './useCase/loadPublicList';
+import PrivateCards from '@components/Cards/PrivateCard';
 
-function PublicListInMainPage() {
+function PublicListInMainPage(props: {navigation: any}) {
   const [publicList, setPublicList] = useState<typeUserList[]>();
-
   const dispatch = useDispatch();
 
   const loadData = useCallback(() => {
-    toLoadPublicListOfTheUserLogged(10).then(function (response) {
-      setPublicList(response);
+    toLoadPublicListOfTheUserLogged(2).then(function (response) {
       if (response === null || typeof response === 'undefined') {
         setPublicList(undefined);
         return;
       }
       dispatch(publicLists(response));
-      const loadTwoListOfUser = response.filter((_, index) => index !== 2);
-      setPublicList([...loadTwoListOfUser]);
+      setPublicList([...response]);
     });
   }, [dispatch]);
 
@@ -42,7 +40,20 @@ function PublicListInMainPage() {
     <FlatList
       data={publicList}
       keyExtractor={({id}) => String(id)}
-      renderItem={({item}) => <Card {...item} />}
+      renderItem={({item}) => {
+        return (
+          <Pressable
+            onPress={() => {
+              props.navigation.navigate('listDetails', {
+                screen: 'listDetails',
+                cardItem: item,
+                isPublicList: true,
+              });
+            }}>
+            <PrivateCards card={item} />
+          </Pressable>
+        );
+      }}
     />
   );
 }

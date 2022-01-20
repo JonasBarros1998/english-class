@@ -5,29 +5,46 @@ import {userList as typeUserList} from '@global/types/userList';
 import {USER_STORAGE} from '@global/constants';
 import {storageGetItem} from '@storage/getItem';
 
+async function loadPublicCards(datasOfTheList: typeUserList[], listID: string) {
+  const where = `publicList/${listID}`;
+  await select(where)
+    .then(function (response) {
+      const datas = response.toJSON();
+      if (datas === null) {
+        return null;
+      }
+      datasOfTheList.push(datas as typeUserList);
+    })
+    .catch(function (error) {
+      throw new Error(error.message);
+    });
+
+  return datasOfTheList;
+}
+
 async function toLoadPublicListOfTheUserLogged(quantity?: number) {
   const datasOfUser = await toLoadDatasOfUser();
-
   const datasOfTheList: typeUserList[] = [];
+  if (typeof quantity === 'undefined') {
+    const datas = await Promise.all(
+      datasOfUser.lists.publicLists.map(async function (listID) {
+        return await loadPublicCards(datasOfTheList, listID);
+      }),
+    );
+    const [firstElement] = datas;
+    return firstElement;
+  }
 
-  await Promise.all(
-    datasOfUser.lists.publicLists.map(async function (listId) {
-      const where = `publicList/${listId}`;
-      await select(where, quantity)
-        .then(function (response) {
-          const datas = response.toJSON();
-          if (datas === null) {
-            return null;
-          }
-          datasOfTheList.push(datas as typeUserList);
-        })
-        .catch(function (error) {
-          throw new Error(error.message);
-        });
+  const datasWithQuantity = await Promise.all(
+    datasOfUser.lists.publicLists.map(async function (listID, index) {
+      if (index <= quantity - 1) {
+        return await loadPublicCards(datasOfTheList, listID);
+      }
     }),
   );
 
-  return datasOfTheList;
+  const [firstElement] = datasWithQuantity;
+  return firstElement;
 }
 
 async function loadAllPublicListOfTheUserLogged() {

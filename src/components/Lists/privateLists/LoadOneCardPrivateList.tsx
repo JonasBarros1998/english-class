@@ -6,8 +6,9 @@ import {useDispatch} from 'react-redux';
 import PrivateCard from '@components/Cards/PrivateCard';
 import {loadPrivateList} from './useCase/loadPrivateList';
 import {userList} from '@global/types/userList';
+import {Pressable} from 'react-native';
 
-function LoadOneCardPrivateList() {
+function LoadOneCardPrivateList(props: {navigation: any}) {
   const [itemUserList, setItemsUserList] = useState<userList>();
   const dispatch = useDispatch();
 
@@ -30,7 +31,16 @@ function LoadOneCardPrivateList() {
       </Text>
     </Center>
   ) : (
-    <PrivateCard card={itemUserList} />
+    <Pressable
+      onPress={() => {
+        props.navigation.navigate('listDetails', {
+          screen: 'listDetails',
+          listIsPublic: false,
+          cardItem: itemUserList,
+        });
+      }}>
+      <PrivateCard card={itemUserList} />
+    </Pressable>
   );
 }
 

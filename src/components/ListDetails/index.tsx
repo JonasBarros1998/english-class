@@ -21,7 +21,7 @@ type param = {
 function ListDetails(props: param) {
   const [titleList, setTitleList] = useState(props.userList.listTitle);
   const [visible, setVisible] = useState(false);
-  const [theUserCanToEditListHis, setTheUserCanToEditListHis] =
+  const [theUserCanToEditHisList, setTheUserCanToEditHisList] =
     useState<boolean>();
 
   const datasOfList = useSelector(({listOfCards}: any) => listOfCards);
@@ -46,7 +46,7 @@ function ListDetails(props: param) {
   const updateCards = useCallback(async () => {
     dispatch(updateAllCards({type: 'cards', cards: props.userList.cards}));
     const editList = await theUserCanToEditTheList(props.userList);
-    setTheUserCanToEditListHis(editList);
+    setTheUserCanToEditHisList(editList);
   }, [dispatch, props.userList]);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ function ListDetails(props: param) {
 
   return (
     <>
-      {theUserCanToEditListHis === true ? (
+      {theUserCanToEditHisList === true ? (
         <Flex
           bg="#312E81"
           display="flex"
@@ -139,7 +139,7 @@ function ListDetails(props: param) {
         text={'Digite o titulo da lista'}
         setVisible={setVisible}
       />
-      <Cards isDisableButton={theUserCanToEditListHis} />
+      <Cards isDisableButton={theUserCanToEditHisList} />
     </>
   );
 }

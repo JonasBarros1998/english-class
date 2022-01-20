@@ -1,5 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {Text, Pressable, FlatList} from 'native-base';
+import {FlatList} from 'react-native';
+import {Text, Pressable, Box} from 'native-base';
 import {toLoadPublicListOfTheUserLogged} from './useCase/loadPublicList';
 import PrivateCards from '@components/Cards/PrivateCard';
 import {userList} from '@global/types/userList';
@@ -33,7 +34,7 @@ function PublicListOfUser(props: param) {
   return (
     <FlatList
       data={publicList}
-      renderItem={({item}) => {
+      renderItem={({item, index}) => {
         return (
           <Pressable
             onPress={() => {
@@ -44,6 +45,13 @@ function PublicListOfUser(props: param) {
               });
             }}>
             <PrivateCards card={item} />
+            {publicList.length - 1 === index ? (
+              <>
+                <Box marginBottom={'32'} />
+              </>
+            ) : (
+              <></>
+            )}
           </Pressable>
         );
       }}

@@ -17,7 +17,7 @@ async function loadPrivateList(params: param) {
 
   const queryString = await where(params.userId);
 
-  await select(queryString, 10)
+  await select(queryString)
     .then(response => {
       response.forEach(list => {
         const dados = list.toJSON();
