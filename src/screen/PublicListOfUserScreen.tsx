@@ -2,7 +2,7 @@ import React from 'react';
 import {Box, Text} from 'native-base';
 import PublicListOfUser from '@components/Lists/publicLists/PublicListOfUser';
 type param = {
-  route: any;
+  navigation: any;
 };
 
 function PublicListOfUserScreen(props: param) {
@@ -22,7 +22,7 @@ function PublicListOfUserScreen(props: param) {
         </Text>
       </Box>
       <Box bg="#e7e5e4" flex={1}>
-        <PublicListOfUser />
+        <PublicListOfUser navigation={props.navigation} />
       </Box>
     </>
   );
