@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'native-base';
+import {Fab} from 'native-base';
 import IconAdd from '@components/Svgs/Add';
 
 function CreateCardButton(props: any) {
@@ -8,15 +8,15 @@ function CreateCardButton(props: any) {
   }
 
   return (
-    <Button
-      borderRadius={100}
-      onPress={() => newCard()}
-      width="53px"
-      height="53px"
+    <Fab
+      bg="#312E81"
+      position="absolute"
+      size="sm"
       variant="unstyled"
-      bg="#312E81">
-      <IconAdd />
-    </Button>
+      marginBottom={'10'}
+      onPress={() => newCard()}
+      icon={<IconAdd />}
+    />
   );
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {Center} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
 import Form from './Form';
 import AnimatedCard from './Animated';
@@ -59,9 +58,7 @@ function Cards(props: param) {
       />
       {typeof props.isDisableButton === 'undefined' ||
       props.isDisableButton === true ? (
-        <Center paddingY="1.5">
-          <CreateCardButton updateCard={updateStateComponent} />
-        </Center>
+        <CreateCardButton updateCard={updateStateComponent} />
       ) : (
         <></>
       )}

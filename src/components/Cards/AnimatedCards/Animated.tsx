@@ -4,10 +4,9 @@ import {
   GestureResponderEvent,
   PanResponder,
   PanResponderGestureState,
-  Keyboard,
 } from 'react-native';
-import {WIDTH_SCREEN as widthScreen, HALF_THE_SCREEN} from '@global/constants';
 import {View} from 'native-base';
+import {WIDTH_SCREEN as widthScreen, HALF_THE_SCREEN} from '@global/constants';
 import {createCard} from '@global/types/cards';
 
 type params = {
@@ -28,19 +27,35 @@ function AnimatedCard(props: params) {
       event: GestureResponderEvent,
       gestureState: PanResponderGestureState,
     ) => {
-      if (parseInt(gestureState.dx.toFixed(), 10) <= -3) {
-        return false;
-      }
-      Keyboard.dismiss();
       return true;
     },
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (event, gesture) => {
       if (parseInt(gesture.dx.toFixed(), 10) >= 0) {
         position.setValue({x: 0, y: 0});
-        return;
+      } else {
+        position.setValue({x: gesture.dx, y: 0});
       }
-      position.setValue({x: gesture.dx, y: 0});
+
+      /*
+      console.log('JONAS >>> ', parseInt(gesture.dx.toFixed(), 10) <= -2);
+      if (parseInt(gesture.dx.toFixed(), 10) <= -1) {
+        dispatch(
+          editableInputs({
+            input: {
+              type: false,
+            },
+          }),
+        );
+      } else {
+        dispatch(
+          editableInputs({
+            input: {
+              type: true,
+            },
+          }),
+        );
+      }*/
     },
     onPanResponderEnd: (event, gesture) => {
       const deleteCard = parseInt(gesture.dx.toFixed(), 10) <= -HALF_THE_SCREEN;
@@ -52,8 +67,12 @@ function AnimatedCard(props: params) {
           },
           tension: 2,
           useNativeDriver: true,
+          velocity: {
+            x: 20,
+            y: 20,
+          },
         }).start();
-        setTimeout(() => removeCard(props.cardItem), 400);
+        setTimeout(() => removeCard(props.cardItem), 300);
         return;
       } else {
         Animated.spring(position, {
@@ -61,8 +80,12 @@ function AnimatedCard(props: params) {
             x: 0,
             y: 0,
           },
-          tension: 10,
+          tension: 2,
           useNativeDriver: true,
+          velocity: {
+            x: 20,
+            y: 20,
+          },
         }).start();
       }
     },

@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {Center} from 'native-base';
+import {Center, Text, Box} from 'native-base';
 import {useSelector} from 'react-redux';
 import Form from './Form';
 import AnimatedCard from './Animated';
@@ -39,15 +39,24 @@ function CreateCards() {
     <>
       <FlatList
         data={datasOfList.createCards}
-        renderItem={({item}) => {
+        renderItem={({item, index}) => {
           return (
-            <AnimatedCard deleteCard={deleteCard} cardItem={item}>
-              <Form
-                inputCard={item}
-                updateStateComponent={updateStateComponent}
-                changeInputs={changeInputs}
-              />
-            </AnimatedCard>
+            <>
+              <AnimatedCard deleteCard={deleteCard} cardItem={item}>
+                <Form
+                  inputCard={item}
+                  updateStateComponent={updateStateComponent}
+                  changeInputs={changeInputs}
+                />
+              </AnimatedCard>
+              {datasOfList.createCards.length - 1 === index ? (
+                <>
+                  <Box marginBottom={'32'} />
+                </>
+              ) : (
+                <></>
+              )}
+            </>
           );
         }}
       />

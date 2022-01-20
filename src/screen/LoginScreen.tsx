@@ -1,7 +1,12 @@
 import React from 'react';
 import {Login} from '@components/authentication';
 
-function LoginScreen() {
+type param = {
+  route: any;
+  navigation: any;
+};
+
+function LoginScreen(props: param) {
   return <Login />;
 }
 
