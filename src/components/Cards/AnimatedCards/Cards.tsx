@@ -1,6 +1,7 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {Box} from 'native-base';
 import Form from './Form';
 import AnimatedCard from './Animated';
 import {createCard} from '@global/types/cards';
@@ -44,15 +45,24 @@ function Cards(props: param) {
     <>
       <FlatList
         data={listOfCards.cards}
-        renderItem={({item}) => {
+        renderItem={({item, index}) => {
           return (
-            <AnimatedCard cardItem={item} deleteCard={deleteCard}>
-              <Form
-                inputCard={item}
-                updateStateComponent={updateStateComponent}
-                changeInputs={changeInputs}
-              />
-            </AnimatedCard>
+            <>
+              <AnimatedCard cardItem={item} deleteCard={deleteCard}>
+                <Form
+                  inputCard={item}
+                  updateStateComponent={updateStateComponent}
+                  changeInputs={changeInputs}
+                />
+              </AnimatedCard>
+              {listOfCards.cards.length - 1 === index ? (
+                <>
+                  <Box marginBottom={'32'} />
+                </>
+              ) : (
+                <></>
+              )}
+            </>
           );
         }}
       />
