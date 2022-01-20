@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pressable} from 'react-native';
 import {Box, HStack, Text, Center} from 'native-base';
-import OneCardPrivateList from '@components/Lists/privateLists/LoadOneCardPrivateList';
+import LoadOneCardPrivateList from '@components/Lists/privateLists/LoadOneCardPrivateList';
 import PublicListInMainPage from '@components/Lists/publicLists/PublicListInMainPage';
 
 function MainPage({navigation}: any) {
@@ -21,10 +21,10 @@ function MainPage({navigation}: any) {
             </Pressable>
           </HStack>
         </Center>
-        <OneCardPrivateList />
+        <LoadOneCardPrivateList navigation={navigation} />
       </Box>
 
-      <Box>
+      <Box paddingBottom={'32'}>
         <Center marginTop={4}>
           <HStack justifyContent="space-between" width="90%">
             <Text fontSize={16}>Minhas Listas Públicas</Text>
@@ -40,7 +40,7 @@ function MainPage({navigation}: any) {
             </Pressable>
           </HStack>
         </Center>
-        <PublicListInMainPage />
+        <PublicListInMainPage navigation={navigation} />
       </Box>
     </Box>
   );
