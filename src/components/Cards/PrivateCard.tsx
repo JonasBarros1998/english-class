@@ -4,7 +4,7 @@ import React from 'react';
 import {Box, Center, Text} from 'native-base';
 import {userList} from '@global/types/userList';
 
-function PrivateCard(card: userList) {
+function PrivateCard(props: {card: userList}) {
   function changeText(quantity: number) {
     if (quantity > 1) {
       return 'palavras';
@@ -24,7 +24,7 @@ function PrivateCard(card: userList) {
         mb={2}
         p={2}>
         <Text fontFamily="body" fontWeight={600} fontSize={19} pb={1} bold>
-          {card.listTitle}
+          {props.card.listTitle}
         </Text>
 
         <Text
@@ -33,7 +33,7 @@ function PrivateCard(card: userList) {
           fontSize={17}
           pb={1}
           testID="quantityWords">
-          {card.quantity} {changeText(card.quantity as number)}
+          {props.card.quantity} {changeText(props.card.quantity as number)}
         </Text>
       </Box>
     </Center>
