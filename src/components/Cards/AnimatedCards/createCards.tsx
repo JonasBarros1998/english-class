@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {Center, Text, Box} from 'native-base';
+import {Box} from 'native-base';
 import {useSelector} from 'react-redux';
 import Form from './Form';
 import AnimatedCard from './Animated';
@@ -60,9 +60,7 @@ function CreateCards() {
           );
         }}
       />
-      <Center paddingY="1.5">
-        <CreateCardButton updateCard={updateStateComponent} />
-      </Center>
+      <CreateCardButton updateCard={updateStateComponent} />
     </>
   );
 }
