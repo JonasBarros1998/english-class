@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
-
 import {Text, Center} from 'native-base';
 import {useDispatch} from 'react-redux';
-
-import PrivateCard from '@components/Cards/PrivateCard';
-import {loadPrivateList} from './useCase/loadPrivateList';
-import {userList} from '@global/types/userList';
 import {Pressable} from 'react-native';
+import PrivateCard from '@components/Cards/PrivateCard';
+import {userList} from '@global/types/userList';
+import {loadPrivateList} from './useCase/loadPrivateList';
 
 function LoadOneCardPrivateList(props: {navigation: any}) {
   const [itemUserList, setItemsUserList] = useState<userList>();
@@ -14,9 +12,7 @@ function LoadOneCardPrivateList(props: {navigation: any}) {
 
   useEffect(
     function () {
-      loadPrivateList({
-        dispatch,
-      }).then(function (datas) {
+      loadPrivateList({}).then(function (datas) {
         const [loadOneItem] = datas;
         setItemsUserList(loadOneItem);
       });

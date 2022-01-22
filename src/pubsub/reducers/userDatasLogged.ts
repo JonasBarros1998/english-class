@@ -2,6 +2,12 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {storageGetItem, storageSetItem} from '@storage/index';
 import {removeItem} from '@storage/removeItem';
 import {USER_STORAGE} from '@global/constants';
+import {userInfo} from '@global/types/userInfo';
+
+type stateType = {
+  userData: userInfo;
+  status: string;
+};
 
 const getUserDatasOnStorageAsync = createAsyncThunk(
   'user/getUserDatasOnStorage',
@@ -20,11 +26,52 @@ const removeUserDatasOnStorageAsync = createAsyncThunk(
   },
 );
 
+const updateUserDatasOnTheStorageAsync = createAsyncThunk(
+  'user/updateUserDatasOnTheStorage',
+  async (payload, thunkApi: any) => {
+    const getUserState = thunkApi.getState();
+    const userDatas = getUserState.userDatasLogged.userData as userInfo;
+    await storageSetItem(USER_STORAGE, JSON.stringify(userDatas));
+    return userDatas;
+  },
+);
+
 const addUserDatasOnStorageAsync = createAsyncThunk(
   'user/addUserDatasOnStorage',
   async (payload: string) => {
-    await storageSetItem(USER_STORAGE, payload);
-    return {userDatas: JSON.parse(payload)};
+    const userDatas = JSON.parse(payload) as userInfo;
+
+    if (typeof userDatas.lists === 'undefined') {
+      Object.defineProperty(userDatas, 'lists', {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: {
+          privateLists: [],
+          publicLists: [],
+        },
+      });
+    }
+
+    if (typeof userDatas.lists.privateLists === 'undefined') {
+      Object.defineProperty(userDatas.lists, 'privateLists', {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: [],
+      });
+    }
+
+    if (typeof userDatas.lists.publicLists === 'undefined') {
+      Object.defineProperty(userDatas.lists, 'publicLists', {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: [],
+      });
+    }
+    await storageSetItem(USER_STORAGE, JSON.stringify(userDatas));
+    return {userDatas};
   },
 );
 
@@ -44,25 +91,51 @@ export const userDatasLogged = createSlice({
       scopes: [],
       idToken: null,
       uid: null,
+      serverAuthCode: null,
       lists: {
-        publicLists: [],
-        privateLists: [],
+        privateLists: [''],
+        publicLists: [''],
       },
     },
-    status: 'pending',
+    status: '',
+  } as stateType,
+  reducers: {
+    addPrivateListId(state, {payload}) {
+      const {id}: {id: string} = payload;
+      state.userData.lists.privateLists.push(id);
+      return state;
+    },
+
+    addPublicListId(state, {payload}) {
+      const {id}: {id: string} = payload;
+      state.userData.lists.publicLists.push(id);
+      return state;
+    },
   },
-  reducers: {},
   extraReducers: builder => {
-    builder.addCase(getUserDatasOnStorageAsync.fulfilled, (state, payload) => {
-      if (typeof payload.payload !== 'undefined') {
-        return {userData: payload.payload.userDatas, status: 'complete'};
-      }
-    });
+    builder.addCase(
+      getUserDatasOnStorageAsync.fulfilled,
+      (state, {payload}) => {
+        if (typeof payload !== 'undefined') {
+          return {userData: payload.userDatas, status: 'complete'};
+        }
+      },
+    );
+    builder.addCase(
+      addUserDatasOnStorageAsync.fulfilled,
+      (state, {payload}) => {
+        return {
+          userData: payload.userDatas,
+          status: 'complete',
+          serverAuthCode: null,
+        };
+      },
+    );
 
     builder.addCase(
       removeUserDatasOnStorageAsync.fulfilled,
-      (state, payload) => {
-        const datas = {
+      (sate, {payload}) => {
+        const resetState = {
           user: {
             email: null,
             familyName: null,
@@ -75,17 +148,22 @@ export const userDatasLogged = createSlice({
           scopes: [],
           idToken: null,
           uid: null,
+          serverAuthCode: null,
           lists: {
-            publicLists: [],
-            privateLists: [],
+            privateLists: [''],
+            publicLists: [''],
           },
         };
-        return {userData: datas, status: 'complete'};
+
+        return {userData: resetState, status: 'complete'};
       },
     );
-    builder.addCase(addUserDatasOnStorageAsync.fulfilled, (state, payload) => {
-      return {userData: payload.payload.userDatas, status: 'complete'};
-    });
+    builder.addCase(
+      updateUserDatasOnTheStorageAsync.fulfilled,
+      (state, {payload}) => {
+        return {...state, userData: payload};
+      },
+    );
   },
 });
 
@@ -93,6 +171,9 @@ export {
   getUserDatasOnStorageAsync,
   removeUserDatasOnStorageAsync,
   addUserDatasOnStorageAsync,
+  updateUserDatasOnTheStorageAsync,
 };
+
+export const {addPrivateListId, addPublicListId} = userDatasLogged.actions;
 
 export default userDatasLogged.reducer;

@@ -1,63 +1,84 @@
 import {insert} from '@database/repository/insert';
-import {storageGetItem, storageSetItem} from '@storage/index';
-import {USER_STORAGE} from '@global/constants';
-import {userInfo} from '@global/types/userInfo';
 import {update} from '@database/repository/update';
+import {userInfo} from '@global/types/userInfo';
 import {userList as typeUserList} from '@global/types/userList';
+import {storageGetItem} from '@storage/index';
+import {USER_STORAGE} from '@global/constants';
+import {
+  addPrivateListId,
+  addPublicListId,
+  updateUserDatasOnTheStorageAsync,
+} from '@pubsub/reducers/userDatasLogged';
+import {Dispatch} from 'redux';
 
 type typeParam = {
   userDatas: typeUserList[];
   user: userInfo;
   listIsPrivate: boolean;
+  dispatch: Dispatch | any;
 };
 
-async function saveUserList(listIsPrivate: boolean, datas: any[]) {
-  const storage = (await storageGetItem(USER_STORAGE)) as userInfo;
+type saveUserListParams = {
+  listIsPrivate: boolean;
+  datas: any[];
+  userDatas: userInfo;
+  dispatch: Dispatch | any;
+};
 
-  if (listIsPrivate) {
-    if (storage !== null) {
-      const where = `privateList/${storage.uid}`;
-      const userList = await insert(datas, where);
-      addListIdOnUser({
+async function saveUserList(params: saveUserListParams) {
+  if (params.listIsPrivate) {
+    if (params.userDatas !== null) {
+      const where = `privateList/${params.userDatas.uid}`;
+      const userList = await insert(params.datas, where);
+      addListIdOnTheUser({
         listIsPrivate: true,
-        user: storage,
+        user: params.userDatas,
         userDatas: userList,
+        dispatch: params.dispatch,
       });
       return;
     }
   }
   const where = 'publicList/';
-  const userPublicList = await insert(datas, where);
-  addListIdOnUser({
+  console.log(params.datas);
+  console.log(where);
+  const userPublicList = await insert(params.datas, where);
+  addListIdOnTheUser({
     listIsPrivate: false,
-    user: storage,
+    user: params.userDatas,
     userDatas: userPublicList,
+    dispatch: params.dispatch,
   });
   return;
 }
 
-async function addListIdOnUser(params: typeParam) {
+async function addListIdOnTheUser(params: typeParam) {
   const {listIsPrivate, user, userDatas} = params;
-  const copyUser = Object.assign(params.user, {});
-
   userDatas.map(async function (list: typeUserList) {
-    const where = `users/${user.uid}/${user.id}`;
+    const where = `users/${user.uid}/${user.id}/lists`;
+
     if (typeof list.id !== 'undefined') {
       if (listIsPrivate) {
-        copyUser.lists.privateLists.push(list.id as string);
+        params.dispatch(addPrivateListId({id: list.id}));
+        params.dispatch(updateUserDatasOnTheStorageAsync());
+        await updateDatabase(where);
       } else {
-        copyUser.lists.publicLists.push(list.id as string);
+        params.dispatch(addPublicListId({id: list.id}));
+        params.dispatch(updateUserDatasOnTheStorageAsync());
+        await updateDatabase(where);
       }
-
-      await update(user, where);
-      updateStorage(user);
     }
   });
 }
 
-async function updateStorage(user: userInfo) {
-  const userStringfy = JSON.stringify(user);
-  storageSetItem(USER_STORAGE, userStringfy);
+async function updateDatabase(where: string) {
+  const userDatas = (await storageGetItem(USER_STORAGE)) as userInfo;
+  await update(userDatas.lists, where);
+
+  return {
+    queryString: where,
+    datas: userDatas.lists.privateLists,
+  };
 }
 
-export {saveUserList, addListIdOnUser};
+export {saveUserList, addListIdOnTheUser};

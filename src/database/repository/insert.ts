@@ -3,13 +3,21 @@ import {db as connection} from '../connection';
 async function insert(datas: Array<any>, where: string): Promise<any[]> {
   return connection()
     .then(function (database) {
+      console.log('item >>> ', datas);
       const reference = database.ref(where);
       return datas.map((data: any) => {
         const pushData = reference.push();
         const item = addUniqueId(data, pushData.key);
-        pushData.set(item).catch(function (error) {
-          return Promise.reject(new Error(error.message));
-        });
+        pushData
+          .set(item)
+          .catch(function (error) {
+            console.log('ERROR');
+            console.log('ERROR >>> ', error);
+            return Promise.reject(new Error(error.message));
+          })
+          .then(function () {
+            console.log('deu certo');
+          });
         return data;
       });
     })

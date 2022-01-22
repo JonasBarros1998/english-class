@@ -11,9 +11,7 @@ function PrivateList({navigation}: any) {
   const dispatch = useDispatch();
   useEffect(
     function () {
-      loadPrivateList({
-        dispatch,
-      })
+      loadPrivateList({})
         .then(function (response) {
           setPrivateLists([...response]);
         })

@@ -92,9 +92,9 @@ function UserProfile(props: params) {
                 <Text fontSize={'lg'}>
                   Total de listas Públicas:
                   <Text fontWeight={'semibold'} fontSize={'lg'}>
-                    {typeof userData.lists.publicLists === 'undefined'
-                      ? 0
-                      : userData.lists.publicLists.length}
+                    {typeof userData.lists.publicLists !== 'undefined'
+                      ? userData.lists.publicLists.length
+                      : 0}
                   </Text>
                 </Text>
                 <Text fontSize={'lg'}>
@@ -103,9 +103,9 @@ function UserProfile(props: params) {
                     fontWeight={'semibold'}
                     fontSize={'lg'}
                     paddingLeft={'1'}>
-                    {typeof userData.lists.privateLists === 'undefined'
-                      ? 0
-                      : userData.lists.publicLists.length}
+                    {typeof userData.lists.privateLists !== 'undefined'
+                      ? userData.lists.privateLists.length
+                      : 0}
                   </Text>
                 </Text>
               </Box>

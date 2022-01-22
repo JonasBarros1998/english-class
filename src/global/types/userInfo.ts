@@ -1,12 +1,12 @@
 export type userInfo = {
-  id?: string;
-  scopes?: string[];
-  serverAuthCode: null | string;
+  id?: string | null;
+  scopes?: string[] | never[];
   idToken: string | null;
-  uid: string;
+  uid: string | null;
+  serverAuthCode: null | string;
   user: {
     photo: string | null;
-    email: string;
+    email: string | null;
     familyName: string | null;
     givenName: string | null;
     name: string | null;

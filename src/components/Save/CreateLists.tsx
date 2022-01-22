@@ -10,16 +10,16 @@ import {
   Switch,
   Text,
 } from 'native-base';
-import Done from '../Svgs/Done';
+import {useDispatch, useSelector, useStore} from 'react-redux';
 import AlertPopover from '@components/Alerts/AlertPopover';
-import {validListTitle} from '../Save/validListTitle';
-import {saveUserList} from '../Cards/useCase/saveUserList';
-import {managerPropertiesInUserList} from '../Cards/useCase/addNewProperties';
-import {useDispatch} from 'react-redux';
 import {publicLists} from '@pubsub/lists';
 import {clearAllListCards} from '@pubsub/reducers/listOfCards';
 import CreateCards from '@components/Cards/AnimatedCards/createCards';
-import {useSelector} from 'react-redux';
+import {userInfo} from '@global/types/userInfo';
+import {managerPropertiesInUserList} from '../Cards/useCase/addNewProperties';
+import Done from '../Svgs/Done';
+import {validListTitle} from '../Save/validListTitle';
+import {saveUserList} from '../Cards/useCase/saveUserList';
 
 function CreateLists(props: any) {
   const [placeholder, setPlaceholder] = useState('TITULO DA LISTA');
@@ -29,6 +29,9 @@ function CreateLists(props: any) {
   const [isPublicList, setIsPublicList] = useState('Apenas eu');
   const {isOpen, onClose, onOpen} = useDisclose();
   const cards = useSelector((state: any) => state.listOfCards);
+  const userData = useStore();
+  const {userDatasLogged} = userData.getState();
+  const castingUserDatasLogged = userDatasLogged.userData as userInfo;
 
   const dispatch = useDispatch();
 
@@ -61,12 +64,20 @@ function CreateLists(props: any) {
     const datas = await managerPropertiesInUserList(
       cards.createCards,
       titleList,
+      castingUserDatasLogged,
     );
 
-    await saveUserList(changeSwitch, datas);
-    if (changeSwitch === false) {
-      dispatch(publicLists(datas));
-    }
+    saveUserList({
+      dispatch: dispatch,
+      datas: datas,
+      listIsPrivate: changeSwitch,
+      userDatas: castingUserDatasLogged,
+    }).then(function () {
+      if (changeSwitch === false) {
+        dispatch(publicLists(datas));
+      }
+    });
+
     clearComponent();
     dispatch(clearAllListCards('createCards'));
     props.routes.navigate('homePage');

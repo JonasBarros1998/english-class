@@ -1,5 +1,3 @@
-import {Dispatch} from 'redux';
-
 import {select} from '@database/repository/search';
 import {storageGetItem} from '@storage/index';
 import {USER_STORAGE} from '@global/constants';
@@ -9,7 +7,6 @@ import {addUserListInStorage} from '../../offline/addUserListInStorage';
 
 type param = {
   userId?: string;
-  dispatch: Dispatch;
 };
 
 async function loadPrivateList(params: param) {

@@ -1,7 +1,5 @@
 import {userList} from '@global/types/userList';
 import {createCard} from '@global/types/cards';
-import {storageGetItem} from '@storage/getItem';
-import {USER_STORAGE} from '@global/constants';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
 
 /**
@@ -10,29 +8,26 @@ import {userInfo as typeUserInfo} from '@global/types/userInfo';
  * - quantity: quantity total the words
  *
  * - listTitle: user list title
+ *
+ * - userDatas: datas of logged user
  */
 async function managerPropertiesInUserList(
   cards: createCard[],
   listTitle: string,
+  userDatas: typeUserInfo,
 ): Promise<userList[]> {
-  const loadUser = await loadUserInfo();
   return [
     {
       listTitle,
       quantity: cards.length,
       cards: cards,
       user: {
-        id: loadUser.user.id as string,
-        userName: loadUser.user.name as string,
-        photoUrl: loadUser.user.photo as string,
+        id: userDatas.user.id as string,
+        userName: userDatas.user.name as string,
+        photoUrl: userDatas.user.photo as string,
       },
     },
   ];
-}
-
-async function loadUserInfo(): Promise<typeUserInfo> {
-  const load = await storageGetItem(USER_STORAGE);
-  return load;
 }
 
 export {managerPropertiesInUserList};
