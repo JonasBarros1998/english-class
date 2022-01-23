@@ -13,7 +13,9 @@ function PublicListOfUser(props: param) {
   const [publicList, setPublicList] = useState<userList[]>();
   const loadPublicList = useCallback(async () => {
     const loadList = await toLoadPublicListOfTheUserLogged();
-    setPublicList([...loadList]);
+    if (typeof loadList !== 'undefined') {
+      setPublicList([...loadList]);
+    }
   }, [setPublicList]);
 
   useEffect(() => {
