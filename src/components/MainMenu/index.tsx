@@ -30,15 +30,15 @@ function MainMenu(screens: param) {
               );
             }
 
-            if (route.name === 'createList') {
+            if (route.name === 'nova lista') {
               return <IconPlus />;
             }
 
-            if (route.name === 'publicList') {
+            if (route.name === 'listas') {
               return <IconList />;
             }
 
-            if (route.name === 'userPerfil') {
+            if (route.name === 'perfil') {
               return <IconUser />;
             }
           },
@@ -52,7 +52,7 @@ function MainMenu(screens: param) {
         </Tab.Screen>
 
         <Tab.Screen
-          name="createList"
+          name="nova lista"
           options={{
             headerShown: false,
           }}>
@@ -64,7 +64,7 @@ function MainMenu(screens: param) {
         </Tab.Screen>
 
         <Tab.Screen
-          name="publicList"
+          name="listas"
           options={{
             headerShown: false,
           }}>
@@ -72,7 +72,7 @@ function MainMenu(screens: param) {
         </Tab.Screen>
 
         <Tab.Screen
-          name="userPerfil"
+          name="perfil"
           options={{
             headerShown: false,
           }}>
