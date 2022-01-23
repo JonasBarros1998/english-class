@@ -1,17 +1,56 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {selectToJson} from '@database/repository/search';
+import {insert} from '@database/repository/insert';
+import {userInfo as typeUserInfo} from '@global/types/userInfo';
+
+type typeInitialState = {
+  privateLists: any[];
+  publicLists: any[];
+};
+
+const getPrivateListsAsync = createAsyncThunk(
+  'lists/privateLists',
+  async (payload: typeUserInfo, thunkApi) => {
+    const privateLists = await selectToJson(`privateList/${payload.uid}`);
+    return privateLists;
+  },
+);
+
+const addNewPrivateListAsync = createAsyncThunk(
+  'lists/addNewPrivateList',
+  async (payload: any) => {
+    await insert(payload.datas, payload.where);
+  },
+);
 
 export const lists = createSlice({
   name: 'lists',
-  initialState: [],
+  initialState: {
+    privateLists: [],
+    publicLists: [],
+  } as typeInitialState,
   reducers: {
-    publicLists: (state: any, action: any) => {
-      state.push(...action.payload);
+    publicLists: (state, action: any) => {
+      state.publicLists.push(...action.payload);
     },
 
-    privateLists: () => {},
+    privateLists: (state, action: any) => {
+      state.privateLists.push(...action.payload);
+    },
+  },
+
+  extraReducers: builder => {
+    builder.addCase(getPrivateListsAsync.fulfilled, (state, {payload}) => {
+      if (payload.length === 0) {
+        return {...state, privateLists: []};
+      }
+      return {...state, privateLists: payload};
+    });
   },
 });
 
-export const {publicLists} = lists.actions;
+export const {publicLists, privateLists} = lists.actions;
+
+export {getPrivateListsAsync, addNewPrivateListAsync};
 
 export default lists.reducer;
