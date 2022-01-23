@@ -13,4 +13,15 @@ async function select(where: string, quantity?: number) {
     });
 }
 
-export {select};
+async function selectToJson(where: string, quantity?: number) {
+  const datas: any[] = [];
+
+  const selectDatas = await select(where, quantity);
+  selectDatas.forEach(function (list) {
+    datas.push(list.toJSON());
+  });
+
+  return datas;
+}
+
+export {select, selectToJson};
