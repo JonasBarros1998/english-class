@@ -1,23 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {Text, Center} from 'native-base';
-import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Pressable} from 'react-native';
 import PrivateCard from '@components/Cards/PrivateCard';
 import {userList} from '@global/types/userList';
-import {loadPrivateList} from './useCase/loadPrivateList';
 
 function LoadOneCardPrivateList(props: {navigation: any}) {
   const [itemUserList, setItemsUserList] = useState<userList>();
-  const dispatch = useDispatch();
+  const {privateLists} = useSelector((state: any) => state.lists);
 
   useEffect(
     function () {
-      loadPrivateList({}).then(function (datas) {
-        const [loadOneItem] = datas;
-        setItemsUserList(loadOneItem);
-      });
+      const [lists] = privateLists as userList[];
+      setItemsUserList(lists);
     },
-    [dispatch],
+    [privateLists, setItemsUserList],
   );
 
   return typeof itemUserList === 'undefined' ? (
