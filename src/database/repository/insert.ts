@@ -8,16 +8,9 @@ async function insert(datas: Array<any>, where: string): Promise<any[]> {
       return datas.map((data: any) => {
         const pushData = reference.push();
         const item = addUniqueId(data, pushData.key);
-        pushData
-          .set(item)
-          .catch(function (error) {
-            console.log('ERROR');
-            console.log('ERROR >>> ', error);
-            return Promise.reject(new Error(error.message));
-          })
-          .then(function () {
-            console.log('deu certo');
-          });
+        pushData.set(item).catch(function (error) {
+          return Promise.reject(new Error(error.message));
+        });
         return data;
       });
     })
