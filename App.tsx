@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 import {NativeBaseProvider, Center, Text} from 'native-base';
 import {useDispatch, Provider, useSelector} from 'react-redux';
 import MainMenu from '@components/MainMenu';
 import {Login} from '@components/authentication';
 import {getUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
+import {storageGetItem} from '@storage/getItem';
 import {currentUser} from '@auth/googleSignin';
+import {USER_STORAGE} from '@global/constants';
+import {getPrivateListsAsync} from '@pubsub/lists';
+import {userInfo} from '@global/types/userInfo';
 import PublicListScreen from './src/screen/publicListScreen';
 import Routes from './src/routes';
 import store from './src/pubsub/store';
@@ -31,6 +35,15 @@ function SelectMainPage() {
     setUserLogged(false);
     setLoadComponent(true);
   }
+
+  const load = useCallback(async () => {
+    const userData = (await storageGetItem(USER_STORAGE)) as userInfo;
+    dispatch(getPrivateListsAsync(userData));
+  }, [dispatch]);
+
+  useEffect(() => {
+    load();
+  });
 
   currentUser().then(function (item) {
     if (item !== null) {
