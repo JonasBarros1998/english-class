@@ -29,7 +29,7 @@ function UserProfile(props: params) {
     dispatch(loggedUser({status: true}));
     dispatch(removeUserDatasOnStorageAsync());
 
-    //again previous state
+    //returning previous state
     dispatch(loggedUser({status: false}));
   }
 
