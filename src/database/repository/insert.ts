@@ -3,7 +3,6 @@ import {db as connection} from '../connection';
 async function insert(datas: Array<any>, where: string): Promise<any[]> {
   return connection()
     .then(function (database) {
-      console.log('item >>> ', datas);
       const reference = database.ref(where);
       return datas.map((data: any) => {
         const pushData = reference.push();
