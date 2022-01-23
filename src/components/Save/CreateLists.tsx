@@ -12,7 +12,7 @@ import {
 } from 'native-base';
 import {useDispatch, useSelector, useStore} from 'react-redux';
 import AlertPopover from '@components/Alerts/AlertPopover';
-import {publicLists} from '@pubsub/lists';
+import {publicLists, privateLists} from '@pubsub/lists';
 import {clearAllListCards} from '@pubsub/reducers/listOfCards';
 import CreateCards from '@components/Cards/AnimatedCards/createCards';
 import {userInfo} from '@global/types/userInfo';
@@ -75,6 +75,8 @@ function CreateLists(props: any) {
     }).then(function () {
       if (changeSwitch === false) {
         dispatch(publicLists(datas));
+      } else {
+        dispatch(privateLists(datas));
       }
     });
 
