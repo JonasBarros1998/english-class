@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Box, Center, Avatar, Text, Button} from 'native-base';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
@@ -28,6 +28,9 @@ function UserProfile(props: params) {
     await logout();
     dispatch(loggedUser({status: true}));
     dispatch(removeUserDatasOnStorageAsync());
+
+    //again previous state
+    dispatch(loggedUser({status: false}));
   }
 
   function onClose() {
