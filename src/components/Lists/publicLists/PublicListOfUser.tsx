@@ -27,8 +27,8 @@ function PublicListOfUser(props: param) {
   }
   if (publicList.length === 0) {
     return (
-      <Text bold fontSize="md">
-        Você ainda não criou nenhuma lista de estudos
+      <Text fontSize="md" textAlign={'center'}>
+        Você ainda não criou nenhuma lista pública
       </Text>
     );
   }

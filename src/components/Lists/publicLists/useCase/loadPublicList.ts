@@ -31,6 +31,11 @@ async function toLoadPublicListOfTheUserLogged(quantity?: number) {
         return await loadPublicCards(datasOfTheList, listID);
       }),
     );
+
+    if (datas.length === 0) {
+      return [];
+    }
+
     const [firstElement] = datas;
     return firstElement;
   }
