@@ -16,13 +16,28 @@ function PrivateListScreen({route, navigation}: any) {
       return <PrivateList navigation={navigation} />;
     }
 
-    return <FavouriteList />;
+    // return <FavouriteList />;
   }
 
   return (
     <>
       <Box bg="#e7e5e4" flex={1}>
         <HStack bg="#312E81" height={60}>
+          <Box
+            bg="#312E81"
+            display="flex"
+            width="100%"
+            paddingTop={3}
+            paddingBottom={3}
+            paddingLeft={4}
+            height="56px"
+            justifyContent="space-between">
+            <Text fontSize={20} color="#fff" bold>
+              Minhas Listas
+            </Text>
+          </Box>
+
+          {/**
           <Button
             bgColor="#312E81"
             borderBottomColor={attComponents.style.colorBorderBtnMyList}
@@ -34,7 +49,9 @@ function PrivateListScreen({route, navigation}: any) {
               Minhas listas
             </Text>
           </Button>
+          */}
 
+          {/**
           <Button
             testID="favourite-list"
             bgColor="#312E81"
@@ -46,6 +63,7 @@ function PrivateListScreen({route, navigation}: any) {
               Listas favoritas
             </Text>
           </Button>
+          */}
         </HStack>
         <View>{loadComponentList()}</View>
       </Box>
