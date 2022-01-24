@@ -43,6 +43,10 @@ async function toLoadPublicListOfTheUserLogged(quantity?: number) {
     }),
   );
 
+  if (datasWithQuantity.length === 0) {
+    return [];
+  }
+
   const [firstElement] = datasWithQuantity;
   return firstElement;
 }

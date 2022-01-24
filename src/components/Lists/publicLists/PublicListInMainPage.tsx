@@ -12,7 +12,7 @@ function PublicListInMainPage(props: {navigation: any}) {
   const dispatch = useDispatch();
 
   const loadData = useCallback(() => {
-    toLoadPublicListOfTheUserLogged(2).then(function (response) {
+    toLoadPublicListOfTheUserLogged(4).then(function (response) {
       if (response === null) {
         setPublicList([]);
         return;
