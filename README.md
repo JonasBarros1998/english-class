@@ -23,7 +23,7 @@ yarn install
 [IOS](https://github.com/react-native-google-signin/google-signin/blob/master/docs/ios-guide.md)
 
 
-3 - Após fazer o passo a passo acima, precisamos obter nossa certificate fingerprint SHA-1 e SHA-256
+3 - Após fazer o passo a passo acima, precisamos obter nosso certificate fingerprint SHA-1 e SHA-256
 
 ```
 cd englishclass/android/app
@@ -33,7 +33,7 @@ keytool -genkey -v -keystore ADD-KEY-NAME.keystore -alias ADD-ALIAS -keyalg RSA 
 #Obs: O arquivo gerado por esse comando deve permanecer na pasta englishclass/android/app
 ```
 
-4 - Após criar a chave verifique os certificate fingerprint (SHA1 e SHA-256)
+4 - Após criar a chave verifique os certificates fingerprint (SHA1 e SHA-256)
 ```
 cd englishclass/android
 
@@ -83,7 +83,7 @@ Valid until:
   ```
 
 #### Configurar o banco database real time
-Se você realizou as instruções acima, não será necessário realizar nenhuma outra configuração. Porém existe outras formas de fazer a conexão com o banco, siga as instruções: 
+Se você realizou as instruções acima, não será necessário realizar nenhuma outra configuração. Porém existem outras formas de fazer a conexão com o banco, siga as instruções: 
 [instruções](https://rnfirebase.io/auth/social-auth#google)
 
 
