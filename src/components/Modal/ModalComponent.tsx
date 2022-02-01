@@ -37,7 +37,6 @@ function ModalComponent() {
   return (
     <Modal isOpen={closeModal} onClose={setModalClosed}>
       <Modal.Content maxH="212">
-        <Modal.CloseButton />
         <Modal.Header>Erro</Modal.Header>
         <Modal.Body>
           <ScrollView>
@@ -47,7 +46,8 @@ function ModalComponent() {
         <Modal.Footer>
           <Button.Group space={2}>
             <Button
-              variant="ghost"
+              width={'100%'}
+              variant="solid"
               colorScheme="blueGray"
               onPress={() => {
                 dispatch(onOff({status: false, message: ''}));

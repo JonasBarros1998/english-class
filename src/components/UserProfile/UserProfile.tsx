@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Box, Center, Avatar, Text, Button} from 'native-base';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';

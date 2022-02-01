@@ -1,5 +1,5 @@
-import React, {useState, useRef, Dispatch, SetStateAction} from 'react';
-import {Center, Button, AlertDialog} from 'native-base';
+import React, {useRef, Dispatch, SetStateAction} from 'react';
+import {Center, Button, AlertDialog, Box} from 'native-base';
 
 type param = {
   title: string;
@@ -22,22 +22,23 @@ function AlertDialogComponent(props: param) {
         isOpen={props.isOpen}
         onClose={props.onClose}>
         <AlertDialog.Content>
-          <AlertDialog.CloseButton />
           <AlertDialog.Header>{props.title}</AlertDialog.Header>
           <AlertDialog.Body>{props.body}</AlertDialog.Body>
           <AlertDialog.Footer>
-            <Button.Group space={2}>
+            <Box width={'100%'} marginBottom={'1.5'}>
               <Button
-                variant="unstyled"
+                variant="solid"
                 colorScheme="coolGray"
                 onPress={props.onClose}
                 ref={cancelRef}>
                 {props.textBtnCancel}
               </Button>
+            </Box>
+            <Box width={'100%'}>
               <Button colorScheme="danger" onPress={props.btnConfirmation}>
                 {props.textBtnConfirmation}
               </Button>
-            </Button.Group>
+            </Box>
           </AlertDialog.Footer>
         </AlertDialog.Content>
       </AlertDialog>
