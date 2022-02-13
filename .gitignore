@@ -61,6 +61,8 @@ buck-out/
 android/app/google-services.json
 env/env.json
 android/app/debug.keystore
+android/app/*.keystore
+android/gradle.properties
 android/app/src/debug/java/com/englishclass/ReactNativeFlipper.java
 android/app/_BUCK
 architecture.drawio
@@ -68,3 +70,4 @@ annotations.md
 test.json
 env/env-test.json
 annotations.drawio
+android/*

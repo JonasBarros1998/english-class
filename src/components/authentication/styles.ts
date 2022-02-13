@@ -5,17 +5,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#F4F4FE',
   },
   signInButton: {
-    width: 200,
-    height: 50,
+    width: 312,
+    height: 48,
   },
   status: {
     marginVertical: 20,
   },
   loggedinMessage: {
-    fontSize: 20,
+    fontSize: 30,
     color: 'tomato',
+    fontWeight: 'bold',
   },
 });
 
