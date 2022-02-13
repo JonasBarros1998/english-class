@@ -2,7 +2,7 @@ import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
-import {WEB_CLIENT_ID} from '@env/env.json';
+import {WEB_CLIENT_ID} from 'react-native-dotenv';
 
 async function configureGoogleSignIn(webClientId?: string) {
   if (typeof webClientId !== 'undefined') {
