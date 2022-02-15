@@ -58,6 +58,8 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+
 android/app/google-services.json
 env/env.json
 android/app/debug.keystore
@@ -70,4 +72,4 @@ annotations.md
 test.json
 env/env-test.json
 annotations.drawio
-android/*
+.env
