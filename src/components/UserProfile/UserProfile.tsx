@@ -135,7 +135,7 @@ function UserProfile(props: params) {
       <AlertDialog
         title="Deseja sair?"
         body="Ao sair suas listas ficaram guardadas conosco e você poderá voltar quando quiser"
-        textBtnCancel="Voltar"
+        textBtnCancel="Fechar"
         textBtnConfirmation="Confirmar"
         isOpen={isOpen}
         onClose={onClose}

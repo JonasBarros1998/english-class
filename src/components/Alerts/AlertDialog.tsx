@@ -27,15 +27,19 @@ function AlertDialogComponent(props: param) {
           <AlertDialog.Footer>
             <Box width={'100%'} marginBottom={'1.5'}>
               <Button
+                height="12"
                 variant="solid"
-                colorScheme="coolGray"
+                bgColor="#0284c7"
                 onPress={props.onClose}
                 ref={cancelRef}>
                 {props.textBtnCancel}
               </Button>
             </Box>
-            <Box width={'100%'}>
-              <Button colorScheme="danger" onPress={props.btnConfirmation}>
+            <Box width={'100%'} marginTop={'1.5'}>
+              <Button
+                colorScheme="danger"
+                onPress={props.btnConfirmation}
+                height="12">
                 {props.textBtnConfirmation}
               </Button>
             </Box>

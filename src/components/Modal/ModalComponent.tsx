@@ -47,8 +47,9 @@ function ModalComponent() {
           <Button.Group space={2}>
             <Button
               width={'100%'}
+              height={'12'}
               variant="solid"
-              colorScheme="blueGray"
+              bgColor="#0284c7"
               onPress={() => {
                 dispatch(onOff({status: false, message: ''}));
               }}>
