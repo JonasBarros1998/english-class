@@ -46,14 +46,17 @@ function ModalComponent() {
         <Modal.Footer>
           <Button.Group space={2}>
             <Button
+              fontWeight={'extrabold'}
               width={'100%'}
               height={'12'}
               variant="solid"
-              bgColor="#0284c7"
+              bgColor="#0ea5e9"
               onPress={() => {
                 dispatch(onOff({status: false, message: ''}));
               }}>
-              Fechar
+              <Text fontSize={'lg'} fontWeight={'extrabold'} color={'#fff'}>
+                Fechar
+              </Text>
             </Button>
           </Button.Group>
         </Modal.Footer>
