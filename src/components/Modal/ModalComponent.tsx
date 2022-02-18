@@ -50,7 +50,7 @@ function ModalComponent() {
               width={'100%'}
               height={'12'}
               variant="solid"
-              bgColor="#0ea5e9"
+              bgColor="#312E81"
               onPress={() => {
                 dispatch(onOff({status: false, message: ''}));
               }}>

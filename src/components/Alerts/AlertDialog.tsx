@@ -29,7 +29,7 @@ function AlertDialogComponent(props: param) {
               <Button
                 height="12"
                 variant="solid"
-                bgColor="#312E81"
+                bgColor="#0284c7"
                 onPress={props.onClose}
                 ref={cancelRef}>
                 {props.textBtnCancel}
