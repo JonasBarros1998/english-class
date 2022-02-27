@@ -8,7 +8,7 @@ import {addUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
 import {
   GoogleSigninButton,
   configureGoogleSignIn,
-} from '@auth/googleSignin/index';
+} from '@services/auth/googleSignin/index';
 
 import ModalComponent from '@components/Modal/ModalComponent';
 

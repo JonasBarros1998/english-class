@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Box, Center, Avatar, Text, Button} from 'native-base';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
-import {logout} from '@auth/googleSignin/index';
+import {logout} from '@services/auth/googleSignin/index';
 import {removeUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
 import {loggedUser} from '@pubsub/loggedUser';
 import AlertDialog from '@components/Alerts/AlertDialog';

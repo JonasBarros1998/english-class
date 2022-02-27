@@ -6,7 +6,7 @@ import MainMenu from '@components/MainMenu';
 import {Login} from '@components/authentication';
 import {getUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
 import {storageGetItem} from '@storage/getItem';
-import {currentUser} from '@auth/googleSignin';
+import {currentUser} from '@services/auth/googleSignin';
 import {USER_STORAGE} from '@global/constants';
 import {getPrivateListsAsync} from '@pubsub/lists';
 import {userInfo} from '@global/types/userInfo';

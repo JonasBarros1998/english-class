@@ -1,4 +1,4 @@
-import {login} from '@auth/googleSignin/index';
+import {login} from '@services/auth/googleSignin/index';
 import {Dispatch} from 'redux';
 import {onOff} from '@pubsub/slices';
 import {PLAY_SERVICES_NOT_AVAILABLE, SIGN_IN_CANCELLED} from '../constants';
