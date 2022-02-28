@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {selectToJson} from '@database/repository/search';
-import {insert} from '@database/repository/insert';
+import {selectToJson} from '@services/database/repository/search';
+import {insert} from '@services/database/repository/insert';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
 
 type typeInitialState = {

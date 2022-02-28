@@ -1,4 +1,4 @@
-import {update} from '@database/repository/update';
+import {update} from '@services/database/repository/update';
 import {userList as typeUserList} from '@global/types/userList';
 import {userInfo} from '@global/types/userInfo';
 import {storageGetItem} from '@storage/getItem';
