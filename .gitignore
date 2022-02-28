@@ -73,3 +73,5 @@ test.json
 env/env-test.json
 annotations.drawio
 .env
+.env.development
+.env.production
