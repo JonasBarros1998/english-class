@@ -18,7 +18,7 @@
     "paths": {
       "@lists/*": ["src/components/Lists/lists/*"],
       "@components/*": ["./src/components/*"],
-      "@database/*": ["./src/database/*"],
+      "@database/*": ["src/services/database/*"],
       "@screen/*": ["./src/screen/*"],
       "@env/*": ["./env/*"],
       "@auth/*": ["src/services/auth/*"],
