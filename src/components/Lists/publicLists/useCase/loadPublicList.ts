@@ -1,4 +1,4 @@
-import {select} from '@database/repository/search';
+import {select} from '@services/database/repository/search';
 import {userList} from '@global/types/userList';
 import {userInfo} from '@global/types/userInfo';
 import {userList as typeUserList} from '@global/types/userList';

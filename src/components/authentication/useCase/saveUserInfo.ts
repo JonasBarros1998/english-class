@@ -1,5 +1,5 @@
-import {insert} from '@database/repository/insert';
-import {select} from '@database/repository/search';
+import {insert} from '@services/database/repository/insert';
+import {select} from '@services/database/repository/search';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
 
 async function saveUserInfo(userUid: string, userInfo: typeUserInfo): Promise<typeUserInfo[]> {

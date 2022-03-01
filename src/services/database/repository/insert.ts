@@ -1,9 +1,11 @@
 import {db as connection} from '../connection';
+import settingEnvironment from '../settingEnvironment';
 
 async function insert(datas: Array<any>, where: string): Promise<any[]> {
+  const databaseUrl = settingEnvironment(where);
   return connection()
     .then(function (database) {
-      const reference = database.ref(where);
+      const reference = database.ref(databaseUrl);
       return datas.map((data: any) => {
         const pushData = reference.push();
         const item = addUniqueId(data, pushData.key);

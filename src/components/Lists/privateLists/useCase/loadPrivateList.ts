@@ -1,4 +1,4 @@
-import {select} from '@database/repository/search';
+import {select} from '@services/database/repository/search';
 import {storageGetItem} from '@storage/index';
 import {USER_STORAGE} from '@global/constants';
 import {userList as typeUserList} from '@global/types/userList';

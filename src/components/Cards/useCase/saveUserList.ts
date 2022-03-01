@@ -1,5 +1,5 @@
-import {insert} from '@database/repository/insert';
-import {update} from '@database/repository/update';
+import {insert} from '@services/database/repository/insert';
+import {update} from '@services/database/repository/update';
 import {userInfo} from '@global/types/userInfo';
 import {userList as typeUserList} from '@global/types/userList';
 import {storageGetItem} from '@storage/index';
