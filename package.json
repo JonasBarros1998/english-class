@@ -5,9 +5,11 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest __tests__/src/lists/listDetails/index.spec.tsx",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "start": "NODE_ENV=production react-native start",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "dev:reset": "watchman watch-del-all && rm -rf ${TMPDIR:-/tmp}/metro-*",
+    "dev": "NODE_ENV=development react-native start"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.11",
