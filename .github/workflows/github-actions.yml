@@ -32,6 +32,6 @@ jobs:
           gh auth login  --with-token < .token
           unset EC
           rm -f .token
-          gh release create v${env.VERSION} --title "v${env.VERSION} (test)"
+          gh release create "v$VERSION" --title "$VERSION (test)"
 
 
