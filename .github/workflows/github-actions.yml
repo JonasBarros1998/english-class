@@ -6,8 +6,6 @@ on:
       - create-new-ci-cd
       - develop
       - homolog 
-env: 
-  VERSION: 1.2.0
 
 jobs: 
   check-bats-version: 
@@ -26,6 +24,7 @@ jobs:
       - name: new release
         env: 
           EC: ${{ secrets.EC }}
+          VERSION: 1.2.0
         if: ${{ github.ref_name == 'create-new-ci-cd' }}
         run: |
           echo "$EC" > .token
