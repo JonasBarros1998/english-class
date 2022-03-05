@@ -25,7 +25,7 @@ jobs:
       - name: new release
         env: 
           EC: ${{ secrets.EC }}
-          VERSION: 1.2.2
+          VERSION: 1.2.3
         if: ${{ github.ref_name == 'create-new-ci-cd' }}
         run: |
           echo "$EC" > .token
