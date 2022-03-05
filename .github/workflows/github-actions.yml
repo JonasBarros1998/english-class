@@ -23,7 +23,7 @@ jobs:
 
       - name: conditional command
         if: ${{ github.ref_name == 'create-new-ci-cd' }}
-        run: echo "JONAS"
+        run: gh release create v1.0.0 --title "v1.1.0 (test)"
     
         
         #echo "${GITHUB_REF}"   
