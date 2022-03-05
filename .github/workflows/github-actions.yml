@@ -26,7 +26,7 @@ jobs:
         env: 
           EC: ${{ secrets.EC }}
           VERSION: 1.2.3
-        if: ${{ github.ref_name == 'create-new-ci-cd' }}
+        if: ${{ github.ref_name == 'main' }}
         run: |
           echo "$EC" > .token
           gh auth login  --with-token < .token
