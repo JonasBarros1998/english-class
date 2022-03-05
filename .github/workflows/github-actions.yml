@@ -16,19 +16,21 @@ jobs:
       - uses: actions/setup-node@v2
         with: 
           node-version: '14'
+      
       #- run: npm install
-
       #- name: run unit test
       #  run: npm run test
 
-      - name: new release
+        #comment
+      - name: conditional command
         env: 
           EC: ${{ secrets.EC }}
-          VERSION: 1.2.0
         if: ${{ github.ref_name == 'create-new-ci-cd' }}
         run: |
           echo "$EC" > .token
           gh auth login  --with-token < .token
           unset EC
           rm -f .token
-          gh release create "v1.2.0 --title "1.2.0 (test)"
+          gh release create v1.0.1 --title "v1.1.0 (test)"
+
+
