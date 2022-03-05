@@ -22,8 +22,8 @@ jobs:
         run: npm run test
 
       - name: conditional command
-        if: ${{ ${GITHUB_REF} == 'create-new-ci-cd' }}
-        run: echo "${GITHUB_REF}"
+        if: ${{ github.ref_name == 'create-new-ci-cd' }}
+        run: echo "${github.ref_name}"
     
         
         #echo "${GITHUB_REF}"   
