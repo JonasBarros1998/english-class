@@ -26,7 +26,11 @@ jobs:
         env: 
           SECRET_VALUE: ${{ secrets.MY_NAME }}
         if: ${{ github.ref_name == 'create-new-ci-cd' }}
-        run: gh auth login  --with-token ${SECRET_VALUE}
+        run: |
+          echo "$SECRET_VALUE" > .token
+          gh auth login  --with-token < .token
+          rm -f .token
+          unset SECRET_VALUE
         #run: gh auth login && gh release create v1.0.0 --title "v1.1.0 (test)"
 
 
