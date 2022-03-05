@@ -10,6 +10,7 @@ on:
 jobs: 
   check-bats-version: 
     runs-on: ubuntu-20.04
+    environment: Environments
     steps: 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -23,7 +24,7 @@ jobs:
         #comment
       - name: conditional command
         if: ${{ github.ref_name == 'create-new-ci-cd' }}
-        run: gh auth login --with-token ${{secrets.GITHUB_TOKEN}}
+        run: echo $NAME
         #run: gh auth login && gh release create v1.0.0 --title "v1.1.0 (test)"
 
 
