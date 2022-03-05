@@ -16,15 +16,14 @@ jobs:
         with: 
           node-version: '14'
       
-      - run: npm install
-
-      - name: run unit test
-        run: npm run test
+      #- run: npm install
+      #- name: run unit test
+      #  run: npm run test
 
         #comment
       - name: conditional command
         if: ${{ github.ref_name == 'create-new-ci-cd' }}
-        run: echo "$NAME"
+        run: echo $NAME
         #run: gh auth login && gh release create v1.0.0 --title "v1.1.0 (test)"
 
 
