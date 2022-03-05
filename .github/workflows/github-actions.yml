@@ -24,12 +24,12 @@ jobs:
         #comment
       - name: conditional command
         env: 
-          SECRET_VALUE: ${{ secrets.EC }}
+          EC: ${{ secrets.EC }}
         if: ${{ github.ref_name == 'create-new-ci-cd' }}
         run: |
-          echo "$SECRET_VALUE" > .token
+          echo "$EC" > .token
           gh auth login  --with-token < .token
-          unset SECRET_VALUE
+          unset EC
           rm -f .token
         #run: gh auth login && gh release create v1.0.0 --title "v1.1.0 (test)"
 
