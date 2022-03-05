@@ -22,7 +22,7 @@ jobs:
         run: npm run test
 
       - name: conditional command
-        if: contains(${GITHUB_REF}, 'refs/heads/create-new-ci-cd')
+        if: contains($GITHUB_REF, 'refs/heads/create-new-ci-cd')
         run: echo "${GITHUB_REF}"
     
         
