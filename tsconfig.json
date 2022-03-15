@@ -26,7 +26,8 @@
       "@pubsub/*": ["./src/pubsub/*"],
       "@storage/*": ["./src/storage/*"],
       "@services/*": ["./src/services/*"],
-      "@global/*": ["./src/global/*"]
+      "@global/*": ["./src/global/*"],
+      "@modules/*": ["./src/modules/*"]
     }
   },
   "exclude": [

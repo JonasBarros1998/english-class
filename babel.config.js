@@ -18,6 +18,7 @@ module.exports = {
           '@storage': './src/storage',
           '@services': './src/services',
           '@global': './src/global',
+          '@modules': './src/modules',
         },
       },
     ],
