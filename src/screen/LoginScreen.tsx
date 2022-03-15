@@ -1,5 +1,5 @@
 import React from 'react';
-import {Login} from '@components/authentication';
+import Login from '@modules/auth/components/Login';
 
 type param = {
   route: any;
