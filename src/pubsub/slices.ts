@@ -1,4 +1,4 @@
 import {onOff} from './onOffSlice';
-import {loggedUser} from './loggedUser';
+import {theUserHaveAccess} from './reducers/accessUserSlice';
 
-export {onOff, loggedUser};
+export {onOff, theUserHaveAccess};

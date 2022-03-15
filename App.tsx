@@ -24,8 +24,7 @@ function SelectMainPage() {
   const [loadComponent, setLoadComponent] = useState(true);
   const dispatch = useDispatch();
   dispatch(getUserDatasOnStorageAsync());
-  useSelector((state: any) => state.loggedUser);
-
+  useSelector((state: any) => state.theUserHaveAccess.status);
   async function ToChangeComponent(status: boolean) {
     if (status === true) {
       setUserLogged(true);
