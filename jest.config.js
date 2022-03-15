@@ -10,4 +10,5 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>',
   }),
+  setupFiles: ['./__mocks__/@react-native-google-signin/google-signin.ts'],
 };
