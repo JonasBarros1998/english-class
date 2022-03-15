@@ -4,7 +4,7 @@ import {Box, Center, Avatar, Text, Button} from 'native-base';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
 import {logout} from '@services/auth/googleSignin/index';
 import {removeUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
-import {loggedUser} from '@pubsub/loggedUser';
+import {theUserHaveAccess} from '@pubsub/reducers/accessUserSlice';
 import AlertDialog from '@components/Alerts/AlertDialog';
 
 type select = {
@@ -26,11 +26,11 @@ function UserProfile(props: params) {
 
   async function exitApp() {
     await logout();
-    dispatch(loggedUser({status: true}));
+    dispatch(theUserHaveAccess(true));
     dispatch(removeUserDatasOnStorageAsync());
 
     //returning previous state
-    dispatch(loggedUser({status: false}));
+    dispatch(theUserHaveAccess(false));
   }
 
   function onClose() {
