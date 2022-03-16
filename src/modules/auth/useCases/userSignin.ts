@@ -42,15 +42,7 @@ async function managerAccess(): Promise<void> {
       return;
     }
 
-    const formatDatasOfUser = {
-      ...datasOfUser,
-      lists: {
-        publicLists: [],
-        privateLists: [],
-      },
-    };
-
-    addDatasInTheStorage(USER_STORAGE, JSON.stringify(formatDatasOfUser));
+    addDatasInTheStorage(USER_STORAGE, JSON.stringify(existUser));
   }
 
   dispatchAction(true);
