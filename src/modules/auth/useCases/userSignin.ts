@@ -45,7 +45,21 @@ async function managerAccess(): Promise<void> {
       return;
     }
 
-    addDatasInTheStorage(USER_STORAGE, JSON.stringify(existUser));
+    const [firstItem] = existUser;
+
+    if (typeof firstItem.lists === 'undefined') {
+      Object.defineProperty(firstItem, 'lists', {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: {
+          privateLists: [],
+          publicLists: [],
+        },
+      });
+    }
+
+    addDatasInTheStorage(USER_STORAGE, JSON.stringify(firstItem));
   }
 
   dispatchAction(true);
