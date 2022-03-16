@@ -1,8 +1,11 @@
 import {userSignin} from '../services/login';
 import {addDatasInTheStorage} from '../services/addDatasInTheStorage';
 import {USER_STORAGE} from '@global/constants';
-import {saveUserInfo} from './saveUserInfo';
-import {checkIfUserExistInDatabase} from '../services/saveUserInDatabase';
+
+import {
+  checkIfUserExistInDatabase,
+  saveUserInDatabase,
+} from '../services/saveUserInDatabase';
 import {getUserDataInTheStorage} from '../services/getDatasInTheStorage';
 import {dispatchAction} from '../services/dispatchUserAction';
 import {userSignIn} from '../types';
@@ -19,7 +22,7 @@ async function authenticateUserWhenAccessFirstTime(datasOfUser: userSignIn) {
 
   addDatasInTheStorage(USER_STORAGE, JSON.stringify(formatDatasOfUser));
 
-  await saveUserInfo(formatDatasOfUser.uid as string, formatDatasOfUser);
+  await saveUserInDatabase(formatDatasOfUser);
 
   dispatchAction(true);
 }
