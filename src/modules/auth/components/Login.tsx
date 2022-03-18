@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 import {GoogleSigninButton} from '@services/auth/googleSignin/index';
-import {managerAccess} from '../../modules/auth/useCases/userSignin';
+import {managerAccess} from '../useCases/userSignin';
 import ModalComponent from '@components/Modal/ModalComponent';
-import {styles} from '../../modules/auth/components/styles/styles';
+import {styles} from './styles/styles';
 
 function Login() {
   const login = async () => await managerAccess();

@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Box, Center, Avatar, Text, Button} from 'native-base';
+import {Box, Center, Avatar, Text} from 'native-base';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
-import {logout} from '@services/auth/googleSignin/index';
+import {logout} from '@services/auth/googleSignin';
 import {removeUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
 import {theUserHaveAccess} from '@pubsub/reducers/accessUserSlice';
 import AlertDialog from '@components/Alerts/AlertDialog';
+import Logout from '@modules/auth/components/Logout';
 
 type select = {
   userDatasLogged: {
@@ -112,22 +113,7 @@ function UserProfile(props: params) {
                   </Text>
                 </Text>
               </Box>
-              <Button
-                variant="unstyled"
-                bg="danger.600"
-                w="30%"
-                marginTop={'16'}
-                onPress={() => {
-                  setIsOpen(!isOpen);
-                }}>
-                <Text
-                  color="white"
-                  fontSize={'md'}
-                  fontWeight={'medium'}
-                  textTransform={'uppercase'}>
-                  Sair
-                </Text>
-              </Button>
+              <Logout />
             </Center>
           </Box>
         </Center>
