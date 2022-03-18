@@ -1,8 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, Text, Modal, Box} from 'native-base';
+import {logoutUser} from '../useCases/logout';
 
-export default function ModalComponent() {
-  const [openComponent, setOpenComponent] = useState(true);
+export default function ModalComponent(props: {
+  openModal: boolean | undefined;
+  changeStateOfAnotherComponent: (state: boolean) => void | undefined;
+}) {
+  const modal =
+    typeof props.openModal === 'undefined' ? false : props.openModal;
+  const [openComponent, setOpenComponent] = useState(modal);
+  const [disable, setDisable] = useState(false);
+
+  useEffect(() => {
+    setOpenComponent(modal);
+  }, [modal]);
+
+  async function disableButton() {
+    setDisable(true);
+    await logoutUser();
+    setDisable(false);
+  }
 
   return (
     <>
@@ -21,9 +38,11 @@ export default function ModalComponent() {
           <Modal.Footer justifyContent={'center'}>
             <Box width={'100%'}>
               <Button
-                marginBottom={'1.5'}
+                isDisabled={disable}
+                marginBottom={'2'}
                 backgroundColor={'#312E81'}
-                height={'45px'}>
+                height={'45px'}
+                onPress={() => disableButton()}>
                 <Text color={'white'} fontSize={'18px'} bold>
                   Sim, quero sair
                 </Text>
@@ -31,7 +50,10 @@ export default function ModalComponent() {
               <Button
                 backgroundColor={'transparent'}
                 colorScheme={'primary'}
-                onPress={() => setOpenComponent(!openComponent)}>
+                onPress={() => {
+                  setOpenComponent(false);
+                  props.changeStateOfAnotherComponent(false);
+                }}>
                 <Text color={'#312E81'} fontSize={'18px'} bold>
                   Voltar
                 </Text>
