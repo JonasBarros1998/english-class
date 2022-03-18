@@ -20,18 +20,3 @@ jobs:
 
       - name: run unit test
         run: npm run test
-
-
-      - name: new release
-        env: 
-          EC: ${{ secrets.EC }}
-          VERSION: 1.2.3
-        if: ${{ github.ref_name == 'main' }}
-        run: |
-          echo "$EC" > .token
-          gh auth login  --with-token < .token
-          unset EC
-          rm -f .token
-          gh release create "v$VERSION" --title "$VERSION (test)"
-
-
