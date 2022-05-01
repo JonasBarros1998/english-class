@@ -4,6 +4,8 @@ import {userInfo} from '@global/types/userInfo';
 import {userList as typeUserList} from '@global/types/userList';
 import {USER_STORAGE} from '@global/constants';
 import {storageGetItem} from '@storage/getItem';
+import store from '@pubsub/store';
+import {updateAllEnglishPublicList} from '@pubsub/lists';
 
 async function loadPublicCards(datasOfTheList: typeUserList[], listID: string) {
   const where = `publicList/${listID}`;
@@ -56,7 +58,7 @@ async function toLoadPublicListOfTheUserLogged(quantity?: number) {
   return firstElement;
 }
 
-async function loadAllPublicListOfTheUserLogged() {
+async function loadAllPublicEnglishList() {
   const datasOfTheList: typeUserList[] = [];
 
   const where = 'publicList/';
@@ -71,6 +73,8 @@ async function loadAllPublicListOfTheUserLogged() {
     .catch(function (error) {
       throw new Error(error.message);
     });
+
+  store.dispatch(updateAllEnglishPublicList(datasOfTheList));
   return datasOfTheList;
 }
 
@@ -78,4 +82,4 @@ async function toLoadDatasOfUser(): Promise<userInfo> {
   return await storageGetItem(USER_STORAGE);
 }
 
-export {toLoadPublicListOfTheUserLogged, loadAllPublicListOfTheUserLogged};
+export {toLoadPublicListOfTheUserLogged, loadAllPublicEnglishList};
