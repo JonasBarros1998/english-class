@@ -63,9 +63,8 @@ function SelectMainPage() {
   }
 
   if (userLogged === false) {
-    return <Login changeComponent={ToChangeComponent} />;
-  }
-  if (userLogged === true) {
+    return <Login />;
+  } else {
     return <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />;
   }
 }
