@@ -6,6 +6,8 @@ import {userInfo as typeUserInfo} from '@global/types/userInfo';
 type typeInitialState = {
   privateLists: any[];
   publicLists: any[];
+  publicEnglishListAll: any[];
+  searchPublicEnglishList: any[];
 };
 
 const getPrivateListsAsync = createAsyncThunk(
@@ -28,12 +30,20 @@ export const lists = createSlice({
   initialState: {
     privateLists: [],
     publicLists: [],
+    publicEnglishListAll: [],
+    searchPublicEnglishList: [],
   } as typeInitialState,
   reducers: {
     publicLists: (state, action: any) => {
       state.publicLists.push(...action.payload);
     },
-
+    updateAllEnglishPublicList: (state, action: any) => {
+      state.publicEnglishListAll = action.payload;
+      state.searchPublicEnglishList = action.payload;
+    },
+    searchOnList: (state, action: any) => {
+      state.searchPublicEnglishList = action.payload;
+    },
     privateLists: (state, action: any) => {
       state.privateLists.push(...action.payload);
     },
@@ -49,7 +59,13 @@ export const lists = createSlice({
   },
 });
 
-export const {publicLists, privateLists} = lists.actions;
+// eslint-disable-next-line
+export const {
+  publicLists,
+  privateLists,
+  updateAllEnglishPublicList,
+  searchOnList,
+} = lists.actions;
 
 export {getPrivateListsAsync, addNewPrivateListAsync};
 
