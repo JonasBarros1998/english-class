@@ -4,6 +4,8 @@ import {USER_STORAGE} from '@global/constants';
 import {userList as typeUserList} from '@global/types/userList';
 import {userInfo} from '@global/types/userInfo';
 import {addUserListInStorage} from '../../offline/addUserListInStorage';
+import store from '@pubsub/store';
+import {privateLists} from '@pubsub/lists';
 
 type param = {
   userId?: string;
@@ -44,4 +46,9 @@ async function where(userId?: string) {
   }
 }
 
-export {loadPrivateList};
+async function dispatchPrivateList() {
+  const privateList = await loadPrivateList({});
+  store.dispatch(privateLists(privateList));
+}
+
+export {loadPrivateList, dispatchPrivateList};

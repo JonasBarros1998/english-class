@@ -2,11 +2,11 @@ import {insert} from '@services/database/repository/insert';
 import {select} from '@services/database/repository/search';
 import {userInfo} from '@global/types/userInfo';
 
-async function saveUserInDatabase(user: userInfo): Promise<void> {
+async function saveUserInDatabase(user: userInfo): Promise<any[]> {
   if (typeof user === 'undefined') {
     throw new TypeError('These parameters should be of userInfoType');
   }
-  await insert([user], `users/${user.uid}`);
+  return await insert([user], `users/${user.uid}`);
 }
 
 async function checkIfUserExistInDatabase(
