@@ -20,9 +20,12 @@ async function authenticateUserWhenAccessFirstTime(datasOfUser: userSignIn) {
     },
   };
 
-  addDatasInTheStorage(USER_STORAGE, JSON.stringify(formatDatasOfUser));
+  const [{id}] = await saveUserInDatabase(formatDatasOfUser);
 
-  await saveUserInDatabase(formatDatasOfUser);
+  addDatasInTheStorage(
+    USER_STORAGE,
+    JSON.stringify({...formatDatasOfUser, id}),
+  );
 
   dispatchAction(true);
 }
