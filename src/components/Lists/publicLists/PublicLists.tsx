@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {FlatList, Pressable} from 'react-native';
 import {Text, Box} from 'native-base';
 import {userList} from '@global/types/userList';
@@ -10,9 +10,6 @@ type param = {
   route: any;
 };
 
-//Function for load all public english list;
-loadAllPublicEnglishList();
-
 function PublicList(props: param) {
   const [publicList, setPublicList] = useState<userList[]>();
 
@@ -20,7 +17,12 @@ function PublicList(props: param) {
     (datas: any) => datas.lists.searchPublicEnglishList,
   );
 
+  useMemo(() => {
+    loadAllPublicEnglishList();
+  }, []);
+
   useEffect(() => {
+    //Function for load all public english list;
     setPublicList([...lists]);
   }, [lists]);
 
