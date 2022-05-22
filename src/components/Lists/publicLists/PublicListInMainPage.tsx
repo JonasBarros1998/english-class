@@ -37,7 +37,9 @@ function PublicListInMainPage(props: {navigation: any}) {
 
   if (publicList.length === 0) {
     return (
-      <Text textAlign="center">Você ainda não criou nenhuma lista pública</Text>
+      <Text textAlign="center" fontSize="md" marginTop="10px">
+        Suas listas públicas apareceram aqui
+      </Text>
     );
   }
 
