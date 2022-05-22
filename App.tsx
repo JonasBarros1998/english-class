@@ -13,6 +13,7 @@ import {userInfo} from '@global/types/userInfo';
 import PublicListScreen from './src/screen/publicListScreen';
 import Routes from './src/routes';
 import store from './src/pubsub/store';
+import {dispatchPrivateList} from '@components/Lists/privateLists/useCase/loadPrivateList';
 
 const inset = {
   frame: {x: 0, y: 0, width: 0, height: 0},
@@ -22,17 +23,15 @@ const inset = {
 function SelectMainPage() {
   const [userLogged, setUserLogged] = useState(false);
   const [loadComponent, setLoadComponent] = useState(true);
+
   const dispatch = useDispatch();
+
   dispatch(getUserDatasOnStorageAsync());
-  useSelector((state: any) => state.theUserHaveAccess.status);
-  async function ToChangeComponent(status: boolean) {
-    if (status === true) {
-      setUserLogged(true);
-      setLoadComponent(false);
-      return;
-    }
-    setUserLogged(false);
-    setLoadComponent(true);
+
+  useSelector((state: any) => state.theUserHaveAccess);
+
+  async function loadStatePrivateList() {
+    await dispatchPrivateList();
   }
 
   const load = useCallback(async () => {
@@ -48,6 +47,7 @@ function SelectMainPage() {
     if (item !== null) {
       setUserLogged(true);
       setLoadComponent(false);
+      loadStatePrivateList();
       return;
     }
     setLoadComponent(false);
@@ -63,9 +63,8 @@ function SelectMainPage() {
   }
 
   if (userLogged === false) {
-    return <Login changeComponent={ToChangeComponent} />;
-  }
-  if (userLogged === true) {
+    return <Login />;
+  } else {
     return <MainMenu PublicListScreen={PublicListScreen} Routes={Routes} />;
   }
 }

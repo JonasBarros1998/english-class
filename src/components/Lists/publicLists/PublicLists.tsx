@@ -1,9 +1,10 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {FlatList, Pressable} from 'react-native';
 import {Text, Box} from 'native-base';
 import {userList} from '@global/types/userList';
 import Card from '../../Cards';
-import {loadAllPublicListOfTheUserLogged} from './useCase/loadPublicList';
+import {loadAllPublicEnglishList} from './useCase/loadPublicList';
+import {useSelector} from 'react-redux';
 
 type param = {
   route: any;
@@ -12,15 +13,18 @@ type param = {
 function PublicList(props: param) {
   const [publicList, setPublicList] = useState<userList[]>();
 
-  const toLoadListOfTheUser = useCallback(async () => {
-    const lists = await loadAllPublicListOfTheUserLogged();
+  const lists = useSelector(
+    (datas: any) => datas.lists.searchPublicEnglishList,
+  );
 
-    setPublicList([...lists]);
-  }, [setPublicList]);
+  useMemo(() => {
+    loadAllPublicEnglishList();
+  }, []);
 
   useEffect(() => {
-    toLoadListOfTheUser();
-  }, [toLoadListOfTheUser]);
+    //Function for load all public english list;
+    setPublicList([...lists]);
+  }, [lists]);
 
   if (typeof publicList === 'undefined') {
     return <Text textAlign="center">Aguarde...</Text>;

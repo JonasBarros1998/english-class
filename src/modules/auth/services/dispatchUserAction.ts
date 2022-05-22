@@ -2,7 +2,7 @@ import store from '@pubsub/store';
 import {theUserHaveAccess} from '@pubsub/reducers/accessUserSlice';
 
 /**
- * Dispatch action for especifield the user is authenticate this application
+ * Dispatch action for especifield the user is authenticate this application or
  * not
  * @param {boolean} value
  * ```true``` = user is authenticate

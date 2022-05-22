@@ -19,9 +19,7 @@ function LoadOneCardPrivateList(props: {navigation: any}) {
 
   return typeof itemUserList === 'undefined' ? (
     <Center marginBottom="10px" marginTop="10px">
-      <Text bold fontSize="md">
-        Você ainda não criou nenhuma lista de estudos
-      </Text>
+      <Text fontSize="md">Suas listas privadas apareceram aqui</Text>
     </Center>
   ) : (
     <Pressable

@@ -75,3 +75,6 @@ annotations.drawio
 .env
 .env.development
 .env.production
+package-lock.json
+.vscode/settings.json
+android/.settings/org.eclipse.buildship.core.prefs

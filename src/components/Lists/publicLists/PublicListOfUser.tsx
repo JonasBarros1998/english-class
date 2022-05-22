@@ -28,7 +28,7 @@ function PublicListOfUser(props: param) {
   if (publicList.length === 0) {
     return (
       <Text fontSize="md" textAlign={'center'}>
-        Você ainda não criou nenhuma lista pública
+        Suas listas públicas apareceram aqui
       </Text>
     );
   }
