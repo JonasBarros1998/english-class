@@ -1,7 +1,11 @@
+import {FirebaseDatabaseTypes} from '@react-native-firebase/database';
 import {db as database} from '../connection';
 import settingEnvironment from '../settingEnvironment';
 
-async function select(where: string, quantity?: number) {
+async function select(
+  where: string,
+  quantity?: number,
+): Promise<FirebaseDatabaseTypes.DataSnapshot> {
   const databaseUrl = settingEnvironment(where);
   return database()
     .then(async function (connection) {
@@ -11,20 +15,24 @@ async function select(where: string, quantity?: number) {
       return connection.ref(databaseUrl).limitToFirst(quantity).once('value');
     })
     .catch(function (error) {
+      console.log(error);
       return Promise.reject(new Error(error));
     });
 }
 
-async function selectToJson(where: string, quantity?: number) {
-  const datas: any[] = [];
-  const databaseUrl = settingEnvironment(where);
+async function selectToJson(where: string) {
+  return await select(where).then(firebase => firebase.toJSON());
+}
 
-  const selectDatas = await select(databaseUrl, quantity);
-  selectDatas.forEach(function (list) {
-    datas.push(list.toJSON());
+async function selectChildrenToJson(where: string) {
+  const datas: any[] = [];
+  await select(where).then(function (firebase) {
+    firebase.forEach(function (item) {
+      datas.push(item.toJSON());
+    });
   });
 
   return datas;
 }
 
-export {select, selectToJson};
+export {select, selectToJson, selectChildrenToJson};

@@ -2,7 +2,7 @@ import React from 'react';
 import {Pressable} from 'react-native';
 import {Box, HStack, Text, Center} from 'native-base';
 import LoadOneCardPrivateList from '@components/Lists/privateLists/LoadOneCardPrivateList';
-import PublicListInMainPage from '@components/Lists/publicLists/PublicListInMainPage';
+import PublicListOnMainPage from '@components/Lists/publicLists/PublicListInMainPage';
 
 function MainPage({navigation}: any) {
   return (
@@ -40,7 +40,7 @@ function MainPage({navigation}: any) {
             </Pressable>
           </HStack>
         </Center>
-        <PublicListInMainPage navigation={navigation} />
+        <PublicListOnMainPage navigation={navigation} />
       </Box>
     </Box>
   );

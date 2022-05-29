@@ -24,7 +24,9 @@ async function loadPublicCards(datasOfTheList: typeUserList[], listID: string) {
   return datasOfTheList;
 }
 
-async function toLoadPublicListOfTheUserLogged(quantity?: number) {
+async function toLoadPublicListOfTheUserLogged(
+  quantity?: number,
+): Promise<userList[] | undefined> {
   const datasOfUser = await toLoadDatasOfUser();
   const datasOfTheList: typeUserList[] = [];
   if (typeof quantity === 'undefined') {

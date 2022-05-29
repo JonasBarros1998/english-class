@@ -1,31 +1,30 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Pressable} from 'react-native';
 import {FlatList, Text} from 'native-base';
-import {useDispatch} from 'react-redux';
-import {publicLists} from '@pubsub/lists';
+import {useSelector} from 'react-redux';
 import {userList as typeUserList} from '@global/types/userList';
-import {toLoadPublicListOfTheUserLogged} from './useCase/loadPublicList';
 import PrivateCards from '@components/Cards/PrivateCard';
 
-function PublicListInMainPage(props: {navigation: any}) {
+function PublicListOnMainPage(props: {navigation: any}) {
   const [publicList, setPublicList] = useState<typeUserList[]>();
-  const dispatch = useDispatch();
+
+  const listOfUserLogged = useSelector(
+    (state: any) => state.lists.publicListOfUserLogged,
+  );
 
   const loadData = useCallback(() => {
-    toLoadPublicListOfTheUserLogged(4).then(function (response) {
-      if (response === null) {
-        setPublicList([]);
-        return;
-      }
+    if (listOfUserLogged === null) {
+      setPublicList([]);
+      return;
+    }
 
-      if (typeof response === 'undefined') {
-        setPublicList(undefined);
-        return;
-      }
-      dispatch(publicLists(response));
-      setPublicList([...response]);
-    });
-  }, [dispatch]);
+    if (typeof listOfUserLogged === 'undefined') {
+      setPublicList(undefined);
+      return;
+    }
+
+    setPublicList([...listOfUserLogged]);
+  }, [listOfUserLogged]);
 
   useEffect(() => {
     loadData();
@@ -65,4 +64,4 @@ function PublicListInMainPage(props: {navigation: any}) {
   );
 }
 
-export default PublicListInMainPage;
+export default PublicListOnMainPage;

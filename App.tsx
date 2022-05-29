@@ -8,7 +8,10 @@ import {getUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
 import {storageGetItem} from '@storage/getItem';
 import {currentUser} from '@services/auth/googleSignin';
 import {USER_STORAGE} from '@global/constants';
-import {getPrivateListsAsync} from '@pubsub/lists';
+import {
+  getPrivateListsAsync,
+  getPublicListOfUserLoggedAsync,
+} from '@pubsub/lists';
 import {userInfo} from '@global/types/userInfo';
 import PublicListScreen from './src/screen/publicListScreen';
 import Routes from './src/routes';
@@ -37,6 +40,7 @@ function SelectMainPage() {
   const load = useCallback(async () => {
     const userData = (await storageGetItem(USER_STORAGE)) as userInfo;
     dispatch(getPrivateListsAsync(userData));
+    dispatch(getPublicListOfUserLoggedAsync(userData.lists.publicLists));
   }, [dispatch]);
 
   useEffect(() => {
