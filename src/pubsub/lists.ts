@@ -1,5 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {selectToJson} from '@services/database/repository/search';
+import {
+  selectToJson,
+  selectChildrenToJson,
+} from '@services/database/repository/search';
 import {insert} from '@services/database/repository/insert';
 import {userInfo as typeUserInfo} from '@global/types/userInfo';
 
@@ -8,13 +11,13 @@ type typeInitialState = {
   publicLists: any[];
   publicEnglishListAll: any[];
   searchPublicEnglishList: any[];
+  publicListOfUserLogged: any[];
 };
 
 const getPrivateListsAsync = createAsyncThunk(
   'lists/privateLists',
   async (payload: typeUserInfo, thunkApi) => {
-    const privateLists = await selectToJson(`privateList/${payload.uid}`);
-    return privateLists;
+    return await selectChildrenToJson(`privateList/${payload.uid}`);
   },
 );
 
@@ -25,6 +28,17 @@ const addNewPrivateListAsync = createAsyncThunk(
   },
 );
 
+const getPublicListOfUserLoggedAsync = createAsyncThunk(
+  'lists/publicListUserLogged',
+  async (payload: string[]) => {
+    return await Promise.all(
+      payload.map(
+        async publicListId => await selectToJson(`publicList/${publicListId}`),
+      ),
+    );
+  },
+);
+
 export const lists = createSlice({
   name: 'lists',
   initialState: {
@@ -32,10 +46,12 @@ export const lists = createSlice({
     publicLists: [],
     publicEnglishListAll: [],
     searchPublicEnglishList: [],
+    publicListOfUserLogged: [],
   } as typeInitialState,
   reducers: {
     publicLists: (state, action: any) => {
       state.publicLists.push(...action.payload);
+      state.searchPublicEnglishList.push(...action.payload);
     },
     updateAllEnglishPublicList: (state, action: any) => {
       state.publicEnglishListAll = action.payload;
@@ -47,26 +63,41 @@ export const lists = createSlice({
     privateLists: (state, action: any) => {
       state.privateLists.push(...action.payload);
     },
+    addNewPublicListOfUserLogged: (state, action: any) => {
+      state.publicListOfUserLogged.push(...action.payload);
+    },
   },
 
   extraReducers: builder => {
     builder.addCase(getPrivateListsAsync.fulfilled, (state, {payload}) => {
+      console.log(payload);
       if (payload.length === 0) {
         return {...state, privateLists: []};
       }
       return {...state, privateLists: payload};
     });
+
+    builder.addCase(
+      getPublicListOfUserLoggedAsync.fulfilled,
+      (state, {payload}) => {
+        return {...state, publicListOfUserLogged: payload};
+      },
+    );
   },
 });
 
-// eslint-disable-next-line
 export const {
   publicLists,
   privateLists,
   updateAllEnglishPublicList,
   searchOnList,
+  addNewPublicListOfUserLogged,
 } = lists.actions;
 
-export {getPrivateListsAsync, addNewPrivateListAsync};
+export {
+  getPrivateListsAsync,
+  addNewPrivateListAsync,
+  getPublicListOfUserLoggedAsync,
+};
 
 export default lists.reducer;

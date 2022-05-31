@@ -1,3 +1,4 @@
+import {Dispatch} from 'redux';
 import {insert} from '@services/database/repository/insert';
 import {update} from '@services/database/repository/update';
 import {userInfo} from '@global/types/userInfo';
@@ -9,7 +10,7 @@ import {
   addPublicListId,
   updateUserDatasOnTheStorageAsync,
 } from '@pubsub/reducers/userDatasLogged';
-import {Dispatch} from 'redux';
+import {addNewPublicListOfUserLogged} from '@pubsub/lists';
 
 type typeParam = {
   userDatas: typeUserList[];
@@ -40,9 +41,10 @@ async function saveUserList(params: saveUserListParams) {
     }
   }
   const where = 'publicList/';
-  console.log(params.datas);
-  console.log(where);
+
   const userPublicList = await insert(params.datas, where);
+  params.dispatch(addNewPublicListOfUserLogged(params.datas));
+
   addListIdOnTheUser({
     listIsPrivate: false,
     user: params.userDatas,
