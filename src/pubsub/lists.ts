@@ -57,6 +57,19 @@ export const lists = createSlice({
       state.publicEnglishListAll = action.payload;
       state.searchPublicEnglishList = action.payload;
     },
+    updateOnePublicList: (state, action: any) => {
+      state.publicLists.filter(function (item, index) {
+        if (item.id === action.payload.id) {
+          state.publicLists[index] = action.payload;
+        }
+      });
+
+      state.publicListOfUserLogged.filter(function (item, index) {
+        if (item.id === action.payload.id) {
+          state.publicListOfUserLogged[index] = action.payload;
+        }
+      });
+    },
     searchOnList: (state, action: any) => {
       state.searchPublicEnglishList = action.payload;
     },
@@ -70,7 +83,6 @@ export const lists = createSlice({
 
   extraReducers: builder => {
     builder.addCase(getPrivateListsAsync.fulfilled, (state, {payload}) => {
-      console.log(payload);
       if (payload.length === 0) {
         return {...state, privateLists: []};
       }
@@ -92,6 +104,7 @@ export const {
   updateAllEnglishPublicList,
   searchOnList,
   addNewPublicListOfUserLogged,
+  updateOnePublicList,
 } = lists.actions;
 
 export {
