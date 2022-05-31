@@ -1,5 +1,6 @@
 import store from '@pubsub/store';
 import {theUserHaveAccess} from '@pubsub/reducers/accessUserSlice';
+import {addUserDatasOnStorageAsync} from '@pubsub/reducers/userDatasLogged';
 
 /**
  * Dispatch action for especifield the user is authenticate this application or
@@ -11,4 +12,8 @@ import {theUserHaveAccess} from '@pubsub/reducers/accessUserSlice';
  */
 export function dispatchAction(value: boolean) {
   store.dispatch(theUserHaveAccess(value));
+}
+
+export function dispatchUserData(userData: string) {
+  store.dispatch(addUserDatasOnStorageAsync(userData));
 }

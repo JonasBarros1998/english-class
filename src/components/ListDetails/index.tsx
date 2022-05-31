@@ -11,6 +11,7 @@ import {updateAllCards} from '@pubsub/reducers/listOfCards';
 import Cards from '@components/Cards/AnimatedCards/Cards';
 import {countTotalOfCards} from './useCase/countQuantityTotalOfCards';
 import {theUserCanToEditTheList} from './useCase/theUserCanToEditTheList';
+import {updateOnePublicList} from '@pubsub/lists';
 
 type param = {
   userList: typeUserList;
@@ -36,7 +37,9 @@ function ListDetails(props: param) {
     copyObjUserList.cards = datasOfList.cards;
     copyObjUserList.listTitle = titleList;
     const listOfUser = countTotalOfCards(copyObjUserList);
+    dispatch(updateOnePublicList(copyObjUserList));
     await updateListDetails(listOfUser, props.isPulicList);
+
     props.navigation.navigate('homePage', {
       screen: 'homePage',
     });

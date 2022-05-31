@@ -6,7 +6,6 @@ import {WEB_CLIENT_ID} from 'react-native-dotenv';
 
 function configureGoogleSignIn(webClientId?: string) {
   const webClientIdIsUndefined = typeof webClientId !== 'undefined';
-  console.log(webClientIdIsUndefined, WEB_CLIENT_ID);
   GoogleSignin.configure({
     webClientId: webClientIdIsUndefined === true ? webClientId : WEB_CLIENT_ID,
     offlineAccess: false,

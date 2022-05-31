@@ -1,5 +1,4 @@
 import {userSignin} from '../services/login';
-import {addDatasInTheStorage} from '../services/addDatasInTheStorage';
 import {USER_STORAGE} from '@global/constants';
 
 import {
@@ -7,7 +6,7 @@ import {
   saveUserInDatabase,
 } from '../services/saveUserInDatabase';
 import {getUserDataInTheStorage} from '../services/getDatasInTheStorage';
-import {dispatchAction} from '../services/dispatchUserAction';
+import {dispatchAction, dispatchUserData} from '../services/dispatchUserAction';
 import {userSignIn} from '../types';
 
 // Função para logar o usuario na aplicação pela primeira vez
@@ -21,12 +20,7 @@ async function authenticateUserWhenAccessFirstTime(datasOfUser: userSignIn) {
   };
 
   const [{id}] = await saveUserInDatabase(formatDatasOfUser);
-
-  addDatasInTheStorage(
-    USER_STORAGE,
-    JSON.stringify({...formatDatasOfUser, id}),
-  );
-
+  dispatchUserData(JSON.stringify({...formatDatasOfUser, id}));
   dispatchAction(true);
 }
 
@@ -49,20 +43,7 @@ async function managerAccess(): Promise<void> {
     }
 
     const [firstItem] = existUser;
-
-    if (typeof firstItem.lists === 'undefined') {
-      Object.defineProperty(firstItem, 'lists', {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        value: {
-          privateLists: [],
-          publicLists: [],
-        },
-      });
-    }
-
-    addDatasInTheStorage(USER_STORAGE, JSON.stringify(firstItem));
+    dispatchUserData(JSON.stringify(firstItem));
   }
 
   dispatchAction(true);
