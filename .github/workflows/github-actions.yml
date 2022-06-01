@@ -1,11 +1,9 @@
 name: building-app
 on:
-  push:
+  pull_request:
     branches: 
       - main
-      - create-new-ci-cd
-      - develop
-      - homolog 
+    types: [opened, reopened]
 
 jobs: 
   check-bats-version: 
