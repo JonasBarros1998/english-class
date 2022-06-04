@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Pressable} from 'react-native';
-import {FlatList, Text} from 'native-base';
+import {FlatList, Text, Box} from 'native-base';
 import {useSelector} from 'react-redux';
 import {userList as typeUserList} from '@global/types/userList';
 import PrivateCards from '@components/Cards/PrivateCard';
@@ -46,7 +46,7 @@ function PublicListOnMainPage(props: {navigation: any}) {
     <FlatList
       data={publicList}
       keyExtractor={({id}) => String(id)}
-      renderItem={({item}) => {
+      renderItem={({item, index}) => {
         return (
           <Pressable
             onPress={() => {
@@ -57,6 +57,13 @@ function PublicListOnMainPage(props: {navigation: any}) {
               });
             }}>
             <PrivateCards card={item} />
+            {publicList.length - 1 === index ? (
+              <>
+                <Box marginBottom={'32'} />
+              </>
+            ) : (
+              <></>
+            )}
           </Pressable>
         );
       }}
