@@ -61,6 +61,7 @@ function Form(props: param) {
               placeholderTextColor="#78716c"
               width="100%"
               fontWeight={600}
+              paddingLeft="10px"
               _focus={{
                 borderBottomColor: '#000',
               }}
@@ -84,6 +85,7 @@ function Form(props: param) {
               placeholderTextColor="#78716c"
               width="100%"
               fontWeight={600}
+              paddingLeft="10px"
               _focus={{
                 borderBottomColor: '#000',
               }}
@@ -108,6 +110,7 @@ function Form(props: param) {
                 placeholderTextColor="#78716c"
                 width="100%"
                 fontWeight={600}
+                paddingLeft="10px"
                 _focus={{
                   borderBottomColor: '#000',
                 }}

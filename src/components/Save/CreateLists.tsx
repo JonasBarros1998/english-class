@@ -111,6 +111,7 @@ function CreateLists(props: any) {
             fontWeight={600}
             color="#FFF"
             maxLength={30}
+            paddingLeft="10px"
             _web={{
               fontWeight: 700,
             }}
