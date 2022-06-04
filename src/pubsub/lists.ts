@@ -70,6 +70,13 @@ export const lists = createSlice({
         }
       });
     },
+    updateOnePrivateList: (state, action: any) => {
+      state.privateLists.filter(function (item, index) {
+        if (item.id === action.payload.id) {
+          state.privateLists[index] = action.payload;
+        }
+      });
+    },
     searchOnList: (state, action: any) => {
       state.searchPublicEnglishList = action.payload;
     },
@@ -105,6 +112,7 @@ export const {
   searchOnList,
   addNewPublicListOfUserLogged,
   updateOnePublicList,
+  updateOnePrivateList,
 } = lists.actions;
 
 export {
