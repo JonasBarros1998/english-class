@@ -80,3 +80,5 @@ package-lock.json
 android/.settings/org.eclipse.buildship.core.prefs
 
 src/old-version
+android/
+ios/
