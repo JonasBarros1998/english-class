@@ -1,8 +1,13 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {SafeAreaView, StatusBar, Text} from 'react-native';
 
-export const App = () => {
-  return <Text>Init App</Text>;
+const App = () => {
+  return (
+    <SafeAreaView>
+      <StatusBar />
+      <Text>Init app</Text>
+    </SafeAreaView>
+  );
 };
 
 export default App;
