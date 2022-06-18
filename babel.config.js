@@ -9,8 +9,8 @@ module.exports = {
         alias: {
           '@theme': './src/theme',
           '@pubsub': './src/pubsub',
+          '@auth': './src/modules/auth',
           /*
-          '@lists': './src/lists',
           '@components': './src/components',
           '@database': './src/database',
           '@screen': './src/screen',

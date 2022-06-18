@@ -18,10 +18,7 @@
     "paths": {
       "@theme/*": ["src/theme/*"],
       "@pubsub/*": ["src/state/*"],
-      "@database/*": ["src/services/database/*"],
-      "@screen/*": ["src/screen/*"],
-      "@env/*": ["./env/*"],
-      "@auth/*": ["src/services/auth/*"],
+      "@auth/*": ["src/modules/auth/*"],
       "@publisher/*": ["./src/publisher/*"],
       "@storage/*": ["src/storage/*"],
       "@services/*": ["src/services/*"],
