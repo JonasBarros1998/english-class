@@ -17,12 +17,11 @@
     "baseUrl": "./", 
     "paths": {
       "@theme/*": ["src/theme/*"],
-      "@pubsub/*": ["src/state/*"],
+      "@state/*": ["src/state/*"],
       "@auth/*": ["src/modules/auth/*"],
-      "@publisher/*": ["./src/publisher/*"],
-      "@storage/*": ["src/storage/*"],
+      "@components/*": ["src/components/*"],
       "@services/*": ["src/services/*"],
-      "@global/*": ["src/components/global/*"],
+      "@global/*": ["src/global/*"],
       "@modules/*": ["src/modules/*"]
     }
   },
