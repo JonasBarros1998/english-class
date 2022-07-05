@@ -8,30 +8,15 @@ module.exports = {
         extensions: ['.ts', '.jsx', '.tsx', '.js', '.json'],
         alias: {
           '@theme': './src/theme',
-          '@pubsub': './src/pubsub',
-          /*
-          '@lists': './src/lists',
-          '@components': './src/components',
-          '@database': './src/database',
-          '@screen': './src/screen',
-          '@env': './env',
-          '@auth': './src/auth',
-          '@publisher': './src/publisher',
-          '@pubsub': './src/pubsub',
-          '@storage': './src/storage',
+          '@state': './src/state',
+          '@auth': './src/modules/auth',
           '@services': './src/services',
+          '@components': './src/components',
+          '@modules': './src/modules',
           '@global': './src/global',
-          '@modules': './src/modules',*/
         },
       },
     ],
-    /*
-    [
-      'module:react-native-dotenv',
-      {
-        moduleName: 'react-native-dotenv',
-      },
-    ],*/
   ],
   env: {
     testing: {

@@ -1,4 +1,4 @@
-const {pathsToModuleNameMapper} = require('ts-jest/utils');
+const {pathsToModuleNameMapper} = require('ts-jest');
 const {compilerOptions} = require('./tsconfig.json');
 
 module.exports = {
@@ -11,4 +11,7 @@ module.exports = {
     prefix: '<rootDir>',
   }),
   setupFiles: ['./__mocks__/@react-native-google-signin/google-signin.ts'],
+  moduleDirectories: [
+    "node_modules",
+  ],
 };
