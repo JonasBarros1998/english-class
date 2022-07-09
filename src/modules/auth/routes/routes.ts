@@ -1,3 +1,3 @@
 export const navigateToHome = (route: any): void => {
-  route.navigate('home');
+  route.navigate('main');
 };
