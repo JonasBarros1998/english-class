@@ -16,7 +16,7 @@ jobs:
           node-version: '14'
           
       - name: install dependencies
-      - run: npm install
+        run: npm install
 
       - name: Run tests and collect coverage
         run: yarn run test
