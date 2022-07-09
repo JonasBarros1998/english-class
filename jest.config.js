@@ -2,6 +2,7 @@ const {pathsToModuleNameMapper} = require('ts-jest');
 const {compilerOptions} = require('./tsconfig.json');
 
 module.exports = {
+  collectCoverage: true,
   clearMocks: true,
   coverageProvider: 'v8',
   testEnvironment: 'node',
