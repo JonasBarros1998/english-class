@@ -5,7 +5,6 @@ import Login from '@auth/components/Login';
 import Menu from '@components/Menu/Menu';
 
 const Stack = createNativeStackNavigator();
-console.log("teste");
 export default function Routes() {
   return (
     <NavigationContainer>
