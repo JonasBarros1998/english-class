@@ -10,10 +10,10 @@ const App = () => {
   return (
     <>
       <Provider store={store}>
-      <PaperProvider theme={theme}>
-        <Routes />
-        <StatusBar />
-      </PaperProvider>
+        <PaperProvider theme={theme}>
+          <Routes />
+          <StatusBar />
+        </PaperProvider>
       </Provider>
     </>
   );
