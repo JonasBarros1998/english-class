@@ -27,14 +27,5 @@ jobs:
           # Options are `alpine`, `linux`, `macos`, `windows`
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
-          echo ">>>> "
-          pwd
-          echo ">>>> "
-          ls
-          echo ">>>> "
-          cat ./coverage/cobertura-coverage.xml
-          echo ">>>> "
-
-
-        # ./codecov -f ./coverage/cobertura-coverage.xml
+          ./codecov -f ./coverage/cobertura-coverage.xml
           
