@@ -3,6 +3,7 @@ const {compilerOptions} = require('./tsconfig.json');
 
 module.exports = {
   collectCoverage: true,
+  coverageReporters: ['text', 'cobertura'],
   clearMocks: true,
   coverageProvider: 'v8',
   testEnvironment: 'node',
