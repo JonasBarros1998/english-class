@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/JonasBarros1998/english-class/branch/main/graph/badge.svg?token=LZHJ2984JX)](https://codecov.io/gh/JonasBarros1998/english-class)
+
 ## Como executar o app
 
 #### clone o projeto
