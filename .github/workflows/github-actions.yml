@@ -30,5 +30,11 @@ jobs:
           echo ">>>> "
           pwd
           echo ">>>> "
+          ls
+          echo ">>>> "
+          cat ./coverage/cobertura-coverage.xml
+          echo ">>>> "
+
+
         # ./codecov -f ./coverage/cobertura-coverage.xml
           
