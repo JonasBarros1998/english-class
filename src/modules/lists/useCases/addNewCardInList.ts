@@ -29,4 +29,6 @@ export function updateInputCards({cards, cardId, input: {value, name}}: paramsIn
       card[name] = value;
     } 
   });
+  
+  return copyArr;
 }
