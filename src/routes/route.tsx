@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="login">
+      <Stack.Navigator>
         <Stack.Screen 
           name="main"
           component={Menu}
