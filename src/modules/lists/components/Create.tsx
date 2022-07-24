@@ -15,6 +15,15 @@ export function Create() {
   const [title, setTitle] = useState<string>('');
   const theme = useTheme() as any;
 
+  const clear = () => {
+    setCards([createNewCard()]);
+    setTitle('');
+  }
+
+  const setValueTitle = (value: string) => {
+    setTitle(value);
+  }
+
   return (
     <>
       <View
@@ -26,13 +35,16 @@ export function Create() {
         }}>
         <TitleList 
           onChangeEvent={(event) => setTitle(event)}
+          value={title}
+          setValue={setValueTitle}
         />
         <SaveListButton 
           onClickEvent={() => {
             saveListOnFirestore({
               title,
               cardsOfList: cards
-            })
+            });
+            clear();
           }}/>
       </View>
 

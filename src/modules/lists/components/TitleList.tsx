@@ -3,8 +3,13 @@ import {View} from 'react-native';
 import {TextInput, useTheme} from 'react-native-paper';
 import {titleStyle} from '../styles/titleList';
 
-export default function TitleList(props: {onChangeEvent: (event: string) => void}) {
-  const [title, setTitle] = useState<string>();
+type params = {
+  onChangeEvent: (event: string) => void,
+  value: string,
+  setValue: (event: string) => void
+}
+
+export default function TitleList(props: params) {
   const theme = useTheme() as any;
 
   const style = titleStyle(theme);
@@ -16,7 +21,7 @@ export default function TitleList(props: {onChangeEvent: (event: string) => void
       paddingTop: 0,
     }}>
     <TextInput
-      value={title}
+      value={props.value}
       activeUnderlineColor='white'
       underlineColor='white'
       outlineColor='white'
@@ -25,10 +30,8 @@ export default function TitleList(props: {onChangeEvent: (event: string) => void
       mode={'flat'}
       onChangeText={(event) => {
         props.onChangeEvent(event);
-        setTitle(event);
-      }
-        
-      }
+        props.setValue(event);
+      }}
       theme={{
         colors: {
           text: theme.colors.textSecondary
