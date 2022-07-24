@@ -8,9 +8,11 @@ import CardItem from './Card';
 import {styles} from '../styles/titleList';
 import {useTheme} from 'react-native-paper';
 import TitleList from './TitleList';
+import { saveListOnFirestore } from '../useCases/saveListOnFirestore';
 
 export function Create() {
   const [cards, setCards] = useState<Card[]>([createNewCard()]);
+  const [title, setTitle] = useState<string>('');
   const theme = useTheme() as any;
 
   return (
@@ -22,8 +24,16 @@ export function Create() {
           height: 50,
           paddingLeft: 10
         }}>
-        <TitleList />
-        <SaveListButton />
+        <TitleList 
+          onChangeEvent={(event) => setTitle(event)}
+        />
+        <SaveListButton 
+          onClickEvent={() => {
+            saveListOnFirestore({
+              title,
+              cardsOfList: cards
+            })
+          }}/>
       </View>
 
       <View style={{
