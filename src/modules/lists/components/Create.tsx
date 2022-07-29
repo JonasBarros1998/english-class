@@ -1,7 +1,7 @@
 import { Card } from '@global/interfaces/Card';
 import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { createNewCard, updateInputCards } from '../useCases/addNewCardInList';
+import { createNewCard, deleteOneCard, updateInputCards } from '../useCases/addNewCardInList';
 import AddNewCardButton from './AddNewCardButton';
 import SaveListButton from './SaveListButton';
 import CardItem from './Card';
@@ -20,10 +20,8 @@ export function Create() {
     setTitle('');
   }
 
-  const setValueTitle = (value: string) => {
-    setTitle(value);
-  }
-
+  const setValueTitle = (value: string) => setTitle(value);
+  
   return (
     <>
       <View
@@ -62,6 +60,14 @@ export function Create() {
               <CardItem
                 currentItem={index}
                 data={cards}
+                currentCard={() => {
+                  const cardsArray = deleteOneCard({
+                    cardId: item.id,
+                    cards
+                  });
+
+                  setCards([...cardsArray]);
+                }}
                 onChangeInputWord={(value: any) => {
                   updateInputCards({
                     cards,

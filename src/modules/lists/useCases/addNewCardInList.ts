@@ -32,3 +32,15 @@ export function updateInputCards({cards, cardId, input: {value, name}}: paramsIn
   
   return copyArr;
 }
+
+export function deleteOneCard({cards, cardId}: {cards: Card[], cardId: string}) {
+  const copyArr = cards.map((item) => item);
+
+  copyArr.filter((card, index) => {
+    if (card.id === cardId) {
+      copyArr.splice(index, 1)
+    } 
+  });
+  
+  return copyArr;
+}

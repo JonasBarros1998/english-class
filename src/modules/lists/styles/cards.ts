@@ -25,6 +25,10 @@ export const styles = (theme: ReactNativePaper.Theme) => {
       height: 40,
       color: colors.text,
       borderBottomColor: colors.divider
+    },
+    animated: {
+      alignItems: "center",
+      marginTop: 2,
     }
   });
 }
