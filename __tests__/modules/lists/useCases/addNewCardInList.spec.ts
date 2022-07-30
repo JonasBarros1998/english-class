@@ -1,5 +1,5 @@
 import { Card } from '@global/interfaces/Card';
-import {createNewCard, updateInputCards} from './addNewCardInList';
+import {createNewCard, updateInputCards} from '../../../../src/modules/lists/useCases/addNewCardInList';
 
 describe('function create new card', function() {
   test('should return new card', function() {
