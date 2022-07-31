@@ -14,6 +14,7 @@ module.exports = {
           '@components': './src/components',
           '@modules': './src/modules',
           '@global': './src/global',
+          '@src': './src'
         },
       },
     ],
