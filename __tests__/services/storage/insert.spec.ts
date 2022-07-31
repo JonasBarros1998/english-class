@@ -1,4 +1,4 @@
-import {insert} from "./insert";
+import {insert} from "@src/services/storage/insert";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 describe("Async Storage", function() {
