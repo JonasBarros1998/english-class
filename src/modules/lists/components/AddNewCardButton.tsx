@@ -1,8 +1,7 @@
 import { Card } from '@global/interfaces/Card';
 import React from 'react';
 import { View } from 'react-native';
-import { IconButton } from 'react-native-paper';
-import { useTheme } from 'react-native-paper';
+import { IconButton, useTheme } from 'react-native-paper';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {styles} from '../styles/button'
 import { createNewCard } from '../useCases/addNewCardInList';
@@ -13,7 +12,9 @@ export default function AddNewCardButton(props: {updateState: (card: Card) => vo
   const styleComponent = styles(colors) as any;
 
   return (
-    <View style={{
+    <View 
+      testID='button'
+      style={{
       ...styleComponent.button
     }}>
       <IconButton
