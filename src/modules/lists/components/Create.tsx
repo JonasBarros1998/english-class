@@ -4,7 +4,7 @@ import { FlatList, View } from 'react-native';
 import { createNewCard, deleteOneCard, updateInputCards } from '../useCases/addNewCardInList';
 import AddNewCardButton from './AddNewCardButton';
 import SaveListButton from './SaveListButton';
-import CardItem from './Card';
+import CardItem from './CardItem';
 import {styles} from '../styles/titleList';
 import {useTheme} from 'react-native-paper';
 import TitleList from './TitleList';
