@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { insert } from "./insert";
-import { remove } from "./delete";
+import { insert } from "@src/services/storage/insert";
+import { remove } from "@src/services/storage/delete";
 
 describe("async storage", function() {
   const storageKey = "@valueMock";

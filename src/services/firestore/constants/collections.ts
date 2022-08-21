@@ -2,6 +2,10 @@ export const collections = {
   users: {
     development: "users-dev",
     production: "users"
+  },
+  lists: {
+    development: "lists-dev",
+    production: "lists"
   }
 };
 

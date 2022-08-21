@@ -22,7 +22,8 @@
       "@components/*": ["src/components/*"],
       "@services/*": ["src/services/*"],
       "@global/*": ["src/global/*"],
-      "@modules/*": ["src/modules/*"]
+      "@modules/*": ["src/modules/*"],
+      "@src/*": ["src/*"]
     }
   },
   "exclude": [
