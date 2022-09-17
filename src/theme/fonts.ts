@@ -10,5 +10,9 @@ export const fonts = StyleSheet.create({
   cardTitle: {
     color: 'wite',
   },
-  subTitle: {},
+  subTitle: {
+    fontFamily: 'Open Sans, sans-serif',
+    fontWeight: '600',
+    fontSize: 18,
+  },
 });
