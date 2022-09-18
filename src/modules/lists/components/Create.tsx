@@ -58,9 +58,9 @@ export function Create() {
           renderItem={({item, index}) => {
             return (
               <CardItem
-                currentItem={index}
+                cardIndex={index}
                 data={cards}
-                currentCard={() => {
+                removeCard={() => {
                   const cardsArray = deleteOneCard({
                     cardId: item.id,
                     cards
