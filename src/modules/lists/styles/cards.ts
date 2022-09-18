@@ -15,6 +15,9 @@ export const styles = (theme: ReactNativePaper.Theme) => {
       backgroundColor: colors.background,
       width: '95%',
       marginTop: 7,
+      paddingBottom: 7,
+      paddingTop: 7,
+      borderRadius: 5
     },
     'card:last-child' : {
       marginBottom: 100,
@@ -29,6 +32,11 @@ export const styles = (theme: ReactNativePaper.Theme) => {
     animated: {
       alignItems: "center",
       marginTop: 2,
-    }
+    },
+    cardInfo: {
+      padding: 10,
+      color: colors.text,
+    },
+
   });
 }
