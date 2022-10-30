@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {fonts} from '@theme/fonts';
 
 export const styles = (theme: ReactNativePaper.Theme) => {
 
@@ -36,6 +37,11 @@ export const styles = (theme: ReactNativePaper.Theme) => {
     cardInfo: {
       padding: 10,
       color: colors.text,
+    },
+    subTitle: {
+      fontFamily: fonts.subTitle.fontFamily,
+      fontWeight: "600",
+      fontSize: fonts.subTitle.fontSize,
     },
 
   });

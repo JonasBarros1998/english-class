@@ -1,6 +1,4 @@
-import {StyleSheet} from 'react-native';
-
-export const fonts = StyleSheet.create({
+export const fonts = {
   titleLarge: {
     fontFamily: 'Open Sans, sans-serif',
     fontWeight: '700',
@@ -15,4 +13,4 @@ export const fonts = StyleSheet.create({
     fontWeight: '600',
     fontSize: 18,
   },
-});
+};
