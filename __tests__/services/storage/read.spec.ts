@@ -18,6 +18,14 @@ describe("async storage", function() {
     return expect(
         Promise.resolve(read(storageKey))
       ).resolves.toEqual(storageValue);
-  });  
+  }); 
+
+  test("Shoule return null value", function() {
+    const storageValue = null as any;
+
+    return expect(
+      Promise.resolve(read(storageValue))
+    ).resolves.toEqual(storageValue);
+  })
 
 })

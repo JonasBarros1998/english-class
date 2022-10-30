@@ -3,7 +3,6 @@ import { render } from '@testing-library/react-native';
 import Lists from '@modules/lists/components/Lists';
 import { findAllLists } from '@modules/lists/useCases/readLists';
 import {findAll} from '../../../../src/services/firestore/actions/read';
-import renderer from 'react-test-renderer';
 
 jest.mock('../../../../src/services/firestore/actions/read');
 
@@ -65,7 +64,6 @@ describe('List all cards', function() {
 
     const component = render(<Lists />).toJSON() as any;
     if (component !== null) {
-      console.log(component.type)
       expect(component.type).toMatch('View');
     }
 
