@@ -1,15 +1,14 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { Card } from "@global/interfaces/Card";
 
-const list = createSlice({
-  name: 'cards',
+const readList = createSlice({
+  name: 'readList',
   initialState: {
-    read: [],
-    create: {},
+    readAll: [],
     readOne: {}
   },
   reducers: {
-    addCardInList: {
+    readAll: {
       reducer: (state, action: PayloadAction<Card>) => {
         console.log(action);
       },
@@ -17,7 +16,7 @@ const list = createSlice({
         return { payload: datas };
       },
     },
-    updateCardInList: {
+    readOne: {
       reducer: (state, action: PayloadAction<Card>) => {
         console.log(action);
       },
@@ -29,5 +28,5 @@ const list = createSlice({
   },
 });
 
-export const {addCardInList} = list.actions;
-export default list.reducer;
+export const {readAll, readOne} = readList.actions;
+export default readList.reducer;

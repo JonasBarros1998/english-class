@@ -4,3 +4,8 @@ export interface Card {
   context: string,
   translation: string
 }
+
+export interface List {
+  cardsOfList: Card[],
+  title: string
+}

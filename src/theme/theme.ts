@@ -8,7 +8,7 @@ export const theme = {
     primary: '#312e81',
     background: '#fafafa',
     secondary: '#f50057',
-    text: 'rgba(0, 0, 0, 0.38)',
+    text: 'rgba(41, 41, 41, 1)',
     textSecondary: 'white',
     surface: 'rgb(171, 0, 60)',
     error: '#f44336',

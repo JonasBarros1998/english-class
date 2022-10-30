@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "@components/Home/Home";
 import { Create } from "@modules/lists/components/Create";
-import { Lists } from "@modules/lists/components/Lists";
+import Lists from "@modules/lists/components/Lists";
 import { Profile } from "@components/Profile/Profile";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {Text, useTheme} from "react-native-paper";

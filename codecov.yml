@@ -2,14 +2,14 @@ coverage:
   status:
     project:
       default:
-        target: 80%
+        target: 50%
         threshold: 1%
         paths: 
           - "src"
         only_pulls: true
     patch: 
       default: 
-        target: 80%
+        target: 50%
         threshold: 1%
         paths:
           - "src" 

@@ -1,6 +1,4 @@
-import {StyleSheet} from 'react-native';
-
-export const fonts = StyleSheet.create({
+export const fonts = {
   titleLarge: {
     fontFamily: 'Open Sans, sans-serif',
     fontWeight: '700',
@@ -10,5 +8,9 @@ export const fonts = StyleSheet.create({
   cardTitle: {
     color: 'wite',
   },
-  subTitle: {},
-});
+  subTitle: {
+    fontFamily: 'Open Sans, sans-serif',
+    fontWeight: '600',
+    fontSize: 18,
+  },
+};
