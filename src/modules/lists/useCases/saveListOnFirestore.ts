@@ -1,6 +1,7 @@
 import { Card } from '@global/interfaces/Card';
 import { insert } from '@services/firestore/actions/insert';
 import { collections } from "@services/firestore/constants/collections";
+import { nanoid } from '@reduxjs/toolkit';
 
 type params = {
   cardsOfList: Card[],
@@ -18,6 +19,6 @@ export function saveListOnFirestore(datas: params) {
 
 
 function formatDatas(datas: params) {
-  return {cardsOfList: datas.cardsOfList, title: datas.title};
+  return {cardsOfList: datas.cardsOfList, title: datas.title, id: nanoid()};
 }
 

@@ -14,7 +14,8 @@ type componentParam = {
   removeCard: () => any,
   wordInputValue?: string,
   translationInputValue?: string,
-  contextInputValue?: string
+  contextInputValue?: string,
+  editable?: boolean
 }
 
 export default function CardItem(props: componentParam) {
@@ -44,6 +45,7 @@ export default function CardItem(props: componentParam) {
                 underlineColor="black"
                 activeUnderlineColor={theme.colors.primary}
                 placeholder="Palavra"
+                editable={typeof props.editable !== 'undefined' ? false : true}
                 onChangeText={(value) => {
                   setWord(value);
                   props.onChangeInputWord(value);
@@ -55,6 +57,7 @@ export default function CardItem(props: componentParam) {
                 underlineColor="black"
                 activeUnderlineColor={theme.colors.primary}
                 placeholder="Contexto"
+                editable={typeof props.editable !== 'undefined' ? false : true}
                 onChangeText={(value) => {
                   setContext(value);
                   props.onChangeInputContext(value);
@@ -66,6 +69,7 @@ export default function CardItem(props: componentParam) {
                 underlineColor="black"
                 activeUnderlineColor={theme.colors.primary}
                 placeholder="Traduçao"
+                editable={typeof props.editable !== 'undefined' ? false : true}
                 onChangeText={(value) => {
                   setTranslation(value);
                   props.onChangeInputTranslation(value);

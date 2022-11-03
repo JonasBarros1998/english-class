@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Pressable, Text, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
 import { findAllLists } from '../useCases/readLists';
 import { List } from '@global/interfaces/Card';
 
 import { styles } from '../styles/cards';
+import { navigateToListDetails } from '../routes/routes';
 
-export default function Lists() {
+export default function Lists({navigation}: {navigation: (route: string) => any}) {
   const [lists, setLists] = useState<List[]>();
   const [refresh, setRefresh] = useState<boolean>(false);
 
@@ -45,14 +46,16 @@ export default function Lists() {
         onRefresh={() => refreshList()}
         renderItem={({item, index}) => {
           return (
-            <View style={{...css.container}} testID="content">
-              <View style={{...css.card}}>
-                <Text style={{
-                  ...css.cardInfo, 
-                  ...css.subTitle
-                  }}>{item.title}</Text>
+            <Pressable onPress={() => navigateToListDetails(navigation, item.id)}>
+              <View style={{...css.container}} testID="content">
+                <View style={{...css.card}}>
+                  <Text style={{
+                    ...css.cardInfo, 
+                    ...css.subTitle
+                    }}>{item.title}</Text>
+                </View>
               </View>
-            </View>
+            </Pressable>
           )
         }}
       />
