@@ -8,9 +8,7 @@ export async function getListDetails(listId: string): Promise<List[]> {
     .then(function(response) {
       return response;
     })
-    .catch(function(error) {
-      throw error;
-    });
+    .catch((error) => {throw error});
 
 }
 
