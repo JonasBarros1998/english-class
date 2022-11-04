@@ -25,22 +25,39 @@ const cardsOfList = {
 
 const filter = filterById as any;
 
-filter.mockImplementation(() => {
+function mockRequisicao() {
   return new Promise((resolve, _) => {
     resolve(cardsOfList);
   });
-});
+}
+
+function mockRequisicaoErro() {
+  return new Promise((_, reject) => {
+    reject("Error");
+  });
+}
 
 describe('list details', function() {
 
+  beforeEach(() => {
+    filter.mockClear();
+  });
+
   test('should call filterById method one time', async function() {
+    filter.mockImplementation(() => mockRequisicao());
     await getListDetails("123456");
     expect(filter).toHaveBeenCalledTimes(1);
   });
 
   test('should call filterById method with two parameters: collections lists and list id', async function() {
+    filter.mockImplementation(() => mockRequisicao());
     await getListDetails("123456");
     expect(filter).toHaveBeenCalledWith(collections.lists, "123456");
+  });
+
+  test('...', async function() {
+    filter.mockImplementation(() => mockRequisicaoErro());
+    await expect(getListDetails("123456")).rejects.toEqual("Error")
   });
 
 });
