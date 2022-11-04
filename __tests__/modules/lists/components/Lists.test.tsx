@@ -62,7 +62,7 @@ describe('List all cards', function() {
 
   test('When load component, should render all cards', function() {
 
-    const component = render(<Lists />).toJSON() as any;
+    const component = render(<Lists navigation={() => {}}/>).toJSON() as any;
     if (component !== null) {
       expect(component.type).toMatch('View');
     }
