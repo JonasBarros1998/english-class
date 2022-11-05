@@ -36,12 +36,12 @@ export default function Details({route}: any) {
               translationInputValue={item.translation}
               contextInputValue={item.context}
               editable={false}
+              animatedCard={false}
             />
           )
         }}
-      >
-      </FlatList>
-
+      />
+      
       <Button mode="contained" onPress={() => console.log('Editar')} style={{
         borderRadius: 0
       }}>

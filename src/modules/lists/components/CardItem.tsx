@@ -15,10 +15,29 @@ type componentParam = {
   wordInputValue?: string,
   translationInputValue?: string,
   contextInputValue?: string,
-  editable?: boolean
+  editable?: boolean,
+  animatedCard?: boolean
 }
 
 export default function CardItem(props: componentParam) {
+
+  return (
+    <>
+      {
+        props.animatedCard === false
+        ? <Item {...props} />
+        : <AnimatedCards
+            deleteCard={() => {
+              props.removeCard();
+            }}>
+          <Item {...props} />
+        </AnimatedCards>
+      }
+    </>
+  );
+}
+
+export function Item(props: componentParam) {
   const [word, setWord] = useState<string>('');
   const [context, setContext] = useState<string>('');
   const [translation, setTranslation] = useState<string>('');
@@ -27,57 +46,52 @@ export default function CardItem(props: componentParam) {
   const css = styles(theme);
 
   return (
-    <AnimatedCards
-      deleteCard={() => {
-        props.removeCard();
+    <View style={{
+      ...css.container,
       }}>
-      <View style={{
-        ...css.container,
-        }}>
-          <Card style={{
-              ...css.card,
-              marginBottom: props.cardIndex + 1 === props.data.length ? 100 : 0,
-            }}>
-            <Card.Content>
-              <TextInput 
-                value={typeof props.wordInputValue !== 'undefined' ? props.wordInputValue : word}
-                style={{...css.textInput}}
-                underlineColor="black"
-                activeUnderlineColor={theme.colors.primary}
-                placeholder="Palavra"
-                editable={typeof props.editable !== 'undefined' ? false : true}
-                onChangeText={(value) => {
-                  setWord(value);
-                  props.onChangeInputWord(value);
-                }}
-              />
-              <TextInput 
-                value={typeof props.contextInputValue !== 'undefined' ? props.contextInputValue : context}
-                style={{...css.textInput}}
-                underlineColor="black"
-                activeUnderlineColor={theme.colors.primary}
-                placeholder="Contexto"
-                editable={typeof props.editable !== 'undefined' ? false : true}
-                onChangeText={(value) => {
-                  setContext(value);
-                  props.onChangeInputContext(value);
-                }}
-              />
-              <TextInput 
-                value={typeof props.translationInputValue !== 'undefined' ? props.translationInputValue : translation}
-                style={{...css.textInput}}
-                underlineColor="black"
-                activeUnderlineColor={theme.colors.primary}
-                placeholder="Traduçao"
-                editable={typeof props.editable !== 'undefined' ? false : true}
-                onChangeText={(value) => {
-                  setTranslation(value);
-                  props.onChangeInputTranslation(value);
-                }}
-              />
-            </Card.Content>
-          </Card>
-      </View>
-    </AnimatedCards>
-  );
+        <Card style={{
+            ...css.card,
+            marginBottom: props.cardIndex + 1 === props.data.length ? 100 : 0,
+          }}>
+          <Card.Content>
+            <TextInput 
+              value={typeof props.wordInputValue !== 'undefined' ? props.wordInputValue : word}
+              style={{...css.textInput}}
+              underlineColor="black"
+              activeUnderlineColor={theme.colors.primary}
+              placeholder="Palavra"
+              editable={typeof props.editable !== 'undefined' ? false : true}
+              onChangeText={(value) => {
+                setWord(value);
+                props.onChangeInputWord(value);
+              }}
+            />
+            <TextInput 
+              value={typeof props.contextInputValue !== 'undefined' ? props.contextInputValue : context}
+              style={{...css.textInput}}
+              underlineColor="black"
+              activeUnderlineColor={theme.colors.primary}
+              placeholder="Contexto"
+              editable={typeof props.editable !== 'undefined' ? false : true}
+              onChangeText={(value) => {
+                setContext(value);
+                props.onChangeInputContext(value);
+              }}
+            />
+            <TextInput 
+              value={typeof props.translationInputValue !== 'undefined' ? props.translationInputValue : translation}
+              style={{...css.textInput}}
+              underlineColor="black"
+              activeUnderlineColor={theme.colors.primary}
+              placeholder="Traduçao"
+              editable={typeof props.editable !== 'undefined' ? false : true}
+              onChangeText={(value) => {
+                setTranslation(value);
+                props.onChangeInputTranslation(value);
+              }}
+            />
+          </Card.Content>
+        </Card>
+    </View>
+  )
 }

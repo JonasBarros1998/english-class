@@ -55,7 +55,7 @@ describe('list details', function() {
     expect(filter).toHaveBeenCalledWith(collections.lists, "123456");
   });
 
-  test('...', async function() {
+  test('should return a error', async function() {
     filter.mockImplementation(() => mockRequisicaoErro());
     await expect(getListDetails("123456")).rejects.toEqual("Error")
   });
