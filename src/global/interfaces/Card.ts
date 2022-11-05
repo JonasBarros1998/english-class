@@ -7,5 +7,6 @@ export interface Card {
 
 export interface List {
   cardsOfList: Card[],
-  title: string
+  title: string,
+  id: string,
 }
