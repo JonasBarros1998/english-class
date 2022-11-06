@@ -1,8 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type typeReturn = Promise<null | any>;
-
-export async function read(key: string): typeReturn {
+export async function read<Type>(key: string): Promise<Type | null> {
   const item = await AsyncStorage.getItem(key);
   if (item === null) {
     return item;
