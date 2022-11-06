@@ -1,6 +1,4 @@
-import { User as UserGoogleSignin} from "@react-native-google-signin/google-signin";
 import {login} from "@services/googleSignin/signin";
-import {navigateToHome} from "../routes/routes";
 import {STORAGE_USER} from "@global/constants";
 import {addUser} from "@state/redux/slices/user";
 import store from "@state/redux/store";
