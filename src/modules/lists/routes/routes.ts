@@ -3,3 +3,7 @@ export const navigateToListDetails = (navigation: any, listId: string): void => 
     id: listId
   })
 }
+
+export const navigateToUpdateList = (navigation: any) => {
+  navigation.navigate('update');
+}

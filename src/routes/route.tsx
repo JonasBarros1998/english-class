@@ -6,6 +6,7 @@ import Menu from '@components/Menu/Menu';
 import Details from '@modules/lists/components/Details';
 import { useSelector } from 'react-redux';
 import { User } from '@global/interfaces/User';
+import Update from '@modules/lists/components/Update';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,13 @@ export default function Routes() {
             component={Details}
             options={{
               headerTitle: 'Detalhes'
+          }}/>
+
+          <Stack.Screen 
+            name="update"
+            component={Update}
+            options={{
+              headerShown: false
           }}/>
         </>
         )

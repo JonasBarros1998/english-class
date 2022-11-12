@@ -5,10 +5,12 @@ import CardItem from './CardItem';
 import {getListDetails} from '../useCases/getListDetails';
 import { Card } from '@global/interfaces/Card';
 import { Button } from 'react-native-paper';
+import { navigateToUpdateList } from '../routes/routes';
 
-export default function Details({route}: any) {
+export default function Details({route, navigation}: any) {
 
   const [cards, setCards] = useState<Card[]>();
+
   const {id} = route.params;
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function Details({route}: any) {
         }}
       />
       
-      <Button mode="contained" onPress={() => console.log('Editar')} style={{
+      <Button mode="contained" onPress={() => navigateToUpdateList(navigation)} style={{
         borderRadius: 0
       }}>
         Editar

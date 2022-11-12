@@ -1,6 +1,7 @@
 import { List } from '@global/interfaces/Card';
 import {filterById} from '@services/firestore/actions/filter';
 import {collections} from "@services/firestore/constants/collections";
+import state from '@state/redux/store';
 
 export async function getListDetails(listId: string): Promise<List[]> {
 
@@ -12,3 +13,6 @@ export async function getListDetails(listId: string): Promise<List[]> {
 
 }
 
+export function getListDetailsOnStore(): {current: List} {
+  return state.getState().readList.lists;
+}
