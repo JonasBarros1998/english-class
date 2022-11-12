@@ -1,4 +1,3 @@
-import { List } from "@global/interfaces/Card";
 import { getListDetails } from "@modules/lists/useCases/getListDetails";
 
 import {filterById} from '@services/firestore/actions/filter';

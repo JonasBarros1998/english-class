@@ -8,11 +8,12 @@ type params = {
   title: string
 };
 
-export function saveListOnFirestore(datas: params) {
-  insert({
+export async function saveListOnFirestore(datas: params) {
+  return insert({
     collections: collections.lists,
     datas: formatDatas(datas),
   }).catch(function(error) {
+      console.log("Error function");
       throw error
     })
 }

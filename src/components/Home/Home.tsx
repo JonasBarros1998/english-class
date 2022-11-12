@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 export default function Home() {
   
   useSelector((store) => {
-    console.log(store);
+    //console.log(store);
   });
 
   return (
