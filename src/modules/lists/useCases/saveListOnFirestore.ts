@@ -13,7 +13,6 @@ export async function saveListOnFirestore(datas: params) {
     collections: collections.lists,
     datas: formatDatas(datas),
   }).catch(function(error) {
-      console.log("Error function");
       throw error
     })
 }
