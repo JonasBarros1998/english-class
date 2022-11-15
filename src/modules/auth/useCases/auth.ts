@@ -9,13 +9,12 @@ import { collections } from "@services/firestore/constants/collections";
 import { insert } from "@services/storage/insert";
 import { read } from "@services/storage/read";
 
-
 export async function userLogin(routes: any): Promise<void> {
     const datas = (
       await login()
         .then(async function(response: any) {
           const {
-            user: {email, name, photo},
+            user: {email, name, photo, id},
             idToken
           } = response;
   
@@ -24,6 +23,7 @@ export async function userLogin(routes: any): Promise<void> {
             name: name as string,
             photoUrl: photo as string,
             idToken: idToken as string,
+            id: id as string
           };
           return datas;
         })
@@ -37,11 +37,13 @@ export async function userLogin(routes: any): Promise<void> {
   
     await insertFirestore({
       collections: collections.users,
-      datas: {email: datas.email}
+      datas: {
+        email: datas.email,
+        id: datas.id
+      }
     });
   
     await insert(STORAGE_USER, datas);
-    
     store.dispatch(addUser(datas));
   
 }

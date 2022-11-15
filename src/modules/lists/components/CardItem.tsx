@@ -45,6 +45,15 @@ export function Item(props: componentParam) {
   const theme = useTheme();
   const css = styles(theme);
 
+
+  const cardIsEditable = () => {
+    const isEditable = typeof props.editable === 'undefined' || props.editable === false;
+    if(isEditable) {
+      return false;
+    }
+    return true;
+  }
+
   return (
     <View style={{
       ...css.container,
@@ -60,7 +69,7 @@ export function Item(props: componentParam) {
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
               placeholder="Palavra"
-              editable={typeof props.editable !== 'undefined' ? false : true}
+              editable={cardIsEditable()}
               onChangeText={(value) => {
                 setWord(value);
                 props.onChangeInputWord(value);
@@ -72,7 +81,7 @@ export function Item(props: componentParam) {
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
               placeholder="Contexto"
-              editable={typeof props.editable !== 'undefined' ? false : true}
+              editable={cardIsEditable()}
               onChangeText={(value) => {
                 setContext(value);
                 props.onChangeInputContext(value);
@@ -84,7 +93,7 @@ export function Item(props: componentParam) {
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
               placeholder="Traduçao"
-              editable={typeof props.editable !== 'undefined' ? false : true}
+              editable={cardIsEditable()}
               onChangeText={(value) => {
                 setTranslation(value);
                 props.onChangeInputTranslation(value);

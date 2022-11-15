@@ -9,4 +9,5 @@ export interface List {
   cardsOfList: Card[],
   title: string,
   id: string,
+  userId: string
 }

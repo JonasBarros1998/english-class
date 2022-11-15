@@ -35,8 +35,8 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
   }
 
   function onClickEvent(list: List) {
-    navigateToListDetails(navigation, list.id);
     dispatchCurrentListToStore(list);
+    navigateToListDetails(navigation, list.id);
   }
 
   const theme = useTheme();
