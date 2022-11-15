@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import AddNewCardButton from '@src/modules/lists/components/AddNewCardButton';
-import { createNewCard } from '../../../../src/modules/lists/useCases/addNewCardInList';
+import { createNewCard } from '../../../../src/modules/lists/useCases/managerCards';
 import { Card } from '@global/interfaces/Card';
 
 jest.mock('../../../../src/modules/lists/useCases/addNewCardInList');
