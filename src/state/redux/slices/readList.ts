@@ -6,7 +6,8 @@ const readList = createSlice({
   initialState: {
     lists: {
       current: {} as List
-    }
+    },
+    docId: ''
   },
   reducers: {
     current: {
@@ -23,8 +24,20 @@ const readList = createSlice({
       },
     },
 
+    docId: {
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          docId: action.payload 
+        }
+      },
+      prepare: (data: string) => {
+        return { payload: data };
+      },
+    }
+
   },
 });
 
-export const {current} = readList.actions;
+export const {current, docId} = readList.actions;
 export default readList.reducer;

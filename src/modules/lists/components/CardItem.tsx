@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {Card, TextInput, useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import {styles} from '../styles/cards';
@@ -12,9 +12,9 @@ type componentParam = {
   data: typeCard[],
   cardIndex: number,
   removeCard: () => any,
-  wordInputValue?: string,
-  translationInputValue?: string,
-  contextInputValue?: string,
+  initialWordValue?: string,
+  initialTranslationValue?: string,
+  initialContextValue?: string,
   editable?: boolean,
   animatedCard?: boolean
 }
@@ -42,6 +42,25 @@ export function Item(props: componentParam) {
   const [context, setContext] = useState<string>('');
   const [translation, setTranslation] = useState<string>('');
 
+  function initialValues() {
+    if (typeof props.initialWordValue !== 'undefined') {
+      setWord(props.initialWordValue);
+    }
+
+    if (typeof props.initialContextValue !== 'undefined') {
+      setContext(props.initialContextValue);
+    }
+
+    if (typeof props.initialTranslationValue !== 'undefined') {
+      setTranslation(props.initialTranslationValue);
+    }
+
+  }
+
+  useMemo(() => {
+    initialValues();
+  }, [])
+
   const theme = useTheme();
   const css = styles(theme);
 
@@ -64,7 +83,7 @@ export function Item(props: componentParam) {
           }}>
           <Card.Content>
             <TextInput 
-              value={typeof props.wordInputValue !== 'undefined' ? props.wordInputValue : word}
+              value={word}
               style={{...css.textInput}}
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
@@ -76,7 +95,7 @@ export function Item(props: componentParam) {
               }}
             />
             <TextInput 
-              value={typeof props.contextInputValue !== 'undefined' ? props.contextInputValue : context}
+              value={context}
               style={{...css.textInput}}
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
@@ -88,7 +107,7 @@ export function Item(props: componentParam) {
               }}
             />
             <TextInput 
-              value={typeof props.translationInputValue !== 'undefined' ? props.translationInputValue : translation}
+              value={translation}
               style={{...css.textInput}}
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}

@@ -1,8 +1,7 @@
 import { Card } from '@global/interfaces/Card';
 import { insert } from '@services/firestore/actions/insert';
 import { collections } from "@services/firestore/constants/collections";
-import { nanoid } from '@reduxjs/toolkit';
-import store from '@state/redux/store';
+import { formatDatas } from './formatDatas';
 
 type params = {
   cardsOfList: Card[],
@@ -19,11 +18,3 @@ export async function saveListOnFirestore(datas: params) {
 }
 
 
-function formatDatas(datas: params) {
-  return {cardsOfList: datas.cardsOfList, title: datas.title, id: nanoid(), userId: getUserIdInStore()};
-}
-
-function getUserIdInStore() {
-  const [firstElement] = store.getState().user;
-  return firstElement.id;
-}

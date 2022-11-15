@@ -1,7 +1,7 @@
 import { Card } from '@global/interfaces/Card';
 import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { createNewCard, deleteOneCard, updateInputCards } from '../useCases/addNewCardInList';
+import { createNewCard, deleteOneCard, updateInputCards } from '../useCases/managerCards';
 import AddNewCardButton from './AddNewCardButton';
 import SaveListButton from './SaveListButton';
 import CardItem from './CardItem';

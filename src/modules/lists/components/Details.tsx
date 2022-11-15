@@ -17,7 +17,7 @@ export default function Details({route, navigation}: any) {
   useEffect(() => {
     getListDetails(id)
     .then(function(response) {
-      const [{cardsOfList}] = response;
+      const {cardsOfList} = response;
       setCards([...cardsOfList]);
     });
   }, []);
@@ -35,9 +35,9 @@ export default function Details({route, navigation}: any) {
               onChangeInputWord={(value: any) => {}}
               onChangeInputContext={(value: string) => {}}
               onChangeInputTranslation={(value: string) => {}}
-              wordInputValue={item.word}
-              translationInputValue={item.translation}
-              contextInputValue={item.context}
+              initialWordValue={item.word}
+              initialTranslationValue={item.translation}
+              initialContextValue={item.context}
               animatedCard={false}
             />
           )

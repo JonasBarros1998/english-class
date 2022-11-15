@@ -1,7 +1,22 @@
-import { List } from '@global/interfaces/Card';
+import { Card, List } from '@global/interfaces/Card';
 import { User } from '@global/interfaces/User';
+import { update } from '@services/firestore/actions/update';
+import { collections } from '@services/firestore/constants/collections';
 import state from '@state/redux/store';
+import { formatDatas } from './formatDatas';
 
+type params = {
+  cardsOfList: Card[],
+  title: string
+};
+
+export function updateList(datas: params) {
+  update({
+    collections: collections.lists,
+    docId: getDocumentIdOnStore(),
+    datas: formatDatas(datas) 
+  });
+}
 
 export function getUserDataOnStore(): User[] {
   return state.getState().user
@@ -14,8 +29,12 @@ export function checkUserPermission(list: List): boolean {
   if (list.userId === userData.id) {
     return true;
   }
-
   return false;
-
 }
+
+
+export function getDocumentIdOnStore() {
+  return state.getState().readList.docId;
+}
+
 

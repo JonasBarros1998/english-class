@@ -9,7 +9,7 @@ export async function filterById<Type>(collections: databases, listId: string): 
     .get()
       .then((response) => {
         response.forEach((value) => {
-          data.push(value.data());
+          data.push({datas: value.data(), documentId: value.id});
         });
 
         return data;
