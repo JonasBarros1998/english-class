@@ -4,7 +4,7 @@ import AddNewCardButton from '@src/modules/lists/components/AddNewCardButton';
 import { createNewCard } from '../../../../src/modules/lists/useCases/managerCards';
 import { Card } from '@global/interfaces/Card';
 
-jest.mock('../../../../src/modules/lists/useCases/addNewCardInList');
+jest.mock('../../../../src/modules/lists/useCases/managerCards.ts');
 
 jest.mock('react-native-paper', () => ({
   __esModule: true,

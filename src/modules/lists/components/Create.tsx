@@ -60,6 +60,7 @@ export function Create() {
               <CardItem
                 cardIndex={index}
                 data={cards}
+                editable={true}
                 removeCard={() => {
                   const cardsArray = deleteOneCard({
                     cardId: item.id,

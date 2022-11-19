@@ -10,8 +10,8 @@ type params = {
   title: string
 };
 
-export function updateList(datas: params) {
-  update({
+export async function updateList(datas: params) {
+  await update({
     collections: collections.lists,
     docId: getDocumentIdOnStore(),
     datas: formatDatas(datas) 
