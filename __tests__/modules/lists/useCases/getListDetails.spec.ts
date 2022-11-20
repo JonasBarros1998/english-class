@@ -1,4 +1,3 @@
-import { List } from "@global/interfaces/Card";
 import { getListDetails } from "@modules/lists/useCases/getListDetails";
 
 import {filterById} from '@services/firestore/actions/filter';
@@ -12,16 +11,19 @@ jest.mock('@react-native-firebase/firestore', () => ({
   }
 }));
 
-const cardsOfList = {
-  cardsOfList: [{
-    id: '123',
-    word: 'card',
-    context: 'my card',
-    translation: 'cartao'
-  }],
-  title: 'my first card',
-  id: '123456'
-}
+const cardsOfList = [{
+  datas: {
+    cardsOfList: [{
+      id: '123',
+      word: 'card',
+      context: 'my card',
+      translation: 'cartao'
+    }],
+    title: 'my first card',
+    id: '123456'
+  },
+  documentId: '1234'
+}]
 
 const filter = filterById as any;
 
@@ -43,7 +45,7 @@ describe('list details', function() {
     filter.mockClear();
   });
 
-  test('should call filterById method one time', async function() {
+  test('should call filterById method once', async function() {
     filter.mockImplementation(() => mockRequisicao());
     await getListDetails("123456");
     expect(filter).toHaveBeenCalledTimes(1);

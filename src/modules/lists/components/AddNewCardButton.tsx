@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {styles} from '../styles/button'
-import { createNewCard } from '../useCases/addNewCardInList';
+import { createNewCard } from '../useCases/managerCards';
 
 export default function AddNewCardButton(props: {updateState: (card: Card) => void}) {
   

@@ -1,14 +1,27 @@
 import { List } from '@global/interfaces/Card';
 import {filterById} from '@services/firestore/actions/filter';
 import {collections} from "@services/firestore/constants/collections";
+import state from '@state/redux/store';
+import {docId} from '@state/redux/slices/readList';
+import { checkUserPermission } from './updateList';
 
-export async function getListDetails(listId: string): Promise<List[]> {
+export async function getListDetails(listId: string): Promise<List> {
 
-  return filterById<List>(collections.lists, listId)
+  return filterById<{datas: List, documentId: string}>(collections.lists, listId)
     .then(function(response) {
-      return response;
+      const [{datas, documentId}] = response;
+      state.dispatch(docId(documentId));
+      return datas;
     })
     .catch((error) => {throw error});
 
 }
 
+export function getListDetailsOnStore(): {current: List} {
+  return state.getState().readList.lists;
+}
+
+export function showEditarButton() {
+  const {current} = getListDetailsOnStore();
+  return checkUserPermission(current);
+}

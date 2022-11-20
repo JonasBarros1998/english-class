@@ -3,3 +3,11 @@ export const navigateToListDetails = (navigation: any, listId: string): void => 
     id: listId
   })
 }
+
+export const navigateToUpdateList = (navigation: any) => {
+  navigation.push('update');
+}
+
+export const navigationBackToDetails = (navigation: any) => {
+  navigation.goBack('details');
+}

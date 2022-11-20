@@ -7,6 +7,7 @@ import { List } from '@global/interfaces/Card';
 
 import { styles } from '../styles/cards';
 import { navigateToListDetails } from '../routes/routes';
+import { dispatchCurrentListToStore } from '../useCases/dispatchListToStore';
 
 export default function Lists({navigation}: {navigation: (route: string) => any}) {
   const [lists, setLists] = useState<List[]>();
@@ -33,6 +34,11 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
       });
   }
 
+  function onClickEvent(list: List) {
+    dispatchCurrentListToStore(list);
+    navigateToListDetails(navigation, list.id);
+  }
+
   const theme = useTheme();
   const css = styles(theme);
 
@@ -46,7 +52,7 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
         onRefresh={() => refreshList()}
         renderItem={({item, index}) => {
           return (
-            <Pressable onPress={() => navigateToListDetails(navigation, item.id)}>
+            <Pressable onPress={() => onClickEvent(item)}>
               <View style={{...css.container}} testID="content">
                 <View style={{...css.card}}>
                   <Text style={{

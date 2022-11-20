@@ -1,32 +1,43 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
-import { Card } from "@global/interfaces/Card";
+import { List } from "@global/interfaces/Card";
 
 const readList = createSlice({
   name: 'readList',
   initialState: {
-    readAll: [],
-    readOne: {}
+    lists: {
+      current: {} as List
+    },
+    docId: ''
   },
   reducers: {
-    readAll: {
-      reducer: (state, action: PayloadAction<Card>) => {
-        console.log(action);
+    current: {
+      reducer: (state, action: PayloadAction<List>) => {
+        return {
+          ...state,
+          lists: {
+            current: action.payload
+          }
+        }
       },
-      prepare: (datas: Card) => {
+      prepare: (datas: List) => {
         return { payload: datas };
       },
     },
-    readOne: {
-      reducer: (state, action: PayloadAction<Card>) => {
-        console.log(action);
+
+    docId: {
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          docId: action.payload 
+        }
       },
-      prepare: (datas: Card) => {
-        return { payload: datas };
+      prepare: (data: string) => {
+        return { payload: data };
       },
-    },
+    }
 
   },
 });
 
-export const {readAll, readOne} = readList.actions;
+export const {current, docId} = readList.actions;
 export default readList.reducer;
