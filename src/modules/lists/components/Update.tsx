@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, Pressable, Text, View} from 'react-native';
 import CardItem from './CardItem';
 import { getListDetailsOnStore} from '../useCases/getListDetails';
 import { checkUserPermission, updateList } from '../useCases/updateList';
@@ -10,14 +10,18 @@ import {useTheme} from 'react-native-paper';
 import {styles} from '../styles/titleList';
 import { Card } from '@global/interfaces/Card';
 import { deleteOneCard, updateInputCards } from '../useCases/managerCards';
+import Info from '@components/Dialogs/Info';
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { navigationBackToDetails } from '../routes/routes';
 
 
-export default function Update({route}: any) {
+export default function Update({route, navigation}: any) {
   const {current} = getListDetailsOnStore();
   const userPermission = checkUserPermission(current);
 
   const [cards, setCards] = useState<Card[]>(current.cardsOfList);
   const [title, setTitle] = useState<string>(current.title);
+  const [dialog, setDialog] = useState<boolean>(false);
 
   const theme = useTheme() as any;
 
@@ -30,8 +34,13 @@ export default function Update({route}: any) {
           ...styles.actionList,
           backgroundColor: theme.colors.primary,
           height: 50,
-          paddingLeft: 10
+          paddingLeft: 5,
         }}>
+        <Pressable onPress={() => navigationBackToDetails(navigation)}>
+          <View>
+            <Icon name="arrow-back" size={25} color={theme.colors.textSecondary} />
+          </View>
+        </Pressable>
         <TitleList 
           onChangeEvent={(event) => setTitle(event)}
           value={title}
@@ -39,10 +48,12 @@ export default function Update({route}: any) {
         />
         <SaveListButton 
           onClickEvent={function() {
+            if (dialog === true) setDialog(false)
+
             updateList({
               cardsOfList: cards,
               title: title
-            })
+            }).then(() => setDialog(true))
           }} />
       </View>
 
@@ -109,6 +120,10 @@ export default function Update({route}: any) {
             setCards([...cardsArray]);
           }}
         />
+
+      <Info visible={dialog} />
     </>
+
+    
   );
 }

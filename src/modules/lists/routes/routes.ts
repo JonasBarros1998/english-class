@@ -5,5 +5,9 @@ export const navigateToListDetails = (navigation: any, listId: string): void => 
 }
 
 export const navigateToUpdateList = (navigation: any) => {
-  navigation.navigate('update');
+  navigation.push('update');
+}
+
+export const navigationBackToDetails = (navigation: any) => {
+  navigation.goBack('details');
 }
