@@ -6,6 +6,9 @@ const user = createSlice({
   name: 'user',
   initialState: [] as User[],
   reducers: {
+    removeUser: (state) => {
+      state.pop();
+    },
     addUser: {
       reducer: (state, action: PayloadAction<User>) => {
         state.push(action.payload);
@@ -14,14 +17,6 @@ const user = createSlice({
         return { payload: datas };
       },
     },
-    getUser: {
-      reducer: (state, action: PayloadAction<User>) => {},
-      prepare: (datas: User) => {},
-    },
-    removeUser: {
-      reducer: (state, action: PayloadAction<User>) => {},
-      prepare: (datas: User) => {},
-    }
   },
 });
 

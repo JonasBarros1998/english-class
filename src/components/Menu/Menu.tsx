@@ -110,12 +110,12 @@ export default function Menu() {
               return <Text style={{
                 fontWeight: "600",
                 color: colors.primary
-              }}>Listas</Text>
+              }}>Perfil</Text>
             }
             return <Text style={{
               fontSize: 12,
               color: colors.text
-            }}>Listas</Text>
+            }}>Perfil</Text>
           },
           
         })}
