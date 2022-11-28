@@ -4,8 +4,9 @@ import { List } from "@global/interfaces/Card";
 const readList = createSlice({
   name: 'readList',
   initialState: {
+    allLists: [] as List[],
     lists: {
-      current: {} as List
+      current: {} as List,
     },
     docId: ''
   },
@@ -15,7 +16,7 @@ const readList = createSlice({
         return {
           ...state,
           lists: {
-            current: action.payload
+            current: action.payload,
           }
         }
       },
@@ -34,10 +35,21 @@ const readList = createSlice({
       prepare: (data: string) => {
         return { payload: data };
       },
+    },
+
+    allLists: {
+      reducer: (state, action: PayloadAction<List[]>) => {
+        state.allLists.splice(0, state.allLists.length);
+        state.allLists.push(...action.payload);
+      },
+
+      prepare: (datas: List[]) => {
+        return { payload: datas };
+      }
     }
 
   },
 });
 
-export const {current, docId} = readList.actions;
+export const {current, docId, allLists} = readList.actions;
 export default readList.reducer;

@@ -4,6 +4,7 @@ import { update } from '@services/firestore/actions/update';
 import { collections } from '@services/firestore/constants/collections';
 import state from '@state/redux/store';
 import { formatDatas } from './formatDatas';
+import { findAllLists } from './readLists';
 
 type params = {
   cardsOfList: Card[],
@@ -16,6 +17,8 @@ export async function updateList(datas: params) {
     docId: getDocumentIdOnStore(),
     datas: formatDatas(datas) 
   });
+
+  findAllLists();
 }
 
 export function getUserDataOnStore(): User[] {
