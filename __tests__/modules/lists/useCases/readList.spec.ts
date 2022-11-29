@@ -11,7 +11,7 @@ jest.mock('@react-native-firebase/firestore', () => ({
 
 const find = findAll as any;
 
-const cardsOfList = {
+const cardsOfList = [{
   cardsOfList: [{
     id: '123',
     word: 'card',
@@ -20,7 +20,7 @@ const cardsOfList = {
   }],
   title: 'my first card',
   id: '123456'
-}
+}]
 
 function mockRequisicao() {
   return new Promise((resolve, _) => {

@@ -8,31 +8,16 @@ import { List } from '@global/interfaces/Card';
 import { styles } from '../styles/cards';
 import { navigateToListDetails } from '../routes/routes';
 import { dispatchCurrentListToStore } from '../useCases/dispatchListToStore';
+import { useSelector } from 'react-redux';
 
 export default function Lists({navigation}: {navigation: (route: string) => any}) {
-  const [lists, setLists] = useState<List[]>();
-  const [refresh, setRefresh] = useState<boolean>(false);
 
+  const listeningLists =  useSelector<{readList: {allLists: List[]}}, List[]>(items => items.readList.allLists)
+  
   useEffect(() => {
-    findAllLists()
-      .then(function(response) {
-        setLists([...response]);
-      })
+    findAllLists();
   }, []);
 
-  async function refreshList() {
-    setRefresh(true);
-    findAllLists()
-      .then(function(response) {
-        setLists([...response]);
-      })
-      .catch(function() {
-        setRefresh(false)
-      })
-      .finally(() => {
-        setRefresh(false);
-      });
-  }
 
   function onClickEvent(list: List) {
     dispatchCurrentListToStore(list);
@@ -47,9 +32,7 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
       
       <FlatList
         testID='card'
-        data={lists}
-        refreshing={refresh}
-        onRefresh={() => refreshList()}
+        data={listeningLists}
         renderItem={({item, index}) => {
           return (
             <Pressable onPress={() => onClickEvent(item)}>
