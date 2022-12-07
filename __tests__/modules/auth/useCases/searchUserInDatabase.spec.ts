@@ -19,6 +19,12 @@ function mockRequisicao() {
   });
 }
 
+function mockRequisicaoEmptyArray() {
+  return new Promise((resolve, _) => {
+    resolve([]);
+  });
+}
+
 function mockRequisicaoErro() {
   return new Promise((_, reject) => {
     reject(false);
@@ -41,6 +47,11 @@ describe('searchUserInDatabase', function() {
     filter.mockImplementation(() => mockRequisicao());
     await searchUserInDatabase("123456789");
     expect(filter).toHaveBeenCalledWith(collections.users, "123456789");
+  });
+
+  test('should return false, if array is empty', async function() {
+    filter.mockImplementation(() => mockRequisicaoEmptyArray());
+    await expect(searchUserInDatabase("123456789")).resolves.toBeFalsy();
   });
 
   test('should return false, if happen a error', async function() {
