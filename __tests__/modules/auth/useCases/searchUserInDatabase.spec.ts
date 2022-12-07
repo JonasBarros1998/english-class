@@ -1,4 +1,4 @@
-import { getListDetails } from "@modules/lists/useCases/getListDetails";
+import { searchUserInDatabase } from "@modules/auth/useCases/searchUserInDatabase";
 
 import {filterById} from '@services/firestore/actions/filter';
 import { collections } from "@services/firestore/constants/collections";
@@ -11,56 +11,46 @@ jest.mock('@react-native-firebase/firestore', () => ({
   }
 }));
 
-const cardsOfList = [{
-  datas: {
-    cardsOfList: [{
-      id: '123',
-      word: 'card',
-      context: 'my card',
-      translation: 'cartao'
-    }],
-    title: 'my first card',
-    id: '123456'
-  },
-  documentId: '1234'
-}]
-
 const filter = filterById as any;
 
 function mockRequisicao() {
   return new Promise((resolve, _) => {
-    resolve(cardsOfList);
+    resolve(true);
   });
 }
 
 function mockRequisicaoErro() {
   return new Promise((_, reject) => {
-    reject("Error");
+    reject(false);
   });
 }
 
-describe('list details', function() {
+describe('searchUserInDatabase', function() {
 
   beforeEach(() => {
     filter.mockClear();
   });
-
+  
   test('should call once the method filterById', async function() {
     filter.mockImplementation(() => mockRequisicao());
-    await getListDetails("123456");
+    await searchUserInDatabase("123456789");
     expect(filter).toHaveBeenCalledTimes(1);
   });
 
   test('should call filterById method with two parameters: collections lists and list id', async function() {
     filter.mockImplementation(() => mockRequisicao());
-    await getListDetails("123456");
-    expect(filter).toHaveBeenCalledWith(collections.lists, "123456");
+    await searchUserInDatabase("123456789");
+    expect(filter).toHaveBeenCalledWith(collections.users, "123456789");
   });
 
-  test('should return a error', async function() {
+  test('should return false, if happen a error', async function() {
     filter.mockImplementation(() => mockRequisicaoErro());
-    await expect(getListDetails("123456")).rejects.toEqual("Error")
+    await expect(searchUserInDatabase("123456789")).resolves.toBeFalsy();
   });
 
-});
+  test('should return true', async function() {
+    filter.mockImplementation(() => mockRequisicao());
+    await expect(searchUserInDatabase("123456789")).resolves.toBeTruthy();
+  })
 
+})
