@@ -17,6 +17,7 @@ export default function Menu() {
     <Tab.Navigator>
       <Tab.Screen name="home" component={Home}
         options={({route}) => ({
+          headerTitle: 'Inicio',
           tabBarIcon: ({focused}) => {
             if (focused === true && route.name === "home") {
               return <Icon name="home" size={27} color={colors.primary} />
@@ -96,6 +97,7 @@ export default function Menu() {
       />
       <Tab.Screen name="profile" component={Profile} 
          options={({route}) => ({
+          headerTitle: 'Perfil',
           tabBarIcon: ({focused}) => {
             if (focused === true && route.name === "profile") {
               return <Icon name="account-circle" size={27} color={colors.primary} />
