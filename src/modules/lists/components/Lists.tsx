@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlatList, Pressable, Text, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
-import { findAllLists } from '../useCases/readLists';
 import { List } from '@global/interfaces/Card';
 
 import { styles } from '../styles/cards';
@@ -13,10 +12,6 @@ import { useSelector } from 'react-redux';
 export default function Lists({navigation}: {navigation: (route: string) => any}) {
 
   const listeningLists =  useSelector<{readList: {allLists: List[]}}, List[]>(items => items.readList.allLists)
-  
-  useEffect(() => {
-    findAllLists();
-  }, []);
 
 
   function onClickEvent(list: List) {
@@ -28,11 +23,16 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
   const css = styles(theme);
 
   return (
+    <>
+
     <View>
       
       <FlatList
         testID='card'
         data={listeningLists}
+        contentContainerStyle={{
+          ...css.fotter
+        }}
         renderItem={({item, index}) => {
           return (
             <Pressable onPress={() => onClickEvent(item)}>
@@ -49,5 +49,6 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
         }}
       />
     </View>
+    </>
   )
 }

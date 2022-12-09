@@ -45,7 +45,7 @@ describe('list details', function() {
     filter.mockClear();
   });
 
-  test('should call filterById method once', async function() {
+  test('should call once the method filterById', async function() {
     filter.mockImplementation(() => mockRequisicao());
     await getListDetails("123456");
     expect(filter).toHaveBeenCalledTimes(1);

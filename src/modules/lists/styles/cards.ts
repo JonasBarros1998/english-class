@@ -43,6 +43,8 @@ export const styles = (theme: ReactNativePaper.Theme) => {
       fontWeight: "600",
       fontSize: fonts.subTitle.fontSize,
     },
-
+    fotter: {
+      paddingBottom: 30
+    }
   });
 }

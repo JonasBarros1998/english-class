@@ -8,8 +8,10 @@ import { insert as insertFirestore } from "@services/firestore/actions/insert";
 import { collections } from "@services/firestore/constants/collections";
 import { insert } from "@services/storage/insert";
 import { read } from "@services/storage/read";
+import { searchUserInDatabase } from "./searchUserInDatabase";
 
 export async function userLogin(routes: any): Promise<void> {
+
     const datas = (
       await login()
         .then(async function(response: any) {
@@ -34,14 +36,18 @@ export async function userLogin(routes: any): Promise<void> {
     );
     
     await(toAutenticateFirebase(datas.idToken));
+
+    const existUserInDatabase = (await searchUserInDatabase(datas.id));
   
-    await insertFirestore({
-      collections: collections.users,
-      datas: {
-        email: datas.email,
-        id: datas.id
-      }
-    });
+    if (existUserInDatabase === false) {
+      await insertFirestore({
+        collections: collections.users,
+        datas: {
+          email: datas.email,
+          id: datas.id
+        }
+      });
+    }
   
     await insert(STORAGE_USER, datas);
     store.dispatch(addUser(datas));
