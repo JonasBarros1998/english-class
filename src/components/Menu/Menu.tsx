@@ -71,6 +71,7 @@ export default function Menu() {
 
       <Tab.Screen name="lists" component={Lists}
         options={({route}) => ({
+          headerTitle: "Listas",
           tabBarIcon: ({focused}) => {
             if (focused === true && route.name === "lists") {
               return <Icon name="list" size={27} color={colors.primary} />

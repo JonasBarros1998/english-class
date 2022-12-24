@@ -13,6 +13,7 @@
     "dev": "NODE_ENV=development react-native start",
     "release:test": "npx react-native run-android --variant=release",
     "release:create": "cd android && ./gradlew bundleRelease",
+    "release:apk": "cd android && ./gradlew assembleRelease",
     "release:signingReport": "cd android && ./gradlew signingReport",
     "release:cacheClean": "cd android/app && rm -rf build",
     "eject": "react-native eject"
