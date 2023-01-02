@@ -1,6 +1,7 @@
 import {
   GoogleSignin,
   GoogleSigninButton,
+  statusCodes
 } from '@react-native-google-signin/google-signin';
 
 import {WEB_CLIENT_ID} from '@env';
@@ -8,13 +9,21 @@ import {WEB_CLIENT_ID} from '@env';
 function configureGoogleSignIn() {
   GoogleSignin.configure({
     webClientId: WEB_CLIENT_ID,
+    scopes: ['email']
   });
 }
 
-async function login(/*webClientId?: string*/) {
+async function login() {
   configureGoogleSignIn();
-  await GoogleSignin.hasPlayServices();
-  return await GoogleSignin.signIn();
+  return GoogleSignin.signIn()
+    .then(function(user) {
+      return user;
+    })
+    .catch(function(error) {
+      if(error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        throw statusCodes.PLAY_SERVICES_NOT_AVAILABLE;
+      }
+    });
 }
 
 async function logout() {
