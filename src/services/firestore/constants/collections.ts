@@ -6,6 +6,10 @@ export const collections = {
   lists: {
     development: "lists-dev",
     production: "lists"
+  },
+  formHelp: {
+    development: "formhelp-dev",
+    production: "formhelp"
   }
 };
 
