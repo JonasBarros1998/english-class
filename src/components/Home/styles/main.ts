@@ -9,6 +9,24 @@ export const styles = () => {
     },
     fotter: {
       paddingBottom: 60
-    }
+    },
+    header: {
+      width: '100%',
+      marginTop: 0,
+      paddingTop: 0,
+      height: 56,
+      backgroundColor: 'white',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexDirection: 'row',
+      paddingHorizontal: 15
+    },
+    titleLeft: {
+      fontSize: 20,
+      fontWeight: '600',
+      color: "#000"
+    },
+    iconeHelp: {}
   })
 }
