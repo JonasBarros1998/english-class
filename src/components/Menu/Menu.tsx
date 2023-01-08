@@ -6,6 +6,8 @@ import Lists from "@modules/lists/components/Lists";
 import { Profile } from "@components/Profile/Profile";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {Text, useTheme} from "react-native-paper";
+import Header from "@components/Home/Header";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -18,6 +20,9 @@ export default function Menu() {
       <Tab.Screen name="home" component={Home}
         options={({route}) => ({
           headerTitle: 'Inicio',
+          header: (headerProps) => {
+            return <Header {...headerProps} />
+          },
           tabBarIcon: ({focused}) => {
             if (focused === true && route.name === "home") {
               return <Icon name="home" size={27} color={colors.primary} />

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styles = () => {
+export const styles = (colors: ReactNativePaper.ThemeColors) => {
   return StyleSheet.create({
     title: {
       marginLeft: 10,
@@ -25,8 +25,19 @@ export const styles = () => {
     titleLeft: {
       fontSize: 20,
       fontWeight: '600',
-      color: "#000"
+      color: "#000",
+    
     },
-    iconeHelp: {}
+    opnion: {
+      borderRadius: 50,
+      borderColor: colors.primary,
+      borderWidth: 1,
+      backgroundColor: colors.primary,
+      padding: 8
+    },
+    opnionText: {
+      color: (colors as any).textSecondary,
+      fontSize: 13
+    }
   })
 }

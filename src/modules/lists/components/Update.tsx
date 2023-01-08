@@ -121,7 +121,7 @@ export default function Update({route, navigation}: any) {
           }}
         />
 
-      <Info visible={dialog} />
+      <Info visible={dialog} message={"Lista atualizada!"} />
     </>
 
     
