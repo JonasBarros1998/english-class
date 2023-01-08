@@ -19,7 +19,7 @@ jest.mock('react-native-paper', () => ({
 
 describe('Info Dialog', function () {
   test('snapshot component', function () {
-    const tree = renderer.create(<Info visible={true} />).toJSON();
+    const tree = renderer.create(<Info visible={true} message="Lista atualizada!"/>).toJSON();
     expect(tree).toMatchInlineSnapshot(`"Portal"`);
   });
 });
