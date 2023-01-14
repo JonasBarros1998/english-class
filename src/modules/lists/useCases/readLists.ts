@@ -7,6 +7,8 @@ export async function findAllLists(): Promise<void> {
     .then(function(response) {
       dispatchAllListToStore(response);
     })
-    .catch((error) => {throw error;})
+    .catch((error) => {
+      throw error;
+    })
     
 }

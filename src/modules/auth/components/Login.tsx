@@ -21,7 +21,7 @@ export default function Login(props: any) {
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Dark}
           onPress={() => {
-            userLogin(props.navigation);
+            userLogin();
           }}
         />
       </View>

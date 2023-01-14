@@ -10,47 +10,36 @@ import { insert } from "@services/storage/insert";
 import { read } from "@services/storage/read";
 import { searchUserInDatabase } from "./searchUserInDatabase";
 
-export async function userLogin(routes: any): Promise<void> {
+export async function userLogin(): Promise<void> {
+  const datas = (
+    await login()
+      .then(async function(response: any) {
 
-    const datas = (
-      await login()
-        .then(async function(response: any) {
-          const {
-            user: {email, name, photo, id},
-            idToken
-          } = response;
-  
-          const datas: User = {
-            email: email as string,
-            name: name as string,
-            photoUrl: photo as string,
-            idToken: idToken as string,
-            id: id as string
-          };
-          return datas;
-        })
-        .catch(function(error) {
-          console.error("ERROR USER_LOGIN");
-          throw error;
-        })
-    );
-    
-    await(toAutenticateFirebase(datas.idToken));
+        const {
+          user: {email, name, photo, id},
+          idToken
+        } = response;
 
-    const existUserInDatabase = (await searchUserInDatabase(datas.id));
+        const datas: User = {
+          email: email as string,
+          name: name as string,
+          photoUrl: photo as string,
+          idToken: idToken as string,
+          id: id as string
+        };
+        return datas;
+      })
+      .catch(function(error) {
+        console.error("ERROR USER_LOGIN");
+        throw error;
+      })
+  );
   
-    if (existUserInDatabase === false) {
-      await insertFirestore({
-        collections: collections.users,
-        datas: {
-          email: datas.email,
-          id: datas.id
-        }
-      });
-    }
-  
-    await insert(STORAGE_USER, datas);
-    store.dispatch(addUser(datas));
+  toAutenticateFirebase(datas.idToken);
+
+  checkIfUserDataExistOnDatabase(datas);
+
+  store.dispatch(addUser(datas));
   
 }
 
@@ -64,6 +53,23 @@ export async function userIsLogged(): Promise<boolean> {
       return false;
     })
     .catch(function(error) {
+      console.error("falied read storage user datas");
       throw error;
     });
+}
+
+async function checkIfUserDataExistOnDatabase(datas: User) {
+  const existUserInDatabase = await searchUserInDatabase(datas.id);
+
+  if (existUserInDatabase === false) {
+    insertFirestore({
+      collections: collections.users,
+      datas: {
+        email: datas.email,
+        id: datas.id
+      }
+    });
+  }
+
+  insert(STORAGE_USER, datas);
 }
