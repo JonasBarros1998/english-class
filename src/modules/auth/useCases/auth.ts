@@ -9,6 +9,7 @@ import { collections } from "@services/firestore/constants/collections";
 import { insert } from "@services/storage/insert";
 import { read } from "@services/storage/read";
 import { searchUserInDatabase } from "./searchUserInDatabase";
+import { UserDatasOnStorageDeviceType } from "@global/interfaces/UserDatasOnStorageDevice";
 
 export async function userLogin(): Promise<void> {
   const datas = (
@@ -35,7 +36,9 @@ export async function userLogin(): Promise<void> {
       })
   );
   
-  toAutenticateFirebase(datas.idToken);
+  toAutenticateFirebase(datas.idToken)
+    .then((datasOfFirebase) => 
+      insertDatasOnStorage(datas, datasOfFirebase.uid));
 
   checkIfUserDataExistOnDatabase(datas);
 
@@ -71,5 +74,17 @@ async function checkIfUserDataExistOnDatabase(datas: User) {
     });
   }
 
-  insert(STORAGE_USER, datas);
+}
+
+async function insertDatasOnStorage(datas: User, firebaseUid: string) {
+  const userDatasCopy = Object.assign({}, datas) as UserDatasOnStorageDeviceType;
+  
+  Object.defineProperty(userDatasCopy, 'firebaseUserId', {
+    value: firebaseUid,
+    enumerable: true,
+    configurable: true,
+    writable: true
+  });
+
+  insert(STORAGE_USER, userDatasCopy);
 }

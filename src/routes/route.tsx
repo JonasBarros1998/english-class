@@ -7,6 +7,7 @@ import Details from '@modules/lists/components/Details';
 import { useSelector } from 'react-redux';
 import { User } from '@global/interfaces/User';
 import Update from '@modules/lists/components/Update';
+import { HelpForm } from '@modules/Form/HelpForm';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,14 @@ export default function Routes() {
             options={{
               headerShown: false
           }}/>
+
+          <Stack.Screen 
+            name="helpform"
+            component={HelpForm}
+            options={{
+              headerShown: true,
+              headerTitle: 'Avalie este app'
+            }} />
         </>
         )
       }

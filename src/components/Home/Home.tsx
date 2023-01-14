@@ -34,6 +34,7 @@ export default function Home({navigation}: {navigation: (route: string) => any})
   }
 
   const theme = useTheme();
+  const homeStyle = homeStyles(theme.colors);
   const css = styles(theme);
 
   return (
@@ -46,12 +47,12 @@ export default function Home({navigation}: {navigation: (route: string) => any})
         ): (
         <View>
           <Text style={{
-            ...homeStyles().title
+            ...homeStyle.title
           }}>Principais listas</Text>
           <FlatList
             testID='card'
             data={readFiveList}
-            contentContainerStyle={homeStyles().fotter}
+            contentContainerStyle={homeStyle.fotter}
             renderItem={({item}) => {
               return (
                 <Pressable onPress={() => onClickEvent(item)}>

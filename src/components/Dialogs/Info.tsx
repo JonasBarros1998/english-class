@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Paragraph, Dialog, Portal, Button, useTheme } from 'react-native-paper';
 import {styles} from './styles/info'
 
-export default function Info(props: {visible: boolean}) {
+export default function Info(props: {visible: boolean, message: string}) {
 
   const [visible, setVisible] = useState(false);
 
@@ -24,7 +24,7 @@ export default function Info(props: {visible: boolean}) {
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={hideDialog} style={{...styleComponent.info}}>
-        <Paragraph>Lista atualizada!</Paragraph>
+        <Paragraph>{props.message}</Paragraph>
         <Button onPress={() => setVisible(false)}>Ok</Button>
       </Dialog>
     </Portal>
