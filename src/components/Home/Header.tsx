@@ -14,7 +14,7 @@ export default function Header({navigation}: any) {
       <Text style={{...titleLeft}}>Inicio</Text>
       <Pressable onPress={() => navigateToHelpForm(navigation)}>
         <View style={{...opnion}}>
-          <Text style={{...opnionText}}>Dê a sua opnião</Text>
+          <Text style={{...opnionText}}>Dê a sua opinião</Text>
         </View>
       </Pressable>
     </View>
