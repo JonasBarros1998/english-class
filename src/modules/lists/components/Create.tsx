@@ -9,10 +9,12 @@ import {styles} from '../styles/titleList';
 import {useTheme} from 'react-native-paper';
 import TitleList from './TitleList';
 import { saveListOnFirestore } from '../useCases/saveListOnFirestore';
+import Info from '@components/Dialogs/Info';
 
 export function Create() {
   const [cards, setCards] = useState<Card[]>([createNewCard()]);
   const [title, setTitle] = useState<string>('');
+  const [emptyTitle, setEmptyTitle] = useState<boolean>(false);
   const theme = useTheme() as any;
 
   const clear = () => {
@@ -38,9 +40,14 @@ export function Create() {
         />
         <SaveListButton 
           onClickEvent={() => {
+            setEmptyTitle(false);
+
             saveListOnFirestore({
               title,
               cardsOfList: cards
+            }).catch(function() {
+              setEmptyTitle(true);
+              return;
             });
             clear();
           }}/>
@@ -114,6 +121,8 @@ export function Create() {
         />
 
       </View>
+
+      <Info message="Adicione um título a lista" visible={emptyTitle} ></Info>
     </>
   )
 }
