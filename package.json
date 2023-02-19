@@ -10,6 +10,7 @@
     "test:coverage": "NODE_ENV=development jest --collectCoverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "dev:reset": "watchman watch-del-all && rm -rf ${TMPDIR:-/tmp}/metro-*",
+    "predev": "adb shell setprop debug.firebase.analytics.app com.englishclassoficial",
     "dev": "NODE_ENV=development react-native start",
     "release:test": "npx react-native run-android --variant=release",
     "release:create": "cd android && ./gradlew bundleRelease",
