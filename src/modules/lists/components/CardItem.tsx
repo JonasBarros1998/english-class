@@ -115,6 +115,7 @@ export function Item(props: componentParam) {
               style={{...css.textInput}}
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
+              maxLength={400}
               placeholder="Contexto"
               placeholderTextColor={'black'}
               editable={cardIsEditable()}
