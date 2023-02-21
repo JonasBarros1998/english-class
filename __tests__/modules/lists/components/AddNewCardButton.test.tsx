@@ -6,6 +6,12 @@ import { Card } from '@global/interfaces/Card';
 
 jest.mock('../../../../src/modules/lists/useCases/managerCards.ts');
 
+jest.mock('@react-native-firebase/analytics', () => ({
+  analytics: {
+    logEvent: jest.fn(),
+  }
+}));
+
 jest.mock('react-native-paper', () => ({
   __esModule: true,
   IconButton: () => 'IconButton',

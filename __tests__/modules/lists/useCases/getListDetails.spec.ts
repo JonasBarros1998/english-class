@@ -11,6 +11,12 @@ jest.mock('@react-native-firebase/firestore', () => ({
   }
 }));
 
+jest.mock('@react-native-firebase/analytics', () => ({
+  analytics: {
+    logEvent: jest.fn(),
+  }
+}));
+
 const cardsOfList = [{
   datas: {
     cardsOfList: [{
