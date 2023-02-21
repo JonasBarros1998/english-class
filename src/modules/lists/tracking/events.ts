@@ -1,5 +1,5 @@
 import { Card, List } from '@global/interfaces/Card'
-import {viewItem, logEvent} from '@services/analytics/events'
+import {logEvent} from '@services/analytics/events'
 
 export async function onClickListItem(listDetails: List) {
   logEvent('view_item_list', {
