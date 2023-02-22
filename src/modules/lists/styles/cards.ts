@@ -28,7 +28,6 @@ export const styles = (theme: ReactNativePaper.Theme) => {
       backgroundColor: 'transparent',
       height: 40,
       color: colors.text,
-      borderBottomColor: colors.divider
     },
     animated: {
       alignItems: "center",
