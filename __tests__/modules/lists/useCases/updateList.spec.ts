@@ -10,6 +10,12 @@ jest.mock('@react-native-firebase/firestore', () => ({
   }
 }));
 
+jest.mock('@react-native-firebase/analytics', () => ({
+  analytics: {
+    logEvent: jest.fn(),
+  }
+}));
+
 function mockRequestUpdate() {
   return new Promise((resolve, _) => {
     resolve('');

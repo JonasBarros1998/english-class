@@ -3,6 +3,7 @@ import {Text, View} from 'react-native';
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 import {styles} from '../styles/login';
 import {userIsLogged, userLogin} from '../useCases/auth';
+import { loginEventAnalytics } from '@services/analytics/logs/logEvent';
 
 export default function Login(props: any) {
   const [isLogged, setIsLogged] = useState<boolean | undefined>();
@@ -21,6 +22,7 @@ export default function Login(props: any) {
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Dark}
           onPress={() => {
+            loginEventAnalytics();
             userLogin();
           }}
         />

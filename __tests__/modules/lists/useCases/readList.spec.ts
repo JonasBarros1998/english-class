@@ -9,6 +9,12 @@ jest.mock('@react-native-firebase/firestore', () => ({
   }
 }));
 
+jest.mock('@react-native-firebase/analytics', () => ({
+  analytics: {
+    logEvent: jest.fn(),
+  }
+}));
+
 const find = findAll as any;
 
 const cardsOfList = [{

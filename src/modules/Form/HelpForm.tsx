@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {View, Text, TextInput} from 'react-native';
 import {useTheme, Button} from 'react-native-paper';
 import {styles} from './style/main';
 import { saveDataOnFirestore } from './useCases/saveDatasOnFirestore';
 import Info from '@components/Dialogs/Info';
+import {onLoad} from './tracking/screens';
+import {onClickSendForm} from './tracking/events'
 
 export function HelpForm({navigation}: any) {
   const theme = useTheme();
@@ -12,7 +14,13 @@ export function HelpForm({navigation}: any) {
   const [disable, setDisable] = useState(true);
   const [dialog, setDialog] = useState(false);
 
+  useMemo(() => {
+    onLoad();
+  }, []);
+
   function send() {
+    onClickSendForm();
+
     if (dialog === true) {
       setDialog(false)
     };
