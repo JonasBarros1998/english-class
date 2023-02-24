@@ -1,9 +1,11 @@
 import { Card } from '@global/interfaces/Card';
+import { logEvent } from '@services/analytics/events';
 import React from 'react';
 import { View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {styles} from '../styles/button'
+import { onClickCreateCard } from '../tracking/events';
 import { createNewCard } from '../useCases/managerCards';
 
 export default function AddNewCardButton(props: {updateState: (card: Card) => void}) {
@@ -31,6 +33,7 @@ export default function AddNewCardButton(props: {updateState: (card: Card) => vo
         size={20}
         onPress={() => {
           const newCard = createNewCard();
+          onClickCreateCard(newCard.id);
           props.updateState(newCard);
         }}
       />

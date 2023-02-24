@@ -8,6 +8,7 @@ import { styles } from '../styles/cards';
 import { navigateToListDetails } from '../routes/routes';
 import { dispatchCurrentListToStore } from '../useCases/dispatchListToStore';
 import { useSelector } from 'react-redux';
+import { onClickListItem } from '../tracking/events';
 
 export default function Lists({navigation}: {navigation: (route: string) => any}) {
 
@@ -15,6 +16,7 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
 
 
   function onClickEvent(list: List) {
+    onClickListItem(list);
     dispatchCurrentListToStore(list);
     navigateToListDetails(navigation, list.id);
   }
