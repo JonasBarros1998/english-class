@@ -28,6 +28,17 @@ export const styles = (theme: ReactNativePaper.Theme) => {
       backgroundColor: 'transparent',
       height: 40,
       color: colors.text,
+      borderBottomColor: 'black',
+    },
+    textFieldInput: {
+      marginBottom: 10,
+      backgroundColor: 'transparent',
+      //height: 'auto',
+      maxHeight: 100,
+      color: colors.text,
+      borderBottomWidth: 1,
+      borderBottomColor: 'black',
+      borderStyle: 'solid',
     },
     animated: {
       alignItems: "center",
