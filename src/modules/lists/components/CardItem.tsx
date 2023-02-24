@@ -109,10 +109,11 @@ export function Item(props: componentParam) {
                 props.onChangeInputTranslation(value);
               }}
             />
+
             <TextInput 
               value={context}
               multiline
-              style={{...css.textInput}}
+              style={{...css.textFieldInput}}
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
               maxLength={400}
