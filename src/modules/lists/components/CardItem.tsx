@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import {TextInput as TextField} from 'react-native';
 import {Card, TextInput, useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import {styles} from '../styles/cards';
@@ -88,22 +89,11 @@ export function Item(props: componentParam) {
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
               placeholder="Palavra"
+              placeholderTextColor={'black'}
               editable={cardIsEditable()}
               onChangeText={(value) => {
                 setWord(value);
                 props.onChangeInputWord(value);
-              }}
-            />
-            <TextInput 
-              value={context}
-              style={{...css.textInput}}
-              underlineColor="black"
-              activeUnderlineColor={theme.colors.primary}
-              placeholder="Contexto"
-              editable={cardIsEditable()}
-              onChangeText={(value) => {
-                setContext(value);
-                props.onChangeInputContext(value);
               }}
             />
             <TextInput 
@@ -112,10 +102,27 @@ export function Item(props: componentParam) {
               underlineColor="black"
               activeUnderlineColor={theme.colors.primary}
               placeholder="Traduçao"
+              placeholderTextColor={'black'}
               editable={cardIsEditable()}
               onChangeText={(value) => {
                 setTranslation(value);
                 props.onChangeInputTranslation(value);
+              }}
+            />
+
+            <TextInput 
+              value={context}
+              multiline
+              style={{...css.textFieldInput}}
+              underlineColor="black"
+              activeUnderlineColor={theme.colors.primary}
+              maxLength={400}
+              placeholder="Contexto"
+              placeholderTextColor={'black'}
+              editable={cardIsEditable()}
+              onChangeText={(value) => {
+                setContext(value);
+                props.onChangeInputContext(value);
               }}
             />
           </Card.Content>

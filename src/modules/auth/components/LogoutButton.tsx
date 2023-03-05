@@ -1,5 +1,5 @@
-import { remove } from '@services/storage/delete';
 import React from 'react';
+import { signupEventAnalytics } from '@services/analytics/logs/logEvent';
 import {View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {styles} from '../styles/logout';
@@ -16,7 +16,10 @@ export function LogoutButton() {
       <View>
         <Button 
           mode='contained' 
-          onPress={() => logout()} 
+          onPress={() => {
+            signupEventAnalytics();
+            logout();
+          }} 
           style={{
             ...styles().button
           }}>

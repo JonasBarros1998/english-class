@@ -1,8 +1,10 @@
 import { Card } from '@global/interfaces/Card';
 import { insert } from '@services/firestore/actions/insert';
 import { collections } from "@services/firestore/constants/collections";
+import { onClickSaveList } from '../tracking/events';
 import { formatDatas } from './formatDatas';
 import { findAllLists } from './readLists';
+import { titleValidation } from './validations';
 
 type params = {
   cardsOfList: Card[],
@@ -10,6 +12,13 @@ type params = {
 };
 
 export async function saveListOnFirestore(datas: params) {
+  onClickSaveList({
+    title: datas.title,
+    cards: datas.cardsOfList
+  });
+  
+  titleValidation(datas.title);
+
   return insert({
     collections: collections.lists,
     datas: formatDatas(datas),
