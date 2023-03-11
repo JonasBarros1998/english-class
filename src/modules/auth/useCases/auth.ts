@@ -10,6 +10,7 @@ import { insert } from "@services/storage/insert";
 import { read } from "@services/storage/read";
 import { searchUserInDatabase } from "./searchUserInDatabase";
 import { UserDatasOnStorageDeviceType } from "@global/interfaces/UserDatasOnStorageDevice";
+import { captureErrorException } from "@services/errorTracking/exception/captureErrorException";
 
 export async function userLogin(): Promise<void> {
   const datas = (
@@ -30,9 +31,9 @@ export async function userLogin(): Promise<void> {
         };
         return datas;
       })
-      .catch(function(error) {
-        console.error("ERROR USER_LOGIN");
-        throw error;
+      .catch(function(error: Error) {
+        captureErrorException(new Error(error.message));
+        throw error.message;
       })
   );
   
@@ -56,8 +57,8 @@ export async function userIsLogged(): Promise<boolean> {
       return false;
     })
     .catch(function(error) {
-      console.error("falied read storage user datas");
-      throw error;
+      captureErrorException(new Error(`wasn't possible read user data in storage`));
+      throw error.message;
     });
 }
 
