@@ -1,3 +1,4 @@
+import { captureErrorException } from "@services/errorTracking/exception/captureErrorException";
 import { findAll } from "@services/firestore/actions/read";
 import { collections } from "@services/firestore/constants/collections";
 import { onLoadContent } from "../tracking/events";
@@ -10,7 +11,8 @@ export async function findAllLists(): Promise<void> {
       dispatchAllListToStore(response);
     })
     .catch((error) => {
-      throw error;
+      captureErrorException(new Error(error.message))
+      throw error.message;
     })
     
 }

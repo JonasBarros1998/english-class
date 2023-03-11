@@ -21,7 +21,7 @@ async function login() {
     })
     .catch(function(error) {
       if(error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        throw statusCodes.PLAY_SERVICES_NOT_AVAILABLE;
+        throw `PLAY_SERVICES_NOT_AVAILABLE: ${statusCodes.PLAY_SERVICES_NOT_AVAILABLE}`;
       }
     });
 }

@@ -5,7 +5,10 @@ import {Provider} from 'react-redux';
 import {theme} from '@theme/index';
 import Routes from 'src/routes/route';
 import store from '@state/redux/store';
-import {screenView} from '@services/analytics/events'
+import {screenView} from '@services/analytics/events';
+import { loadErrorTracking } from '@services/errorTracking/loadErrorTracking';
+
+loadErrorTracking();
 
 screenView({
   screenName: 'home_page',

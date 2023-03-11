@@ -4,6 +4,7 @@ import {collections} from "@services/firestore/constants/collections";
 import state from '@state/redux/store';
 import {docId} from '@state/redux/slices/readList';
 import { checkUserPermission } from './updateList';
+import { captureErrorException } from '@services/errorTracking/exception/captureErrorException';
 
 export async function getListDetails(listId: string): Promise<List> {
 
@@ -13,7 +14,10 @@ export async function getListDetails(listId: string): Promise<List> {
       state.dispatch(docId(documentId));
       return datas;
     })
-    .catch((error) => {throw error});
+    .catch((error: Error) => {
+      captureErrorException(new Error(error.message))
+      throw error.message;
+    });
 
 }
 

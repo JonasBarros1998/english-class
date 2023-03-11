@@ -4,8 +4,8 @@ import {useTheme, Button} from 'react-native-paper';
 import {styles} from './style/main';
 import { saveDataOnFirestore } from './useCases/saveDatasOnFirestore';
 import Info from '@components/Dialogs/Info';
-import {onLoad} from './tracking/screens';
-import {onClickSendForm} from './tracking/events'
+import {onLoad} from './analytics/screens';
+import {onClickSendForm} from './analytics/events'
 
 export function HelpForm({navigation}: any) {
   const theme = useTheme();
@@ -35,7 +35,7 @@ export function HelpForm({navigation}: any) {
         setDialog(true);
       })
       .catch(function(error) {
-        throw error;
+        throw error.message;
     })
       .finally(function() {
         setDescribe("");

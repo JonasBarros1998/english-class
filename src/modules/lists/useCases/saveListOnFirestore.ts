@@ -1,4 +1,5 @@
 import { Card } from '@global/interfaces/Card';
+import { captureErrorException } from '@services/errorTracking/exception/captureErrorException';
 import { insert } from '@services/firestore/actions/insert';
 import { collections } from "@services/firestore/constants/collections";
 import { onClickSaveList } from '../tracking/events';
@@ -27,8 +28,9 @@ export async function saveListOnFirestore(datas: params) {
     findAllLists();
   })
   
-  .catch(function(error) {
-      throw error
+  .catch(function(error: Error) {
+      captureErrorException(new Error(error.message));
+      throw error.message;
     })
 }
 

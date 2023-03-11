@@ -4,6 +4,9 @@ import { dispatchUser } from '__mocks__/reducer/user';
 
 jest.mock('../../../../src/services/firestore/actions/insert.ts');
 
+jest.mock('../../../../src/services/errorTracking/exception/captureErrorMessage.ts');
+jest.mock('../../../../src/services/errorTracking/exception/captureErrorException.ts');
+
 jest.mock('@react-native-firebase/firestore', () => ({
   firestore: {
     collection: jest.fn(),
@@ -26,7 +29,7 @@ function mockRequestInsert() {
 
 function mockRequestErrorInsert() {
   return new Promise((_, reject) => {
-    reject('Error');
+    reject(new Error('Error'));
   });
 }
 

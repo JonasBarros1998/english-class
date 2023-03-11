@@ -1,4 +1,5 @@
 import analytics from '@react-native-firebase/analytics';
+import { captureErrorException } from '@services/errorTracking/exception/captureErrorException';
 import {selectEnvironment} from '../environment';
 
 export async function logEvent(eventName: string, params: object) {
@@ -32,9 +33,9 @@ export async function signupEventAnalytics() {
     .logSignUp({
       method: selectEnvironment('Google') as string,
     })
-      .catch(function(error) {
-        console.log(`ANALYTICS ERROR logSignUp`);
-        console.error(error.message);
-        throw error;
+      .catch(function(error: Error) {
+        captureErrorException(error);
+        throw error.message;
+        
       });
 }
