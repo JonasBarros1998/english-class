@@ -5,7 +5,6 @@ import {
 } from '@react-native-google-signin/google-signin';
 
 import {WEB_CLIENT_ID} from '@env';
-import { captureErrorException } from '@services/errorTracking/exception/captureErrorException';
 
 function configureGoogleSignIn() {
   GoogleSignin.configure({
@@ -22,8 +21,7 @@ async function login() {
     })
     .catch(function(error) {
       if(error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        captureErrorException(new Error(`PLAY_SERVICES_NOT_AVAILABLE ${error.code}`));
-        throw statusCodes.PLAY_SERVICES_NOT_AVAILABLE;
+        throw `PLAY_SERVICES_NOT_AVAILABLE: ${statusCodes.PLAY_SERVICES_NOT_AVAILABLE}`;
       }
     });
 }
