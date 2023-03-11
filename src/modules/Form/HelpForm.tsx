@@ -35,7 +35,7 @@ export function HelpForm({navigation}: any) {
         setDialog(true);
       })
       .catch(function(error) {
-        throw error;
+        throw error.message;
     })
       .finally(function() {
         setDescribe("");
