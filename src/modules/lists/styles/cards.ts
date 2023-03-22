@@ -50,6 +50,11 @@ export const styles = (theme: ReactNativePaper.Theme) => {
     },
     fotter: {
       paddingBottom: 30
+    },
+  
+    trashIcon: {
+      color: colors.error,
+      marginTop: 4
     }
   });
 }
