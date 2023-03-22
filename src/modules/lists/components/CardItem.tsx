@@ -1,39 +1,27 @@
 import React, { useMemo, useState } from 'react';
-import {TextInput as TextField} from 'react-native';
 import {Card, TextInput, useTheme} from 'react-native-paper';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {styles} from '../styles/cards';
-import AnimatedCards from './Animated';
-import {Card as typeCard} from '@global/interfaces/Card';
-
-type componentParam = {
-  onChangeInputWord: (value: string) => void,
-  onChangeInputContext: (value: string) => void,
-  onChangeInputTranslation: (value: string) => void,
-  data: typeCard[],
-  cardIndex: number,
-  removeCard: () => any,
-  initialWordValue?: string,
-  initialTranslationValue?: string,
-  initialContextValue?: string,
-  editable?: boolean,
-  animatedCard?: boolean
-}
+import TrashCard from './TrashCard';
+import {componentParam} from '../types/listComponent'
 
 export default function CardItem(props: componentParam) {
 
   return (
     <>
-      {
-        props.animatedCard === false
-        ? <Item {...props} />
-        : <AnimatedCards
-            deleteCard={() => {
-              props.removeCard();
-            }}>
-          <Item {...props} />
-        </AnimatedCards>
-      }
+      <Item {...props} />
+      {/** 
+        {
+          props.animatedCard === false
+          ? <Item {...props} />
+          : <AnimatedCards
+              deleteCard={() => {
+                props.removeCard();
+              }}>
+            <Item {...props} />
+          </AnimatedCards>
+        }
+      */}
     </>
   );
 }
@@ -125,6 +113,11 @@ export function Item(props: componentParam) {
                 props.onChangeInputContext(value);
               }}
             />
+
+            {
+              cardIsEditable() ? <TrashCard {...props}/> : <View></View>
+            }
+            
           </Card.Content>
         </Card>
     </View>
