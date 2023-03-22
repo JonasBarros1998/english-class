@@ -5,6 +5,9 @@ import { collections } from "@services/firestore/constants/collections";
 
 jest.mock("../../../../src/services/firestore/actions/filter.ts");
 
+jest.mock('../../../../src/services/errorTracking/exception/captureErrorMessage.ts');
+jest.mock('../../../../src/services/errorTracking/exception/captureErrorException.ts');
+
 jest.mock('@react-native-firebase/firestore', () => ({
   firestore: {
     collection: jest.fn(),
@@ -41,7 +44,7 @@ function mockRequisicao() {
 
 function mockRequisicaoErro() {
   return new Promise((_, reject) => {
-    reject("Error");
+    reject(new Error("Error"));
   });
 }
 

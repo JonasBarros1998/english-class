@@ -10,37 +10,40 @@ import { insert } from "@services/storage/insert";
 import { read } from "@services/storage/read";
 import { searchUserInDatabase } from "./searchUserInDatabase";
 import { UserDatasOnStorageDeviceType } from "@global/interfaces/UserDatasOnStorageDevice";
+import { captureErrorException } from "@services/errorTracking/exception/captureErrorException";
 
 export async function userLogin(): Promise<void> {
   const datas = (
     await login()
       .then(async function(response: any) {
+        const [date] = new Date().toISOString().split("T");
 
         const {
           user: {email, name, photo, id},
           idToken
         } = response;
 
-        const datas: User = {
+        const datas = {
           email: email as string,
           name: name as string,
           photoUrl: photo as string,
           idToken: idToken as string,
-          id: id as string
+          id: id as string,
+          date
         };
         return datas;
       })
-      .catch(function(error) {
-        console.error("ERROR USER_LOGIN");
-        throw error;
+      .catch(function(error: Error) {
+        captureErrorException(new Error(error.message));
+        throw error.message;
       })
   );
   
   toAutenticateFirebase(datas.idToken)
-    .then((datasOfFirebase) => 
-      insertDatasOnStorage(datas, datasOfFirebase.uid));
-
-  checkIfUserDataExistOnDatabase(datas);
+    .then(async function(datasOfFirebase) {
+      await insertDatasOnStorage(datas, datasOfFirebase.uid)
+      checkIfUserDataExistOnDatabase(datas);
+    });
 
   store.dispatch(addUser(datas));
   
@@ -56,8 +59,8 @@ export async function userIsLogged(): Promise<boolean> {
       return false;
     })
     .catch(function(error) {
-      console.error("falied read storage user datas");
-      throw error;
+      captureErrorException(new Error(`wasn't possible read user data in storage`));
+      throw error.message;
     });
 }
 
@@ -69,7 +72,8 @@ async function checkIfUserDataExistOnDatabase(datas: User) {
       collections: collections.users,
       datas: {
         email: datas.email,
-        id: datas.id
+        id: datas.id,
+        date: datas.date,
       }
     });
   }

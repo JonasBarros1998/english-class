@@ -33,7 +33,6 @@ export const styles = (theme: ReactNativePaper.Theme) => {
     textFieldInput: {
       marginBottom: 10,
       backgroundColor: 'transparent',
-      maxHeight: 100,
       color: colors.text,
     },
     animated: {
@@ -51,6 +50,11 @@ export const styles = (theme: ReactNativePaper.Theme) => {
     },
     fotter: {
       paddingBottom: 30
+    },
+  
+    trashIcon: {
+      color: colors.error,
+      marginTop: 4
     }
   });
 }
