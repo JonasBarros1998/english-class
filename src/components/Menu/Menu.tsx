@@ -2,11 +2,11 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "@components/Home/Home";
 import { Create } from "@modules/lists/components/Create";
-import Lists from "@modules/lists/components/Lists";
 import { Profile } from "@components/Profile/Profile";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {Text, useTheme} from "react-native-paper";
 import Header from "@components/Home/Header";
+import FlashCards from "@modules/flash-cards/FlashCards";
 
 
 const Tab = createBottomTabNavigator();
@@ -74,11 +74,11 @@ export default function Menu() {
         })}
       />
 
-      <Tab.Screen name="lists" component={Lists}
+      <Tab.Screen name="flashcards" component={FlashCards}
         options={({route}) => ({
-          headerTitle: "Listas",
+          headerTitle: "Flash cards",
           tabBarIcon: ({focused}) => {
-            if (focused === true && route.name === "lists") {
+            if (focused === true && route.name === "flashcards") {
               return <Icon name="list" size={27} color={colors.primary} />
             }
             return <Icon name="list" size={27}/>
@@ -87,7 +87,7 @@ export default function Menu() {
             fontSize:  12,
           },
           tabBarLabel: ({focused}) => {
-            if (focused === true && route.name === "lists") {
+            if (focused === true && route.name === "flashcards") {
               return <Text style={{
                 fontWeight: "600",
                 color: colors.primary
