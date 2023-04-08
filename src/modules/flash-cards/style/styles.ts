@@ -50,9 +50,22 @@ export const stylessheet = (theme: MD3Theme) => {
       padding: 10   
     },
 
+    flashCardList: {
+      backgroundColor: theme.colors.primary,
+      width: '70%',
+      maxWidth: '70%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      borderRadius: 16,
+      height: 160,
+      padding: 10,
+      margin: 20
+    },
+
     flashCardText: {
       fontSize: 20,
-      fontFamily: 'OpenSans-ExtraBold',
+      fontFamily: 'OpenSans-Medium',
       color: theme.colors.background,
       textAlign: 'center'
     },
@@ -76,6 +89,55 @@ export const stylessheet = (theme: MD3Theme) => {
     knowVocabularyButton: {
       backgroundColor: '#26D395',
       width: 150
+    },
+
+    expressions: {
+      borderRadius: 50,
+      backgroundColor: '#665AC5',
+      width: "100%",
+      height: 30,
+      
+    },
+
+    expressionsText: {
+      color: theme.colors.background,
+      fontSize: 14,
+      fontFamily: 'OpenSans-Medium',
+      textAlign: 'center',
+      paddingTop: 5
+    },
+
+    dateOpen: {
+      color: theme.colors.background,
+      fontFamily: 'OpenSans-Medium',
+      textAlign: 'left',
+      fontSize: 12,
+    },
+
+    emptyListContainer: {
+      padding: 20,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
+    listEmptyTitle: {
+      fontSize: 20,
+      fontFamily: 'OpenSans-Bold',
+      textAlign: 'center',
+      color: '#444444'
+    },
+
+    listEmptyDescribe: {
+      fontFamily: 'OpenSans-Medium',
+      textAlign: 'center',
+      fontSize: 14,
+      marginVertical: 20
+    },
+
+    listEmptyButton: {
+      width: '60%',
+      textAlign: 'center'
     }
   });
 }
