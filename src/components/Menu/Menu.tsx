@@ -4,9 +4,13 @@ import Home from "@components/Home/Home";
 import { Create } from "@modules/lists/components/Create";
 import { Profile } from "@components/Profile/Profile";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import CommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 import {Text, useTheme} from "react-native-paper";
 import Header from "@components/Home/Header";
 import FlashCards from "@modules/flash-cards/FlashCards";
+import FlashCardsList from "@modules/flash-cards/FlashCardsList";
+import FlashCardsListEmpty from "@modules/flash-cards/FlashCardsListEmpty";
 
 
 const Tab = createBottomTabNavigator();
@@ -74,29 +78,29 @@ export default function Menu() {
         })}
       />
 
-      <Tab.Screen name="flashcards" component={FlashCards}
+      <Tab.Screen name="flashcardslist" component={FlashCardsListEmpty}
         options={({route}) => ({
           headerTitle: "Flash cards",
           tabBarIcon: ({focused}) => {
-            if (focused === true && route.name === "flashcards") {
-              return <Icon name="list" size={27} color={colors.primary} />
+            if (focused === true && route.name === "flashcardslist") {
+              return <CommunityIcons name="cards" size={27} color={colors.primary} />
             }
-            return <Icon name="list" size={27}/>
+            return <CommunityIcons name="cards" size={27}/>
           },
           tabBarLabelStyle: {
             fontSize:  12,
           },
           tabBarLabel: ({focused}) => {
-            if (focused === true && route.name === "flashcards") {
+            if (focused === true && route.name === "flashcardslist") {
               return <Text style={{
                 fontWeight: "600",
                 color: colors.primary
-              }}>Listas</Text>
+              }}>Flash cards</Text>
             }
             return <Text style={{
               fontSize: 12,
               color: colors.text
-            }}>Listas</Text>
+            }}>Flash cards</Text>
           },
           
         })}
