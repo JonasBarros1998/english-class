@@ -8,9 +8,7 @@ import CommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import {Text, useTheme} from "react-native-paper";
 import Header from "@components/Home/Header";
-import FlashCards from "@modules/flash-cards/FlashCards";
 import FlashCardsList from "@modules/flash-cards/FlashCardsList";
-import FlashCardsListEmpty from "@modules/flash-cards/FlashCardsListEmpty";
 
 
 const Tab = createBottomTabNavigator();
@@ -78,7 +76,7 @@ export default function Menu() {
         })}
       />
 
-      <Tab.Screen name="flashcardslist" component={FlashCardsListEmpty}
+      <Tab.Screen name="flashcardslist" component={FlashCardsList}
         options={({route}) => ({
           headerTitle: "Flash cards",
           tabBarIcon: ({focused}) => {

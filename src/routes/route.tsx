@@ -8,6 +8,9 @@ import { useSelector } from 'react-redux';
 import { User } from '@global/interfaces/User';
 import Update from '@modules/lists/components/Update';
 import { HelpForm } from '@modules/Form/HelpForm';
+import FlashCardsEmptyList from '@modules/flash-cards/FlashCardsEmptyList';
+import Lists from '@modules/lists/components/Lists'
+import FlashCardsListEmpty from '@modules/flash-cards/FlashCardsEmptyList';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +60,33 @@ export default function Routes() {
               headerShown: true,
               headerTitle: 'Avalie este app'
             }} />
+
+          <Stack.Screen 
+            name="flashCardsEmptyList"
+            component={FlashCardsEmptyList}
+            options={{
+              headerShown: true,
+              headerTitle: 'Flash cards'
+            }} />
+
+          <Stack.Screen 
+            name="lists"
+            component={Lists}
+            options={{
+              headerShown: true,
+              headerTitle: 'Flash cards'
+            }}
+          />
+
+          <Stack.Screen 
+            name="flashCardsListEmpty"
+            component={FlashCardsListEmpty}
+            options={{
+              headerShown: true,
+              headerTitle: 'Flash cards'
+            }}
+          />
+          
         </>
         )
       }
