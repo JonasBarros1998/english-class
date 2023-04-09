@@ -11,6 +11,7 @@ import { HelpForm } from '@modules/Form/HelpForm';
 import FlashCardsEmptyList from '@modules/flash-cards/FlashCardsEmptyList';
 import Lists from '@modules/lists/components/Lists'
 import FlashCardsListEmpty from '@modules/flash-cards/FlashCardsEmptyList';
+import FlashCards from '@modules/flash-cards/FlashCards';
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +65,14 @@ export default function Routes() {
           <Stack.Screen 
             name="flashCardsEmptyList"
             component={FlashCardsEmptyList}
+            options={{
+              headerShown: true,
+              headerTitle: 'Flash cards'
+            }} />
+
+          <Stack.Screen 
+            name="flashcards"
+            component={FlashCards}
             options={{
               headerShown: true,
               headerTitle: 'Flash cards'
