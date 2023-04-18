@@ -1,7 +1,6 @@
 import React from 'react';
 import { FlatList, Pressable, Text, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { List } from '@global/interfaces/Card';
 
@@ -10,6 +9,7 @@ import { navigateToListDetails } from '../routes/routes';
 import { dispatchCurrentListToStore } from '../useCases/dispatchListToStore';
 import { useSelector } from 'react-redux';
 import { onClickListItem } from '../tracking/events';
+import FlashCard from './FlashCard';
 
 export default function Lists({navigation}: {navigation: (route: string) => any}) {
 
@@ -27,48 +27,37 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
 
   return (
     <>
+      <View>
+        
+        <FlatList
+          testID='card'
+          data={listeningLists}
+          contentContainerStyle={{
+            ...css.fotter
+          }}
+          renderItem={({item, index}) => {
+            return (
+              <View style={{...css.container}} testID="content">
+                <View style={{...css.cardList}}>
+                  <Pressable 
+                    onPress={() => onClickEvent(item)}
+                    style={{
+                      ...css.cardListButtonTitle
+                    }}>
+                    <Text style={{
+                      ...css.cardInfo, 
+                      ...css.subTitle
+                      }}>{item.title}</Text>
+                  </Pressable>
 
-    <View>
-      
-      <FlatList
-        testID='card'
-        data={listeningLists}
-        contentContainerStyle={{
-          ...css.fotter
-        }}
-        renderItem={({item, index}) => {
-          return (
-            <View style={{...css.container}} testID="content">
-              <View style={{...css.cardList}}>
-                <Pressable 
-                  onPress={() => onClickEvent(item)}
-                  style={{
-                    ...css.cardListButtonTitle
-                  }}>
-                  <Text style={{
-                    ...css.cardInfo, 
-                    ...css.subTitle
-                    }}>{item.title}</Text>
-                </Pressable>
+                  <FlashCard {...item} />
 
-                <Pressable 
-                  style={{
-                    ...css.cardListButtonFlashCard
-                  }}
-                  onPress={() => console.log("on press list")}>
-                  <Icon 
-                    name='cards'
-                    color={"black"}
-                    size={28}
-                    style={{...css.icon}}/>
-                </Pressable>
-
+                </View>
               </View>
-            </View>
-          )
-        }}
-      />
-    </View>
+            )
+          }}
+        />
+      </View>
     </>
   )
 }

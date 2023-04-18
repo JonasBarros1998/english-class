@@ -10,6 +10,10 @@ export const collections = {
   formHelp: {
     development: "formhelp-dev",
     production: "formhelp"
+  },
+  flashCards: {
+    development: 'flashcards-dev',
+    production: 'flashcards'
   }
 };
 
