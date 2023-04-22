@@ -15,7 +15,7 @@ export async function findFlashCardsInStorage() {
     });
 }
 
-export async function addFlashCardInSTorage(flashCard: FlashCard) {
+export async function addFlashCardInSTorage(flashCard: FlashCard[]) {
   return insert(STORAGE_FLASHCARDS, flashCard)
     .then(function() {})
     .catch(function(error) {
@@ -24,8 +24,3 @@ export async function addFlashCardInSTorage(flashCard: FlashCard) {
     });
   
 }
-
-export function findFlashCardsOnDatabase(flashCard: FlashCard) {
-  
-}
-

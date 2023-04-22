@@ -4,7 +4,6 @@ import { collections } from "@services/firestore/constants/collections";
 import store from "@state/redux/store"
 
 export function insertFlashCards(datas: List) {
-  console.log(formatFlashCardDatas(datas));
 
   insert({
     collections: collections.flashCards,
