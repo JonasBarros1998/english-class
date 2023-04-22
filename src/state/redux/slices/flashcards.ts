@@ -14,7 +14,6 @@ const flashcards = createSlice({
         state.flashcards.push(action.payload);
       },
       prepare: (datas: FlashCard) => {
-        console.log("FlashCard >> ", datas)
         return {payload: datas}
       }
     },
@@ -28,7 +27,7 @@ const flashcards = createSlice({
       },
 
       prepare: (datas: FlashCard[]) => {
-        console.log("updateFlashCard >> ", datas)
+        //console.log("updateFlashCard >> ", datas)
         return {payload: datas};
       }
     }
