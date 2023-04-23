@@ -7,7 +7,7 @@ import { captureErrorException } from '@services/errorTracking/exception/capture
 export async function findFlashCardsInStorage() {
   return read<FlashCard>(STORAGE_FLASHCARDS)
     .then(function(response) {
-      return response
+      return response;
     })
     .catch(function(error) {
       captureErrorException(new Error(error.message));
