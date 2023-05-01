@@ -6,7 +6,8 @@ export const userInitialState = {
   name: 'test',
   photoUrl: 'www.teste.com/perfile.png',
   idToken: '123456',
-  id: '123'
+  id: '123',
+  date: '2023-05-20'
 };
 
 export const dispatchUser = () => {
