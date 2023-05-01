@@ -14,7 +14,7 @@ jest.mock('@react-native-firebase/firestore', () => ({
 const filter = filterById as any;
 
 function mockRequisicao() {
-  return new Promise((resolve, _) => {
+   new Promise((resolve, _) => {
     resolve(true);
   });
 }
