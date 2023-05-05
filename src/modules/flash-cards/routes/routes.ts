@@ -5,3 +5,7 @@ export const navigateToLists = (navigation: any) => {
 export const navigateToFlashCards = (navigation: any) => {
   navigation.push('flashcards');
 }
+
+export const navigateToFlashCardList = (navigation: any) => {
+  navigation.push("flashCardsList");
+}

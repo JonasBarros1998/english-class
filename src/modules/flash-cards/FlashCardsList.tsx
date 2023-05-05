@@ -1,43 +1,75 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
-import { useTheme } from "react-native-paper";
+import { Text, View } from "react-native";
+import { Button, useTheme } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import {stylessheet} from "./style/styles";
-import FlashCardsListEmpty from './FlashCardsEmptyList';
 
+export default function FlashCards() {
 
-export default function FlashCardsList({navigation}: {navigation: (route: string) => any}) {
   const themeStyles = useTheme();
   const styles = stylessheet(themeStyles);
 
   return (
-    <>
-      {
-        [].length === 0 ? <FlashCardsListEmpty navigation={navigation}/>
-        : (
-          <FlatList 
-            data={[{id: '1'}]}
-            keyExtractor={({id}) => String(id)}
-            renderItem={({}) => {
-              return (
-                <View style={{...styles.container}}>
-                  <View style={{...styles.flashCardList}}>
-                    <Text style={{...styles.flashCardText}}>Food</Text>
+    <View style={{...styles.container}}>
 
-                    <View style={{...styles.expressions}}>
-                      <Text style={{...styles.expressionsText}}>15 Expressões</Text>
-                    </View>
+      <View style={{
+        ...styles.results
+      }}>
+        <View>
+          <Icon name='circle' size={14} color={'#5240D6'}  style={{...styles.resultsIcon}}></Icon>
+          <Text style={{...styles.resultsText}}>Estudar</Text>
+          <Text style={{...styles.resultsTextNumber}}>3</Text>
+        </View>
 
-                    <View>
-                      <Text style={{...styles.dateOpen}}>aberto em: 15/05/2025</Text>
-                    </View>
-                  </View>
-                </View>
-              );
-            }}
-          />
-        )
-      }
-    </>
+        <View>
+          <Icon name='circle' size={14} color={'#D9D9D9'} style={{...styles.resultsIcon}}></Icon>
+          <Text style={{...styles.resultsText}}>Total</Text>
+          <Text style={{...styles.resultsTextNumber}}>13</Text>
+        </View>
+
+        <View>
+          <Icon name='circle' size={14} color={'#4FC690'}  style={{...styles.resultsIcon}}></Icon>
+          <Text style={{...styles.resultsText}}>Corretos</Text>
+          <Text style={{...styles.resultsTextNumber}}>23</Text>
+        </View>
+
+      </View>
+
+      <View style={{...styles.flashCard}}>
+        <Text style={{...styles.flashCardText}}>Drew Line</Text>
+      </View>
+
+      <View style={{...styles.buttons}}>
+        <Button 
+          mode="contained" 
+          labelStyle={{
+            ...styles.buttonsText
+          }} 
+          style={{
+            ...styles.dontknowVocabularyButton
+          }}
+          onPress={() => {
+            console.log("Botão não conheço")
+          }}>
+          não conheço
+        </Button>
+
+        <Button 
+          mode="contained"
+          labelStyle={{
+            ...styles.buttonsText
+          }}
+          style={{
+            ...styles.knowVocabularyButton
+          }}
+          onPress={() => {
+            console.log("Botão conheço")
+          }}
+          >
+          conheço
+        </Button>
+      </View>
+
+    </View>
   );
 }
-

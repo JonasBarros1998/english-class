@@ -5,7 +5,7 @@ import {STORAGE_FLASHCARDS} from '@global/constants';
 import { captureErrorException } from '@services/errorTracking/exception/captureErrorException';
 
 export async function findFlashCardsInStorage() {
-  return read<FlashCard>(STORAGE_FLASHCARDS)
+  return read<FlashCard[]>(STORAGE_FLASHCARDS)
     .then(function(response) {
       return response;
     })

@@ -4,7 +4,7 @@ import { User } from "./User";
 export interface FlashCard {
   id: string,
   date: string,
-  lists: List
+  lists: string
 }
 
 export interface FlashCardDatabase {

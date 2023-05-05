@@ -8,7 +8,7 @@ import CommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import {Text, useTheme} from "react-native-paper";
 import Header from "@components/Home/Header";
-import FlashCardsList from "@modules/flash-cards/FlashCardsList";
+import FlashCards from "@modules/flash-cards/FlashCards";
 
 
 const Tab = createBottomTabNavigator();
@@ -76,11 +76,11 @@ export default function Menu() {
         })}
       />
 
-      <Tab.Screen name="flashcardslist" component={FlashCardsList}
+      <Tab.Screen name="flashcards" component={FlashCards}
         options={({route}) => ({
           headerTitle: "Flash cards",
           tabBarIcon: ({focused}) => {
-            if (focused === true && route.name === "flashcardslist") {
+            if (focused === true && route.name === "flashcards") {
               return <CommunityIcons name="cards" size={27} color={colors.primary} />
             }
             return <CommunityIcons name="cards" size={27}/>
@@ -89,7 +89,7 @@ export default function Menu() {
             fontSize:  12,
           },
           tabBarLabel: ({focused}) => {
-            if (focused === true && route.name === "flashcardslist") {
+            if (focused === true && route.name === "flashcards") {
               return <Text style={{
                 fontWeight: "600",
                 color: colors.primary

@@ -2,7 +2,7 @@ import store from '@state/redux/store';
 import {updateFlashCard, addNewFlashCard} from '@state/redux/slices/flashcards';
 import { FlashCard } from '@global/interfaces/FlashCard';
 
-export function dispatchToFlashCardSlice(flashCard: FlashCard) {
+export function dispatchToFlashCardStore(flashCard: FlashCard) {
   store.dispatch(addNewFlashCard(flashCard));
 }
 

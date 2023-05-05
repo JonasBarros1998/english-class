@@ -1,75 +1,71 @@
-import React from 'react';
-import { Text, View } from "react-native";
-import { Button, useTheme } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import React, { useEffect, useState } from 'react';
+import {View, Text, FlatList, Pressable} from 'react-native';
+import { useTheme } from "react-native-paper";
 import {stylessheet} from "./style/styles";
+import FlashCardsListEmpty from './FlashCardsEmptyList';
+import {managerFlashCards} from './use-cases/manager-flash-cards'
+import { FlashCard } from '@global/interfaces/FlashCard';
+import { navigateToFlashCardList } from './routes/routes';
 
-export default function FlashCards() {
-
+export default function FlashCards({navigation}: {navigation: (route: string) => any}) {
   const themeStyles = useTheme();
   const styles = stylessheet(themeStyles);
+  
+  
+  const [flashCardsDatas, setFlashCardsDatas] = useState<FlashCard[]>([]);
+
+  console.log("Carregou o flashcards list");
+
+  useEffect(() => {
+    managerFlashCards()
+      .then((item) => {
+        if(item === null) {
+          setFlashCardsDatas([]);
+          return;
+        }
+        setFlashCardsDatas([...item]);
+      });
+  }, [])
 
   return (
-    <View style={{...styles.container}}>
+    
+    <>
+      {console.log("Carregou componente >>> ")}
 
-      <View style={{
-        ...styles.results
-      }}>
-        <View>
-          <Icon name='circle' size={14} color={'#5240D6'}  style={{...styles.resultsIcon}}></Icon>
-          <Text style={{...styles.resultsText}}>Estudar</Text>
-          <Text style={{...styles.resultsTextNumber}}>3</Text>
-        </View>
+      {
+        flashCardsDatas.length === 0 ? <FlashCardsListEmpty navigation={navigation}/>
+        : (
+          <FlatList 
+            data={flashCardsDatas}
+            keyExtractor={(item) => {
+              console.log("comp: ", item)
+              return item.id;
+            }}
+            renderItem={({item}) => {
+              return (
+                <Pressable onPress={() => {
+                  navigateToFlashCardList(navigation);
+                }}>
+                  <View style={{...styles.container}}>
+                    <View style={{...styles.flashCardList}}>
+                      <Text style={{...styles.flashCardText}}>{item.id}</Text>
 
-        <View>
-          <Icon name='circle' size={14} color={'#D9D9D9'} style={{...styles.resultsIcon}}></Icon>
-          <Text style={{...styles.resultsText}}>Total</Text>
-          <Text style={{...styles.resultsTextNumber}}>13</Text>
-        </View>
+                      <View style={{...styles.expressions}}>
+                        <Text style={{...styles.expressionsText}}>15 Expressões</Text>
+                      </View>
 
-        <View>
-          <Icon name='circle' size={14} color={'#4FC690'}  style={{...styles.resultsIcon}}></Icon>
-          <Text style={{...styles.resultsText}}>Corretos</Text>
-          <Text style={{...styles.resultsTextNumber}}>23</Text>
-        </View>
-
-      </View>
-
-      <View style={{...styles.flashCard}}>
-        <Text style={{...styles.flashCardText}}>Drew Line</Text>
-      </View>
-
-      <View style={{...styles.buttons}}>
-        <Button 
-          mode="contained" 
-          labelStyle={{
-            ...styles.buttonsText
-          }} 
-          style={{
-            ...styles.dontknowVocabularyButton
-          }}
-          onPress={() => {
-            console.log("Botão não conheço")
-          }}>
-          não conheço
-        </Button>
-
-        <Button 
-          mode="contained"
-          labelStyle={{
-            ...styles.buttonsText
-          }}
-          style={{
-            ...styles.knowVocabularyButton
-          }}
-          onPress={() => {
-            console.log("Botão conheço")
-          }}
-          >
-          conheço
-        </Button>
-      </View>
-
-    </View>
+                      <View>
+                        <Text style={{...styles.dateOpen}}>aberto em: {item.date.split("-").reverse().join("/")}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </Pressable>
+              );
+            }}
+          />
+        )
+      }
+    </>
   );
 }
+

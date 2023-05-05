@@ -12,6 +12,7 @@ import FlashCardsEmptyList from '@modules/flash-cards/FlashCardsEmptyList';
 import Lists from '@modules/lists/components/Lists'
 import FlashCardsListEmpty from '@modules/flash-cards/FlashCardsEmptyList';
 import FlashCards from '@modules/flash-cards/FlashCards';
+import FlashCardsList from '@modules/flash-cards/FlashCardsList';
 
 const Stack = createNativeStackNavigator();
 
@@ -88,8 +89,8 @@ export default function Routes() {
           />
 
           <Stack.Screen 
-            name="flashCardsListEmpty"
-            component={FlashCardsListEmpty}
+            name="flashCardsList"
+            component={FlashCardsList}
             options={{
               headerShown: true,
               headerTitle: 'Flash cards'

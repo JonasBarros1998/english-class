@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, Text} from 'react-native'
 import { useTheme, Button } from 'react-native-paper';
 import {stylessheet} from "./style/styles";
 import { navigateToLists} from './routes/routes';
 
+
 export default function FlashCardsListEmpty({navigation}: {navigation: (route: string) => any}) {
+
+
   const themeStyles = useTheme();
   const styles = stylessheet(themeStyles);
-  console.log(navigation)
 
   return (
     <View style={{...styles.emptyListContainer}}>
