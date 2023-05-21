@@ -44,7 +44,7 @@ export default function FlashCards({navigation}: {navigation: (route: string) =>
             renderItem={({item}) => {
               return (
                 <Pressable onPress={() => {
-                  navigateToFlashCardList(navigation);
+                  navigateToFlashCardList(navigation, item.id);
                 }}>
                   <View style={{...styles.container}}>
                     <View style={{...styles.flashCardList}}>

@@ -1,9 +1,12 @@
 import {FlashCardDatabase, FlashCard} from '@global/interfaces/FlashCard';
-import {findFlashCardsOnDatabase} from './flash-cards-database';
+import {findFlashCardsOnDatabase, findListOnDatabase} from './flash-cards-database';
 import {addFlashCardInSTorage} from './flash-cards-storage'
 import {findFlashCardsInStorage} from './flash-cards-storage';
 import {dispatchToUpdateFlashCard} from './store/dispatch';
 import store from '@state/redux/store';
+import { filterBy } from '@services/firestore/actions/filter';
+import { collections } from '@services/firestore/constants/collections';
+import { List, ListOnDatabase } from '@global/interfaces/Card';
 
 export async function managerFlashCards() {
 
@@ -95,6 +98,33 @@ async function searchFlashCardOnDatabase() {
       console.log("findFlashCardsOnDatabase ERROR >> ", error);
       throw new Error("Error ocorreu consulta findFlashCardsOnDatabase");
     });
-
   
+}
+
+/**
+ * Pesquisa a lista que esta relacionada ao flash card
+ * que o usuario clicou
+ */
+export async function searchListOnFlashCard(flashCardId: string): Promise<List> {
+
+  console.log("Chamou SEARCHLISTONFLASHCARD >>>");
+
+  const {flashcards} = store.getState().flashcards;
+
+  const flashCardItem = flashcards.filter((item) => {
+    if(item.id === flashCardId) return item;
+  });
+
+  const [{lists}] = flashCardItem;
+
+  const query = {columnName: "id", value: lists};
+    
+  return filterBy<ListOnDatabase>(query, collections.lists)
+    .then((response) => {
+      const [{datas}] = response;
+      return datas;
+    })
+    .catch(function(error) {
+      throw error.message;
+    });
 }

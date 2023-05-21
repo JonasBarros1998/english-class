@@ -138,6 +138,18 @@ export const stylessheet = (theme: MD3Theme) => {
     listEmptyButton: {
       width: '60%',
       textAlign: 'center'
+    },
+
+    resultListButton: {
+      width: 150,
+      backgroundColor: '#FB3B6A',
+    },
+
+    buttonContainer: {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'center',
+      flexDirection: 'row'
     }
   });
 }

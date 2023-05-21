@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
-import { FlashCard } from "@global/interfaces/FlashCard";
+import { FlashCard, ResultFlashCard } from "@global/interfaces/FlashCard";
 
 const flashcards = createSlice({
   name: 'flashcards',
   initialState: {
-    flashcards: [] as FlashCard[]
+    flashcards: [] as FlashCard[],
+    result: {correct: 0, error: 0} as ResultFlashCard
   },
 
   reducers: {
@@ -27,12 +28,25 @@ const flashcards = createSlice({
       },
 
       prepare: (datas: FlashCard[]) => {
-        //console.log("updateFlashCard >> ", datas)
+        return {payload: datas};
+      }
+    },
+
+    updateResult: {
+      reducer: (state, action: PayloadAction<ResultFlashCard>) => {
+        return {
+          ...state,
+          result: action.payload
+        }
+      },
+
+      prepare: (datas: ResultFlashCard) => {
         return {payload: datas};
       }
     }
+
   }
 });
 
-export const {addNewFlashCard, updateFlashCard} = flashcards.actions
+export const {addNewFlashCard, updateFlashCard, updateResult} = flashcards.actions
 export default flashcards.reducer;

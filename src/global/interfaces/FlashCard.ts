@@ -17,3 +17,8 @@ export interface FlashCardDatabase {
   documentId: string;
   
 }
+
+export interface ResultFlashCard {
+  error: number, 
+  correct: number
+}
