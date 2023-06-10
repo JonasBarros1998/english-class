@@ -8,7 +8,7 @@ import { List } from '@global/interfaces/Card';
 import { redirectToResultFlashCard } from './routes/routes';
 import { ResultFlashCard } from '@global/interfaces/FlashCard';
 import { dispatchToResultFlashCard } from './use-cases/store/dispatch';
-import { ResultFlashCards } from './ResultFalshCards';
+//import { ResultFlashCards } from './ResultFalshCards';
 
 export default function FlashCards({navigation, route}: any) {
 
