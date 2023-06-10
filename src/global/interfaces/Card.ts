@@ -11,3 +11,13 @@ export interface List {
   id: string,
   userId: string
 }
+
+export interface ListOnDatabase {
+  datas: {
+    title: string,
+    id: string,
+    userId: string
+    cardsOfList: Card[],
+  },
+  documentId: string
+}

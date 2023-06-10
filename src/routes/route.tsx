@@ -8,6 +8,13 @@ import { useSelector } from 'react-redux';
 import { User } from '@global/interfaces/User';
 import Update from '@modules/lists/components/Update';
 import { HelpForm } from '@modules/Form/HelpForm';
+import FlashCardsEmptyList from '@modules/flash-cards/FlashCardsEmptyList';
+import Lists from '@modules/lists/components/Lists'
+import FlashCardsListEmpty from '@modules/flash-cards/FlashCardsEmptyList';
+import FlashCards from '@modules/flash-cards/FlashCards';
+import FlashCardsList from '@modules/flash-cards/FlashCardsList';
+//import { ResultFlashCards } from '@modules/flash-cards/ResultFalshCards';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +64,52 @@ export default function Routes() {
               headerShown: true,
               headerTitle: 'Avalie este app'
             }} />
+
+          <Stack.Screen 
+            name="flashCardsEmptyList"
+            component={FlashCardsEmptyList}
+            options={{
+              headerShown: true,
+              headerTitle: 'Flash cards'
+            }} />
+
+          <Stack.Screen 
+            name="flashcards"
+            component={FlashCards}
+            options={{
+              headerShown: true,
+              headerTitle: 'Flash cards'
+            }} />
+
+          <Stack.Screen 
+            name="lists"
+            component={Lists}
+            options={{
+              headerShown: true,
+              headerTitle: 'Flash cards'
+            }}
+          />
+
+          <Stack.Screen 
+            name="flashCardsList"
+            component={FlashCardsList}
+            options={{
+              headerShown: true,
+              headerTitle: 'Flash cards'
+            }}
+          />
+
+          {/** 
+          <Stack.Screen 
+            name="resultFlashCard"
+            component={ResultFlashCards}
+            options={{
+              headerShown: true,
+              headerTitle: 'Resultado'
+            }}
+          />
+          */}
+          
         </>
         )
       }
