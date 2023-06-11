@@ -58,31 +58,17 @@ export default function Home({navigation}: {navigation: (route: string) => any})
             renderItem={({item}) => {
               return (
                 <View style={{...css.container}} testID="content">
-                    <View style={{...css.cardList}}>
-                      <Pressable 
-                        style={{
-                          ...css.cardListButtonTitle
-                        }}
-                        onPress={() => onClickEvent(item)}>
-                        <Text style={{
-                          ...css.cardInfo, 
-                          ...css.subTitle
-                          }}>{item.title}</Text>
-                      </Pressable>
-
-                      <Pressable 
-                        style={{
-                          ...css.cardListButtonFlashCard
-                        }}
-                        onPress={() => {
-                          navigateToFlashCards(navigation)
-                        }}>
-                        <Icon 
-                          name='cards'
-                          color={"black"}
-                          size={28}
-                          style={{...css.icon}}/>
-                      </Pressable>
+                  <View style={{...css.cardList}}>
+                    <Pressable 
+                      style={{
+                        ...css.cardListButtonTitle
+                      }}
+                      onPress={() => onClickEvent(item)}>
+                      <Text style={{
+                        ...css.cardInfo, 
+                        ...css.subTitle
+                        }}>{item.title}</Text>
+                    </Pressable>
                   </View>
                 </View>
               )

@@ -14,8 +14,6 @@ export default function FlashCards({navigation}: {navigation: (route: string) =>
   
   const [flashCardsDatas, setFlashCardsDatas] = useState<FlashCard[]>([]);
 
-  console.log("Carregou o flashcards list");
-
   useEffect(() => {
     managerFlashCards()
       .then((item) => {
@@ -30,7 +28,6 @@ export default function FlashCards({navigation}: {navigation: (route: string) =>
   return (
     
     <>
-      {console.log("Carregou componente >>> ")}
 
       {
         flashCardsDatas.length === 0 ? <FlashCardsListEmpty navigation={navigation}/>
@@ -38,7 +35,6 @@ export default function FlashCards({navigation}: {navigation: (route: string) =>
           <FlatList 
             data={flashCardsDatas}
             keyExtractor={(item) => {
-              console.log("comp: ", item)
               return item.id;
             }}
             renderItem={({item}) => {
