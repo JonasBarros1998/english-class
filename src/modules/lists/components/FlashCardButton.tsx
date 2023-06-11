@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Pressable} from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -11,23 +11,30 @@ import { readFlashCards } from '../useCases/readFlashCards';
 export default function FlashCardButton(list: List) {
   const theme = useTheme();
   const css = styles(theme);
-  const [existFlashCard, setExistFlashCard] = useState<{icon: string; color: string}>({icon: "cards", color: "black"});
+  const [flashCardIcon, setflashCardIcon] = useState<{icon: string; color: string}>({icon: "cards", color: "black"});
+  const [flashCard, setFlashCard] = useState<boolean>();
 
-  if (readFlashCards(list).exist === false) {
+  useEffect(() => {
+    readFlashCards(list).then(function(value) {
+      setFlashCard(value.exist);
+    })
+  });
+  
+  if (flashCard === false) {
     return (
       <Pressable 
         style={{
           ...css.cardListButtonFlashCard
         }}
         onPress={() => {
-          if (existFlashCard.icon === "cards") {
+          if (flashCardIcon.icon === "cards") {
             insertFlashCards(list);
-            setExistFlashCard({icon: "check", color: "green"});
+            setflashCardIcon({icon: "check", color: "green"});
           }
         }}>
         <Icon 
-          name={existFlashCard.icon}
-          color={existFlashCard.color}
+          name={flashCardIcon.icon}
+          color={flashCardIcon.color}
           size={28}
           style={{...css.icon}} />
       </Pressable>

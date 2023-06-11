@@ -1,10 +1,12 @@
 import { STORAGE_FLASHCARDS } from "@global/constants";
 import { List } from "@global/interfaces/Card";
-import { FlashCard } from "@global/interfaces/FlashCard";
+import { FlashCard, FlashCardDatabase } from "@global/interfaces/FlashCard";
+import { filterBy } from "@services/firestore/actions/filter";
+import { collections } from "@services/firestore/constants/collections";
 import { read } from "@services/storage/read";
 import store from "@state/redux/store";
 
-export function readFlashCards(list: List) {
+export async function readFlashCards(list: List) {
 
   const {flashcards} = store.getState().flashcards;
 
@@ -15,17 +17,25 @@ export function readFlashCards(list: List) {
 
   if (flashcards.length === 0) {
 
-    read<FlashCard[]>(STORAGE_FLASHCARDS)
-      .then(function(flashCards) {
+    (await read<FlashCard[]>(STORAGE_FLASHCARDS)
+      .then(async function(flashCards) {
 
         if (flashCards !== null) {
           flashCard.exist = findFlashCard(flashCards, list);
+        } else {
+
+
+          /**
+           * Se nao existir nenhum flashcard no storage do usuario, 
+           * deve-se procurar no banco por aquele flashcard
+           */
+          const flashCardsOnDatabase = (await findFlashCardOnDatabase(list));
+          flashCard.exist = findFlashCard(flashCardsOnDatabase, list);
         }
-        flashCard.exist = false;
       })
       .catch(function() {
         flashCard.exist = false;
-      });
+      }));
   } else {
     flashCard.exist = findFlashCard(flashcards, list);
   }
@@ -40,4 +50,17 @@ function findFlashCard(flashCards: FlashCard[], list: List) {
   }
 
   return false;
+}
+
+async function findFlashCardOnDatabase(list: List): Promise<FlashCard[]> {
+  const flashCardItem: FlashCard[] = [];
+
+  return filterBy<FlashCardDatabase>({columnName: "lists", value: list.id}, collections.flashCards)
+    .then(function(flashcard) {
+      flashCardItem.push(flashcard[0].datas);
+      return flashCardItem;
+    })
+    .catch(function() {
+      throw new Error("Error");
+    });
 }
