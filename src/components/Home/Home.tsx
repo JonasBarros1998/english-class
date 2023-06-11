@@ -12,7 +12,7 @@ import {styles as homeStyles} from './styles/main';
 import { dispatchCurrentListToStore } from '@modules/lists/useCases/dispatchListToStore';
 import { navigateToFlashCards } from '@modules/flash-cards/routes/routes';
 
-export default function Home({navigation}: {navigation: (route: string) => any}) {
+export default function Home({navigation}: {navigation: {navigate: (route: string) => any}}) {
 
   const listeningLists = useSelector<{readList: {allLists: List[]}}, List[]>((items) => items.readList.allLists);
   const [loading, setLoading] = useState(false);
@@ -48,9 +48,26 @@ export default function Home({navigation}: {navigation: (route: string) => any})
         </View>
         ): (
         <View>
-          <Text style={{
-            ...homeStyle.title
-          }}>Principais listas</Text>
+          <View style={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: "row",
+          }}>
+            <Text style={{
+              ...homeStyle.title,
+            }}>Principais listas</Text>
+
+            <Pressable onPress={() => {
+              navigation.navigate("lists")
+            }}>
+              <Text style={{
+                ...homeStyle.title,
+                marginRight: 10,
+                borderBottomColor: "black",
+                borderBottomWidth: 1
+              }}>Todas as listas </Text>
+            </Pressable>
+          </View>
           <FlatList
             testID='card'
             data={readFiveList}
@@ -58,31 +75,17 @@ export default function Home({navigation}: {navigation: (route: string) => any})
             renderItem={({item}) => {
               return (
                 <View style={{...css.container}} testID="content">
-                    <View style={{...css.cardList}}>
-                      <Pressable 
-                        style={{
-                          ...css.cardListButtonTitle
-                        }}
-                        onPress={() => onClickEvent(item)}>
-                        <Text style={{
-                          ...css.cardInfo, 
-                          ...css.subTitle
-                          }}>{item.title}</Text>
-                      </Pressable>
-
-                      <Pressable 
-                        style={{
-                          ...css.cardListButtonFlashCard
-                        }}
-                        onPress={() => {
-                          navigateToFlashCards(navigation)
-                        }}>
-                        <Icon 
-                          name='cards'
-                          color={"black"}
-                          size={28}
-                          style={{...css.icon}}/>
-                      </Pressable>
+                  <View style={{...css.cardList}}>
+                    <Pressable 
+                      style={{
+                        ...css.cardListButtonTitle
+                      }}
+                      onPress={() => onClickEvent(item)}>
+                      <Text style={{
+                        ...css.cardInfo, 
+                        ...css.subTitle
+                        }}>{item.title}</Text>
+                    </Pressable>
                   </View>
                 </View>
               )

@@ -9,7 +9,7 @@ import { navigateToListDetails } from '../routes/routes';
 import { dispatchCurrentListToStore } from '../useCases/dispatchListToStore';
 import { useSelector } from 'react-redux';
 import { onClickListItem } from '../tracking/events';
-import FlashCard from './FlashCard';
+import FlashCardButton from './FlashCardButton';
 
 export default function Lists({navigation}: {navigation: (route: string) => any}) {
 
@@ -50,7 +50,7 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
                       }}>{item.title}</Text>
                   </Pressable>
 
-                  <FlashCard {...item} />
+                  <FlashCardButton {...item} />
 
                 </View>
               </View>
