@@ -1,5 +1,5 @@
 import {FlashCardDatabase, FlashCard} from '@global/interfaces/FlashCard';
-import {findFlashCardsOnDatabase, findListOnDatabase} from './flash-cards-database';
+import {findFlashCardsOnDatabase} from './flash-cards-database';
 import {addFlashCardInSTorage} from './flash-cards-storage'
 import {findFlashCardsInStorage} from './flash-cards-storage';
 import {dispatchToUpdateFlashCard} from './store/dispatch';
@@ -12,7 +12,7 @@ export async function managerFlashCards() {
 
   const flashCardInMemory = existFlashCardInMemory();
 
-  if(existFlashCardInMemory() === null) {
+  if(flashCardInMemory === null) {
 
     return await searchFlashCardInStorage()
       .then(function(item) {
@@ -106,8 +106,6 @@ async function searchFlashCardOnDatabase() {
  * que o usuario clicou
  */
 export async function searchListOnFlashCard(flashCardId: string): Promise<List> {
-
-  console.log("Chamou SEARCHLISTONFLASHCARD >>>");
 
   const {flashcards} = store.getState().flashcards;
 
