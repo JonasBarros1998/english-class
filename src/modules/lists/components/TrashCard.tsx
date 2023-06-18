@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pressable, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from 'react-native-paper';
 import {styles} from '../styles/cards';
 import {componentParam} from '../types/listComponent'
@@ -12,13 +12,12 @@ export default function TashCard(props: componentParam) {
 
   return (
     <View style={{
-      ...css.container,
       ...css.trashIcon
     }}>
       <Pressable onPress={() => {
         props.removeCard();
       }}>
-        <Icon name='restore-from-trash' color={css.trashIcon.color} size={32}></Icon>
+        <Icon name='trash-can-outline' color={css.trashIcon.color} size={32}></Icon>
       </Pressable>
     </View>
   )
