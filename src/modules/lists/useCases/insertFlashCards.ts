@@ -7,6 +7,7 @@ import {addNewFlashCard} from "@state/redux/slices/flashcards";
 import {insert as insertStorage} from "@services/storage/insert";
 import { STORAGE_FLASHCARDS } from "@global/constants";
 import { FlashCard } from "@global/interfaces/FlashCard";
+import { update } from "@services/firestore/actions/update";
 
 
 export function insertFlashCards(datas: List) {
@@ -19,6 +20,13 @@ export function insertFlashCards(datas: List) {
     .then(function() {
       store.dispatch(addNewFlashCard(flashCard));
       updateFlashCardOnStorage();
+      
+      update({
+        collections: collections.lists,
+        datas: {flashCardId: flashCard.id},
+        docId: datas.documentId
+      });
+
     })
     .catch(function(error) {
       console.log(error);
@@ -29,7 +37,11 @@ function formatFlashCardDatas(datas: List) {
   const [user] = store.getState().user;
   const formatDatas = {
     id: nanoid(),
-    lists: datas.id,
+    lists: {
+      id: datas.id,
+      title: datas.title,
+      quantity: datas.cardsOfList.length
+    },
     date: formatDate(),
     userId: user.id,
   };

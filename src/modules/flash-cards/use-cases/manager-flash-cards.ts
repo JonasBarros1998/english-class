@@ -115,7 +115,7 @@ export async function searchListOnFlashCard(flashCardId: string): Promise<List> 
 
   const [{lists}] = flashCardItem;
 
-  const query = {columnName: "id", value: lists};
+  const query = {columnName: "id", value: lists.id};
     
   return filterBy<ListOnDatabase>(query, collections.lists)
     .then((response) => {
