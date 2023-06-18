@@ -13,11 +13,6 @@ type params = {
 };
 
 export async function saveListOnFirestore(datas: params) {
-  onClickSaveList({
-    title: datas.title,
-    cards: datas.cardsOfList
-  });
-  
   titleValidation(datas.title);
 
   return insert({
@@ -25,6 +20,11 @@ export async function saveListOnFirestore(datas: params) {
     datas: formatDatas(datas),
   })
   .then(async function() {
+    onClickSaveList({
+      title: datas.title,
+      cards: datas.cardsOfList
+    });
+
     findAllLists();
   })
   
