@@ -53,6 +53,7 @@ export const styles = (theme: any) => {
       marginBottom: 10,
       backgroundColor: 'transparent',
       color: colors.text,
+      borderBottomColor: 'black',
     },
     animated: {
       alignItems: "center",
@@ -73,7 +74,9 @@ export const styles = (theme: any) => {
   
     trashIcon: {
       color: colors.error,
-      marginTop: 4
+      marginTop: 4,
+      display: 'flex',
+      alignItems: 'center'
     },
     icon: {
       paddingTop: 8,
