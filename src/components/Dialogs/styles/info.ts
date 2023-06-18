@@ -1,14 +1,15 @@
 import { StyleSheet } from "react-native";
 
-export const styles = (colors: ReactNativePaper.ThemeColors) => {
+export const styles = (colors: any) => {
   return StyleSheet.create({
     info: {
-      backgroundColor: colors.background, 
+      /*backgroundColor: colors.background, */
       display: 'flex', 
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: 10,
+      paddingBottom: 20,
+      paddingHorizontal: 20
     }
   });
 }

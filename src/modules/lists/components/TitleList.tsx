@@ -21,24 +21,20 @@ export default function TitleList(props: params) {
       paddingTop: 0,
     }}>
     <TextInput
+      textColor='#fff'
       value={props.value}
-      activeUnderlineColor='white'
-      underlineColor='white'
-      outlineColor='white'
-      placeholderTextColor='white'
+      activeUnderlineColor='#fff'
+      underlineColor='#fff'
+      outlineColor='#fff'
+      placeholderTextColor='#fff'
       placeholder='Título da lista'
       mode={'flat'}
       onChangeText={(event) => {
         props.onChangeEvent(event);
         props.setValue(event);
       }}
-      theme={{
-        colors: {
-          text: theme.colors.textSecondary
-        }
-      }}
       style={{
-        ...style.textInput
+        ...style.textInput,
       }}
     />
   </View>

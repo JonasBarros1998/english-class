@@ -57,7 +57,7 @@ function existFlashCardInMemory() {
 }
 
 
-async function searchFlashCardInStorage() {
+export async function searchFlashCardInStorage() {
 
   return await findFlashCardsInStorage()
     .then(async function(response) {
