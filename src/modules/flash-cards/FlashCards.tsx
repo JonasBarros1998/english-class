@@ -6,62 +6,59 @@ import FlashCardsListEmpty from './FlashCardsEmptyList';
 import {managerFlashCards} from './use-cases/manager-flash-cards'
 import { FlashCard } from '@global/interfaces/FlashCard';
 import { navigateToFlashCardList } from './routes/routes';
+import { useSelector } from 'react-redux';
 
 export default function FlashCards({navigation}: {navigation: (route: string) => any}) {
   const themeStyles = useTheme();
   const styles = stylessheet(themeStyles);
-  
-  
-  const [flashCardsDatas, setFlashCardsDatas] = useState<FlashCard[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  const item = useSelector<{flashcards: {flashcards: FlashCard[]}}, FlashCard[]>(item => item.flashcards.flashcards);
+  
   useEffect(() => {
-    managerFlashCards()
-      .then((item) => {
-        if(item === null) {
-          setFlashCardsDatas([]);
-          return;
-        }
-        setFlashCardsDatas([...item]);
-      });
+    managerFlashCards().finally(() => setLoading(false));
   }, [])
 
+  if (loading === true) {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Text>Aguarde...</Text>
+      </View>
+    );
+  }
+
+  if (item.length === 0) {
+    return <FlashCardsListEmpty navigation={navigation}/>
+  }
+
   return (
-    
-    <>
+    <FlatList 
+      data={item}
+      keyExtractor={(item) => {
+        return item.id;
+      }}
+      renderItem={({item}) => {
+        return (
+          <Pressable onPress={() => {
+            navigateToFlashCardList(navigation, item.id);
+          }}>
+            <View style={{...styles.container}}>
+              <View style={{...styles.flashCardList}}>
+                <Text style={{...styles.flashCardText}}>{item.lists.title}</Text>
 
-      {
-        flashCardsDatas.length === 0 ? <FlashCardsListEmpty navigation={navigation}/>
-        : (
-          <FlatList 
-            data={flashCardsDatas}
-            keyExtractor={(item) => {
-              return item.id;
-            }}
-            renderItem={({item}) => {
-              return (
-                <Pressable onPress={() => {
-                  navigateToFlashCardList(navigation, item.id);
-                }}>
-                  <View style={{...styles.container}}>
-                    <View style={{...styles.flashCardList}}>
-                      <Text style={{...styles.flashCardText}}>{item.id}</Text>
+                <View style={{...styles.expressions}}>
+                  <Text style={{...styles.expressionsText}}>{item.lists.quantity} expressões</Text>
+                </View>
 
-                      <View style={{...styles.expressions}}>
-                        <Text style={{...styles.expressionsText}}>15 Expressões</Text>
-                      </View>
-
-                      <View>
-                        <Text style={{...styles.dateOpen}}>aberto em: {item.date.split("-").reverse().join("/")}</Text>
-                      </View>
-                    </View>
-                  </View>
-                </Pressable>
-              );
-            }}
-          />
-        )
-      }
-    </>
+                <View>
+                  <Text style={{...styles.dateOpen}}>adicionado no dia: {item.date.split("-").reverse().join("/")}</Text>
+                </View>
+              </View>
+            </View>
+          </Pressable>
+        );
+      }}
+    />
   );
 }
 

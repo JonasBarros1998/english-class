@@ -9,7 +9,9 @@ export interface List {
   cardsOfList: Card[],
   title: string,
   id: string,
-  userId: string
+  userId: string,
+  documentId: string,
+  flashCardId?: string
 }
 
 export interface ListOnDatabase {
@@ -18,6 +20,7 @@ export interface ListOnDatabase {
     id: string,
     userId: string
     cardsOfList: Card[],
+    documentId: string
   },
   documentId: string
 }
