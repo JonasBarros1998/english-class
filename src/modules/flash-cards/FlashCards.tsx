@@ -13,11 +13,13 @@ export default function FlashCards({navigation}: {navigation: (route: string) =>
   const styles = stylessheet(themeStyles);
   const [loading, setLoading] = useState(true);
 
-  const item = useSelector<{flashcards: {flashcards: FlashCard[]}}, FlashCard[]>(item => item.flashcards.flashcards);
-  
+  const item = useSelector<{flashcards: {flashcards: FlashCard[]}}, FlashCard[]>(item => {
+    return item.flashcards.flashcards;
+  });
+
   useEffect(() => {
     managerFlashCards().finally(() => setLoading(false));
-  }, [])
+  }, [item])
 
   if (loading === true) {
     return (

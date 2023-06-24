@@ -3,11 +3,15 @@ import { insert } from "@services/firestore/actions/insert";
 import { collections } from "@services/firestore/constants/collections";
 import store from "@state/redux/store";
 import {nanoid} from "@reduxjs/toolkit";
-import {addNewFlashCard} from "@state/redux/slices/flashcards";
+import {addNewFlashCard, updateFlashCard} from "@state/redux/slices/flashcards";
 import {insert as insertStorage} from "@services/storage/insert";
+import {read as readStorage} from "@services/storage/read";
 import { STORAGE_FLASHCARDS } from "@global/constants";
 import { update } from "@services/firestore/actions/update";
 import { dispatchToUpdateListStore } from "./dispatchListToStore";
+import { FlashCard } from "@global/interfaces/FlashCard";
+import { captureErrorException } from "@services/errorTracking/exception/captureErrorException";
+import { dispatchToAddNewFlashCard, dispatchToUpdateFlashCard } from "@modules/flash-cards/use-cases/store/dispatch";
 
 
 export function insertFlashCards(datas: List) {
@@ -18,8 +22,8 @@ export function insertFlashCards(datas: List) {
     datas: flashCard
   })
     .then(function() {
-      store.dispatch(addNewFlashCard(flashCard));
-      updateFlashCardOnStorage();
+      updateState(flashCard);
+      updateFlashCardOnStorage(flashCard);
       
       update({
         collections: collections.lists,
@@ -59,11 +63,53 @@ function formatDate() {
   return dateIsoString;
 }
 
-function updateFlashCardOnStorage() {
-  const {flashcards} = store.getState().flashcards;
-  insertStorage(STORAGE_FLASHCARDS, flashcards)
-    .catch(function() {
-      console.error("ERROR updateFlashCardOnStorage: ", JSON.stringify(flashcards));
+async function updateFlashCardOnStorage(flashCardItem: FlashCard) {
+  
+  const flashCardStorage = await readStorage<FlashCard[]>(STORAGE_FLASHCARDS)
+    .then(item => {
+      if (item === null) {
+        return [];
+      }
+      return item;
+    })
+    .catch(function(error) {
+      captureErrorException(new Error(`find flashcard [updateFlashCardOnStorage] ${error.message}`));
+      return [] as FlashCard[]
     });
+  
+  flashCardStorage.push(flashCardItem);
+
+  insertStorage(STORAGE_FLASHCARDS, flashCardStorage)
+    .catch(function() {
+      captureErrorException(new Error(`ERROR [updateFlashCardOnStorage]: ${JSON.stringify(flashCardStorage)}`));
+      console.error("ERROR updateFlashCardOnStorage: ", JSON.stringify(flashCardStorage));
+    });
+}
+
+
+/**
+ * Atualiza o state de acordo com o storage que esta armazenado no aparelho do usuario
+ * Se existir apenas `1` flashcard dentro do state e mais que `1` flashcard dentro do storage
+ * quer dizer que o state nao esta sincronizado com o storage do usuario
+ */
+async function updateState(flashCardItem: FlashCard) {
+  const {flashcards} = store.getState().flashcards;
+
+  const flashCardStorage = await readStorage<FlashCard[]>(STORAGE_FLASHCARDS)
+    .then(item => item)
+    .catch(function(error) {
+      captureErrorException(new Error(`find flashcard [updateState] ${error.message}`));
+      return flashcards; 
+    });
+
+  if(flashCardStorage !== null) {
+
+    if (flashCardStorage.length !== flashcards.length) {
+      dispatchToUpdateFlashCard(flashCardStorage);
+    }
+  }
+
+  dispatchToAddNewFlashCard(flashCardItem);
+
 }
 
