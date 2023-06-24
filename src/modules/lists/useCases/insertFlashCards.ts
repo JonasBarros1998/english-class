@@ -16,7 +16,8 @@ import { dispatchToAddNewFlashCard, dispatchToUpdateFlashCard } from "@modules/f
 
 export function insertFlashCards(datas: List) {
   const flashCard = formatFlashCardDatas(datas);
-
+  const flashCardInList = formatFlashCardInList(datas, flashCard);
+  
   insert({
     collections: collections.flashCards,
     datas: flashCard
@@ -27,13 +28,13 @@ export function insertFlashCards(datas: List) {
       
       update({
         collections: collections.lists,
-        datas: {flashCardId: flashCard.id},
+        datas: {flashCards: flashCardInList.flashCards},
         docId: datas.documentId
       });
 
       dispatchToUpdateListStore({
         ...datas,
-        flashCardId: flashCard.id
+        flashCards: flashCardInList.flashCards
       });
 
     })
@@ -111,5 +112,31 @@ async function updateState(flashCardItem: FlashCard) {
 
   dispatchToAddNewFlashCard(flashCardItem);
 
+}
+
+function formatFlashCardInList(datas: List, flashCard: FlashCard) {
+  const [user] = store.getState().user;
+
+  const listAssign = Object.assign({}, datas);
+
+  if (typeof listAssign.flashCards === 'undefined') {
+    Object.defineProperty(listAssign, "flashCards", {
+      configurable: true,
+      enumerable: true,
+      writable: false,
+      value: [{
+        flashcardId: flashCard.id,
+        userId: user.id
+      }]
+    });
+    return listAssign;
+  }
+
+  listAssign.flashCards.push({
+    flashcardId: flashCard.id,
+    userId: user.id
+  });
+
+  return listAssign;
 }
 

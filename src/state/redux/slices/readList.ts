@@ -52,7 +52,7 @@ const readList = createSlice({
       reducer: (state, action: PayloadAction<List>) => {
         state.allLists.map(function(item, index) {
           if (action.payload.id === item.id) {
-            state.allLists[index].flashCardId = action.payload.flashCardId;
+            state.allLists[index].flashCards = action.payload.flashCards;
           }
         });
       },
