@@ -11,7 +11,7 @@ export interface List {
   id: string,
   userId: string,
   documentId: string,
-  flashCards?: FlashCardInList[]
+  flashCards: FlashCardInList[]
 }
 
 export interface ListOnDatabase {
@@ -21,7 +21,7 @@ export interface ListOnDatabase {
     userId: string
     cardsOfList: Card[],
     documentId: string,
-    flashCards?: FlashCardInList[]
+    flashCards: FlashCardInList[]
   },
   documentId: string
 }

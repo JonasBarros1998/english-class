@@ -117,26 +117,16 @@ async function updateState(flashCardItem: FlashCard) {
 function formatFlashCardInList(datas: List, flashCard: FlashCard) {
   const [user] = store.getState().user;
 
-  const listAssign = Object.assign({}, datas);
-
-  if (typeof listAssign.flashCards === 'undefined') {
-    Object.defineProperty(listAssign, "flashCards", {
-      configurable: true,
-      enumerable: true,
-      writable: false,
-      value: [{
-        flashcardId: flashCard.id,
-        userId: user.id
-      }]
-    });
-    return listAssign;
-  }
-
-  listAssign.flashCards.push({
+  const flashCardCopy = Object.assign([], datas.flashCards);
+  const listCopy = Object.assign({}, datas);
+  
+  flashCardCopy.push({
     flashcardId: flashCard.id,
     userId: user.id
   });
 
-  return listAssign;
+  listCopy.flashCards = [...flashCardCopy];
+
+  return listCopy;
 }
 
