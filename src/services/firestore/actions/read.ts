@@ -10,7 +10,12 @@ export async function findAll(collections: databases) {
       .then(function(response) {
         if (response.empty === false) {
           response.forEach((item) => {
-            lists.push(item.data() as List);
+            const listItem = {
+              documentId: item.id,
+              ...item.data(),
+            } as List;
+            
+            lists.push(listItem);
           })
         }
         else return lists
