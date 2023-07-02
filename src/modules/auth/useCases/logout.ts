@@ -7,10 +7,10 @@ export async function removeUserDataInLocalStorage() {
   await remove(STORAGE_USER);
 }
 
-export function clearUserDatas() {
-  store.dispatch(removeUser());
-}
-
 export async function removeFlashCardInLocalStorage() {
   await remove(STORAGE_FLASHCARDS);
+}
+
+export function clearUserDatas() {
+  store.dispatch(removeUser());
 }

@@ -22,8 +22,8 @@ export function insertFlashCards(datas: List) {
     collections: collections.flashCards,
     datas: flashCard
   })
-    .then(function() {
-      updateState(flashCard);
+    .then(async function() {
+      await updateState(flashCard);
       updateFlashCardOnStorage(flashCard);
       
       update({
