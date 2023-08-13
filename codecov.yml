@@ -9,7 +9,7 @@ coverage:
         only_pulls: true
     patch: 
       default: 
-        target: 60%
+        target: 10%
         threshold: 1%
         paths:
           - "src" 

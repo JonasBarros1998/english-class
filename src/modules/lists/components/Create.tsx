@@ -14,7 +14,7 @@ import Info from '@components/Dialogs/Info';
 export function Create() {
   const [cards, setCards] = useState<Card[]>([createNewCard()]);
   const [title, setTitle] = useState<string>('');
-  const [emptyTitle, setEmptyTitle] = useState<boolean>(false);
+  const [emptyTitle, setEmptyTitle] = useState<{type: boolean, message?: string}>({type: false});
   const theme = useTheme() as any;
 
   const clear = () => {
@@ -40,16 +40,23 @@ export function Create() {
         />
         <SaveListButton 
           onClickEvent={() => {
-            setEmptyTitle(false);
+            setEmptyTitle({type: false});
 
             saveListOnFirestore({
               title,
               cardsOfList: cards
-            }).catch(function() {
-              setEmptyTitle(true);
-              return;
-            });
-            clear();
+            })
+              .then(() => clear())
+              .catch(function(error: Error) {
+                if(error.name === "titleValidation") {
+                  setEmptyTitle({type: true, message: "Adicione um título a sua lista"});
+                  return;
+                }
+                if (error.name === "validationCards") {
+                  setEmptyTitle({type: true, message: "Preencha todos os cards adicionados"});
+                  return;
+                }
+              })
           }}/>
       </View>
 
@@ -122,7 +129,7 @@ export function Create() {
 
       </View>
 
-      <Info message="Adicione um título a lista" visible={emptyTitle} ></Info>
+      <Info message={emptyTitle.message as string} visible={emptyTitle.type} ></Info>
     </>
   )
 }

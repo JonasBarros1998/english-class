@@ -9,13 +9,15 @@ describe("addPropertyFirebaseUid", function() {
 
   const storageKey = STORAGE_USER;
 
+  const [date] = new Date().toISOString().split("T");
+
   const storageValue: UserDatasOnStorageDeviceType = {
     email: 'email@email.com.br',
     id: '1234',
-    idToken: '4567890',
     name: 'User app',
     photoUrl: 'http://www.photo.com.br',
-    firebaseUserId: '1234567890'
+    firebaseUserId: '1234567890',
+    date: date
   };
 
   beforeAll(async function() {
@@ -31,9 +33,9 @@ describe("addPropertyFirebaseUid", function() {
     const user: User = {
       email: 'email@email.com.br',
       id: '1234',
-      idToken: '4567890',
       name: 'User app',
       photoUrl: 'http://www.photo.com.br',
+      date: date
     };
 
     const formattedDatas = (await addPropertyFirebaseUid(user));
@@ -45,9 +47,9 @@ describe("addPropertyFirebaseUid", function() {
     const user: User = {
       email: 'email@email.com.br',
       id: '1234',
-      idToken: '4567890',
       name: 'User app',
       photoUrl: 'http://www.photo.com.br',
+      date: date
     };
 
     await expect(addPropertyFirebaseUid(user)).rejects.toBe("Wasn't possible recovery user datas on device storage");

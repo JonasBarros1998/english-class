@@ -23,9 +23,11 @@ export default function Info(props: {visible: boolean, message: string}) {
 
   return (
     <Portal>
-      <Dialog visible={visible} onDismiss={hideDialog} style={{...styleComponent.info}}>
-        <Paragraph>{props.message}</Paragraph>
-        <Button onPress={() => setVisible(false)}>Ok</Button>
+      <Dialog visible={visible} onDismiss={hideDialog} style={{backgroundColor: "#fff"}}>
+        <View style={{...styleComponent.info}}>
+          <Text>{props.message}</Text>
+          <Button onPress={() => setVisible(false)} mode='text'>Ok</Button>
+        </View>
       </Dialog>
     </Portal>
   )

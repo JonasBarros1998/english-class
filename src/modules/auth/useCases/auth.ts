@@ -16,18 +16,20 @@ export async function userLogin(): Promise<void> {
   const datas = (
     await login()
       .then(async function(response: any) {
+        const [date] = new Date().toISOString().split("T");
 
         const {
           user: {email, name, photo, id},
           idToken
         } = response;
 
-        const datas: User = {
+        const datas = {
           email: email as string,
           name: name as string,
           photoUrl: photo as string,
           idToken: idToken as string,
-          id: id as string
+          id: id as string,
+          date
         };
         return datas;
       })
@@ -38,10 +40,10 @@ export async function userLogin(): Promise<void> {
   );
   
   toAutenticateFirebase(datas.idToken)
-    .then((datasOfFirebase) => 
-      insertDatasOnStorage(datas, datasOfFirebase.uid));
-
-  checkIfUserDataExistOnDatabase(datas);
+    .then(async function(datasOfFirebase) {
+      await insertDatasOnStorage(datas, datasOfFirebase.uid)
+      checkIfUserDataExistOnDatabase(datas);
+    });
 
   store.dispatch(addUser(datas));
   
@@ -70,7 +72,8 @@ async function checkIfUserDataExistOnDatabase(datas: User) {
       collections: collections.users,
       datas: {
         email: datas.email,
-        id: datas.id
+        id: datas.id,
+        date: datas.date,
       }
     });
   }

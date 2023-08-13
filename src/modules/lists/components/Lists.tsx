@@ -9,6 +9,7 @@ import { navigateToListDetails } from '../routes/routes';
 import { dispatchCurrentListToStore } from '../useCases/dispatchListToStore';
 import { useSelector } from 'react-redux';
 import { onClickListItem } from '../tracking/events';
+import FlashCardButton from './FlashCardButton';
 
 export default function Lists({navigation}: {navigation: (route: string) => any}) {
 
@@ -26,31 +27,37 @@ export default function Lists({navigation}: {navigation: (route: string) => any}
 
   return (
     <>
-
-    <View>
-      
-      <FlatList
-        testID='card'
-        data={listeningLists}
-        contentContainerStyle={{
-          ...css.fotter
-        }}
-        renderItem={({item, index}) => {
-          return (
-            <Pressable onPress={() => onClickEvent(item)}>
+      <View>
+        
+        <FlatList
+          testID='card'
+          data={listeningLists}
+          contentContainerStyle={{
+            ...css.fotter
+          }}
+          renderItem={({item, index}) => {
+            return (
               <View style={{...css.container}} testID="content">
-                <View style={{...css.card}}>
-                  <Text style={{
-                    ...css.cardInfo, 
-                    ...css.subTitle
-                    }}>{item.title}</Text>
+                <View style={{...css.cardList}}>
+                  <Pressable 
+                    onPress={() => onClickEvent(item)}
+                    style={{
+                      ...css.cardListButtonTitle
+                    }}>
+                    <Text style={{
+                      ...css.cardInfo, 
+                      ...css.subTitle
+                      }}>{item.title}</Text>
+                  </Pressable>
+
+                  <FlashCardButton {...item} />
+
                 </View>
               </View>
-            </Pressable>
-          )
-        }}
-      />
-    </View>
+            )
+          }}
+        />
+      </View>
     </>
   )
 }

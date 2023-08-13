@@ -46,10 +46,24 @@ const readList = createSlice({
       prepare: (datas: List[]) => {
         return { payload: datas };
       }
+    },
+
+    updatelist: {
+      reducer: (state, action: PayloadAction<List>) => {
+        state.allLists.map(function(item, index) {
+          if (action.payload.id === item.id) {
+            state.allLists[index].flashCards = action.payload.flashCards;
+          }
+        });
+      },
+
+      prepare: (data: List) => {
+        return {payload: data}
+      }
     }
 
   },
 });
 
-export const {current, docId, allLists} = readList.actions;
+export const {current, docId, allLists, updatelist} = readList.actions;
 export default readList.reducer;

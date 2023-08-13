@@ -1,24 +1,43 @@
 import {StyleSheet} from 'react-native';
 import {fonts} from '@theme/fonts';
 
-export const styles = (theme: ReactNativePaper.Theme) => {
+export const styles = (theme: any) => {
 
   const {colors} = theme as any;
 
   return StyleSheet.create({
     container: {
       display: 'flex',
-      flexDirection: 'row',
+      flexDirection: 'column',
       justifyContent: 'center',
-      flex: 1,
     },
     card: {
       backgroundColor: colors.background,
       width: '95%',
-      marginTop: 7,
-      paddingBottom: 7,
-      paddingTop: 7,
-      borderRadius: 5
+      marginVertical: 7,
+      marginHorizontal: 10,
+      paddingVertical: 8,
+      borderRadius: 5,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    cardList: {
+      backgroundColor: colors.background,
+      width: '95%',
+      marginVertical: 7,
+      marginHorizontal: 9,
+      paddingHorizontal: 7,
+      paddingVertical: 8,
+      borderRadius: 5,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    cardListButtonTitle: {
+      width: '80%'
+    },
+    cardListButtonFlashCard: {
+      width: '20%'
     },
     'card:last-child' : {
       marginBottom: 100,
@@ -34,6 +53,7 @@ export const styles = (theme: ReactNativePaper.Theme) => {
       marginBottom: 10,
       backgroundColor: 'transparent',
       color: colors.text,
+      borderBottomColor: 'black',
     },
     animated: {
       alignItems: "center",
@@ -50,6 +70,17 @@ export const styles = (theme: ReactNativePaper.Theme) => {
     },
     fotter: {
       paddingBottom: 30
+    },
+  
+    trashIcon: {
+      color: colors.error,
+      marginTop: 4,
+      display: 'flex',
+      alignItems: 'center'
+    },
+    icon: {
+      paddingTop: 8,
+      textAlign: 'center'
     }
   });
 }
